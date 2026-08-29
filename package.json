@@ -1,13 +1,5 @@
-{
-  "name": "entre-ave-marias",
-  "type": "module",
-  "version": "0.0.1",
-  "scripts": {
+"scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "npx astro build",
     "preview": "astro preview"
   },
-  "dependencies": {
-    "astro": "^4.16.0"
-  }
-}
