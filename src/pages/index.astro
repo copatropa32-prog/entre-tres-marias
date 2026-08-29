@@ -4,6 +4,16 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import WhatsAppButton from '../components/WhatsAppButton.astro';
 
+const instagramHighlights = [
+  { name: "Clientes", image: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=200&q=80", link: "https://instagram.com/lojaentreavemarias/" },
+  { name: "Terços", image: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=200&q=80", link: "https://instagram.com/lojaentreavemarias/" },
+  { name: "Pedidos", image: "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=200&q=80", link: "https://instagram.com/lojaentreavemarias/" },
+  { name: "Presentes", image: "https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=200&q=80", link: "https://instagram.com/lojaentreavemarias/" },
+  { name: "Sobre nós", image: "https://images.unsplash.com/photo-1543852786-1cf6624b9987?auto=format&fit=crop&w=200&q=80", link: "/sobre" },
+  { name: "Envio", image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=200&q=80", link: "/envio" },
+  { name: "Artigos", image: "https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&w=200&q=80", link: "https://instagram.com/lojaentreavemarias/" }
+];
+
 const categories = [
   { name: "Terços", image: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=300&q=80" },
   { name: "Quadros", image: "https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=300&q=80" },
@@ -30,6 +40,20 @@ const products = [
         <h2>Fé que toca a alma</h2>
         <p>Cada peça feita à mão, um reflexo de devoção e exclusividade para o seu lar.</p>
         <a href="https://wa.me/5511932189878" class="btn-primary" target="_blank">Fazer Encomenda</a>
+      </div>
+    </section>
+
+    <!-- Seção de Destaques do Instagram -->
+    <section class="highlights-section">
+      <div class="highlights-container">
+        {instagramHighlights.map(item => (
+          <a href={item.link} class="highlight-item" target="_blank">
+            <div class="highlight-ring">
+              <img src={item.image} alt={item.name} />
+            </div>
+            <span>{item.name}</span>
+          </a>
+        ))}
       </div>
     </section>
 
@@ -105,6 +129,56 @@ const products = [
   }
   .btn-primary:hover {
     background-color: var(--gold-dark);
+  }
+
+  /* Destaques do Instagram */
+  .highlights-section {
+    background: #fff;
+    border-bottom: 1px solid #eaeaea;
+    padding: 25px 0;
+    overflow-x: auto;
+  }
+  .highlights-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    padding: 0 20px;
+    flex-wrap: wrap;
+  }
+  .highlight-item {
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    transition: transform 0.2s;
+  }
+  .highlight-item:hover {
+    transform: translateY(-3px);
+  }
+  .highlight-ring {
+    width: 74px;
+    height: 74px;
+    border-radius: 50%;
+    padding: 3px;
+    background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .highlight-ring img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid #fff;
+  }
+  .highlight-item span {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-dark);
   }
 
   .categories-section {

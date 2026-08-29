@@ -1,7 +1,7 @@
-<footer class="footer">
-  <div class="footer-grid">
+<footer class="site-footer">
+  <div class="footer-container">
     <div class="footer-col">
-      <h4>Entre Três Marias</h4>
+      <h3>Entre Ave-Marias</h3>
       <p>Resgatando a beleza da fé no cotidiano, transformando cada detalhe do lar em um reflexo de espiritualidade viva, feitos com amor e carinho.</p>
     </div>
     <div class="footer-col">
@@ -9,7 +9,7 @@
       <ul>
         <li><a href="/">Início</a></li>
         <li><a href="/sobre">Quem Somos</a></li>
-        <li><a href="/envio">Políticas de Envio</a></li>
+        <li><a href="/envio">Formas de Envio</a></li>
         <li><a href="https://wa.me/5511932189878" target="_blank">Fale Conosco</a></li>
       </ul>
     </div>
@@ -17,23 +17,22 @@
       <h4>Atendimento</h4>
       <p>📱 WhatsApp: (11) 93218-9878</p>
       <p>📍 São Bernardo do Campo - SP</p>
-      <p>✉️ contato@entrestresmarias.com.br</p>
+      <p>✉️ contato@entreavemarias.com.br</p>
     </div>
   </div>
   <div class="footer-bottom">
-    <p>&copy; 2026 Entre Três Marias - Todos os direitos reservados.</p>
+    <p>&copy; 2026 Entre Ave-Marias - Todos os direitos reservados.</p>
   </div>
 </footer>
 
 <style>
-  .footer {
-    background-color: #243930;
-    color: var(--white);
+  .site-footer {
+    background-color: var(--primary-green-dark, #1e332a);
+    color: #fff;
     padding: 60px 20px 20px;
-    margin-top: 80px;
+    margin-top: 60px;
   }
-
-  .footer-grid {
+  .footer-container {
     max-width: 1200px;
     margin: 0 auto;
     display: grid;
@@ -41,37 +40,40 @@
     gap: 40px;
     margin-bottom: 40px;
   }
-
-  .footer-col h4 {
-    font-size: 18px;
-    color: var(--gold);
-    margin-bottom: 15px;
+  .footer-col h3, .footer-col h4 {
+    color: var(--gold, #d4af37);
+    margin-bottom: 20px;
+    font-family: 'Playfair Display', serif;
   }
-
-  .footer-col p, .footer-col li a {
+  .footer-col p {
     font-size: 14px;
-    color: #DDD;
+    opacity: 0.85;
     line-height: 1.6;
-    text-decoration: none;
+    margin-bottom: 10px;
   }
-
   .footer-col ul {
     list-style: none;
+    padding: 0;
   }
-
-  .footer-col li {
-    margin-bottom: 8px;
+  .footer-col ul li {
+    margin-bottom: 10px;
   }
-
-  .footer-col li a:hover {
-    color: var(--gold);
+  .footer-col ul a {
+    color: #fff;
+    text-decoration: none;
+    opacity: 0.85;
+    font-size: 14px;
+    transition: opacity 0.2s;
   }
-
+  .footer-col ul a:hover {
+    opacity: 1;
+    color: var(--gold, #d4af37);
+  }
   .footer-bottom {
     text-align: center;
-    border-top: 1px solid rgba(255,255,255,0.1);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
     padding-top: 20px;
     font-size: 13px;
-    color: #AAA;
+    opacity: 0.7;
   }
 </style>
