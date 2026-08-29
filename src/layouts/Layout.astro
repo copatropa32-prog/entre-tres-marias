@@ -1,0 +1,71 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+}
+
+const { 
+  title = "Entre Ave-Marias | Artigos Religiosos", 
+  description = "Artigos religiosos católicos feitos com amor, fé e devoção para o seu dia a dia.",
+  image = "/logo.jpeg" 
+} = Astro.props;
+
+// ATENÇÃO: Quando você colocar o site no ar (produção), substitua a URL abaixo pelo domínio real da sua loja
+const siteUrl = "https://entre-ave-marias.com.br"; 
+const imageUrl = new URL(image, siteUrl).toString();
+---
+
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/jpeg" href="/logo.jpeg" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+
+    <!-- Meta Tags para Compartilhamento (WhatsApp, Facebook, LinkedIn, etc.) -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={imageUrl} />
+    <meta property="og:type" content="website" />
+
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={imageUrl} />
+
+    <!-- Estilos globais da loja -->
+    <style is:global>
+      :root {
+        --gold: #b89753;
+        --gold-dark: #9a7d43;
+        --dark: #2c2c2c;
+        --white: #ffffff;
+        --bg-light: #fbf9f6;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: var(--bg-light);
+        color: var(--dark);
+        line-height: 1.6;
+      }
+
+      h1, h2, h3 {
+        font-family: 'Georgia', serif;
+      }
+    </style>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

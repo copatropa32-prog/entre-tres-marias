@@ -1,0 +1,113 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Formas de Envio | Entre Três Marias">
+  <section class="shipping-container">
+    <h2>Nossas Formas de Envio</h2>
+    <span class="subtitle">Receba seus artigos com carinho, onde estiver</span>
+
+    <div class="shipping-grid">
+      <div class="shipping-card">
+        <h3>📍 Entrega a Combinar</h3>
+        <p>Disponível para <strong>São Bernardo do Campo</strong> e região.</p>
+        <ul>
+          <li>Combinamos horário e local</li>
+          <li>Retirada ou entrega pessoalmente</li>
+          <li>Atendimento personalizado</li>
+        </ul>
+      </div>
+
+      <div class="shipping-card">
+        <h3>📦 SEDEX para todo o Brasil</h3>
+        <p>Envio rápido e seguro para qualquer região do país.</p>
+        <ul>
+          <li>Embalagem segura e caprichada</li>
+          <li>Postagem ágil e confiável</li>
+          <li>Rastreamento online</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-note">
+      <p>✨ <em>Cada pedido é preparado com oração e cuidado especial.</em></p>
+      <a href="https://wa.me/5511932189878" class="btn-whatsapp" target="_blank">Tirar dúvidas sobre frete no WhatsApp</a>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .shipping-container {
+    max-width: 900px;
+    margin: 80px auto;
+    padding: 0 20px;
+    text-align: center;
+  }
+  .shipping-container h2 {
+    font-size: 38px;
+    color: var(--primary-green);
+    margin-bottom: 10px;
+  }
+  .subtitle {
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--gold);
+    display: block;
+    margin-bottom: 40px;
+  }
+  .shipping-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+    text-align: left;
+    margin-bottom: 50px;
+  }
+  .shipping-card {
+    background: var(--white);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+    border-top: 4px solid var(--primary-green);
+  }
+  .shipping-card h3 {
+    font-size: 20px;
+    color: var(--primary-green);
+    margin-bottom: 15px;
+  }
+  .shipping-card p {
+    font-size: 15px;
+    color: #555;
+    margin-bottom: 15px;
+  }
+  .shipping-card ul {
+    list-style-type: disc;
+    padding-left: 20px;
+    color: #666;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  .footer-note {
+    background-color: #F0ECE4;
+    padding: 30px;
+    border-radius: 12px;
+  }
+  .footer-note p {
+    font-size: 16px;
+    color: var(--primary-green);
+    margin-bottom: 20px;
+  }
+  .btn-whatsapp {
+    display: inline-block;
+    background-color: #25d366;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background 0.3s;
+  }
+  .btn-whatsapp:hover {
+    background-color: #1ebe57;
+  }
+</style>

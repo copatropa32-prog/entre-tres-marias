@@ -1,0 +1,126 @@
+<header class="header">
+  <div class="top-bar">
+    <p>✨ Encomendas abertas | Envio seguro de São Bernardo do Campo para todo o Brasil ✨</p>
+  </div>
+  <div class="header-container">
+    <div class="search-box">
+      <input type="text" placeholder="Pesquisar artigos..." />
+    </div>
+    
+    <div class="logo-area">
+      <a href="/" style="text-decoration: none;">
+        <h1 class="logo-text">Entre Três Marias</h1>
+        <span class="logo-subtitle">artigos religiosos</span>
+      </a>
+    </div>
+
+    <div class="user-actions">
+      <a href="/sobre">Quem Somos</a>
+      <a href="/envio">Envio</a>
+      <a href="#">Carrinho (0)</a>
+    </div>
+  </div>
+  
+  <nav class="nav-menu">
+    <ul>
+      <li><a href="/">Início</a></li>
+      <li><a href="/sobre">Quem Somos</a></li>
+      <li><a href="/envio">Formas de Envio</a></li>
+      <li><a href="https://wa.me/5511932189878" target="_blank">Encomendas por WhatsApp</a></li>
+    </ul>
+  </nav>
+</header>
+
+<style>
+  .top-bar {
+    background-color: var(--primary-green);
+    color: var(--white);
+    text-align: center;
+    padding: 8px 15px;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+  }
+
+  .header {
+    background-color: var(--white);
+    border-bottom: 1px solid #E5E0D8;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+  }
+
+  .search-box input {
+    padding: 10px 15px;
+    border: 1px solid #D1C9BC;
+    border-radius: 20px;
+    width: 220px;
+    background-color: var(--light-bg);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+  }
+
+  .logo-area {
+    text-align: center;
+  }
+
+  .logo-text {
+    font-size: 26px;
+    color: var(--primary-green);
+    font-weight: 600;
+  }
+
+  .logo-subtitle {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--gold);
+    display: block;
+  }
+
+  .user-actions {
+    display: flex;
+    gap: 20px;
+    font-size: 14px;
+  }
+
+  .user-actions a {
+    color: var(--text-dark);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .user-actions a:hover {
+    color: var(--gold);
+  }
+
+  .nav-menu ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    gap: 35px;
+    padding: 12px 0;
+    border-top: 1px solid #F0ECE4;
+    background-color: var(--white);
+  }
+
+  .nav-menu a {
+    text-decoration: none;
+    color: var(--text-dark);
+    font-size: 14px;
+    font-weight: 500;
+    transition: color 0.3s;
+  }
+
+  .nav-menu a:hover {
+    color: var(--gold);
+  }
+</style>
