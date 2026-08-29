@@ -1,18 +1,9 @@
 ---
 interface Props {
-  title?: string;
-  description?: string;
-  image?: string;
+  title: string;
 }
 
-const { 
-  title = "Entre Ave-Marias | Artigos Religiosos", 
-  description = "Artigos religiosos católicos feitos com amor, fé e devoção para o seu dia a dia.",
-  image = "/logo.jpeg" 
-} = Astro.props;
-
-const siteUrl = "https://entre-ave-marias.com.br"; 
-const imageUrl = new URL(image, siteUrl).toString();
+const { title } = Astro.props;
 ---
 
 <!doctype html>
@@ -22,18 +13,9 @@ const imageUrl = new URL(image, siteUrl).toString();
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/jpeg" href="/logo.jpeg" />
     <title>{title}</title>
-    <meta name="description" content={description} />
-
-    <!-- Meta Tags para o WhatsApp / Redes Sociais -->
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
-    <meta property="og:image" content={imageUrl} />
-    <meta property="og:type" content="website" />
-
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={imageUrl} />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
   </head>
   <body>
     <slot />
@@ -42,27 +24,26 @@ const imageUrl = new URL(image, siteUrl).toString();
 
 <style is:global>
   :root {
-    --gold: #b89753;
-    --gold-dark: #9a7d43;
-    --dark: #2c2c2c;
+    --primary-green: #2d4a3e;
+    --primary-green-dark: #1e332a;
+    --gold: #d4af37;
+    --gold-dark: #b89728;
     --white: #ffffff;
-    --bg-light: #fbf9f6;
+    --bg-light: #fbf9f4;
+    --text-dark: #333333;
   }
-
   * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
   }
-
   body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    color: var(--text-dark);
     background-color: var(--bg-light);
-    color: var(--dark);
-    line-height: 1.6;
+    line-height: 1.5;
   }
-
-  h1, h2, h3 {
-    font-family: 'Georgia', serif;
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
   }
 </style>
