@@ -44,18 +44,18 @@
       </div>
     </div>
 
-    <!-- Barra de Ações Mobile (Carrinho e Entrar visíveis para quem compra pelo celular) -->
+    <!-- Botões de Ação Mobile Estilizados (Boutique) -->
     <div class="mobile-actions-bar">
       <a href="#carrinho" class="mobile-action-item">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
         <span>Carrinho (0)</span>
       </a>
       <a href="#login" class="mobile-action-item">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
         <span>Entrar</span>
       </a>
       <a href="/envio" class="mobile-action-item">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
         <span>Ajuda</span>
       </a>
     </div>
@@ -234,7 +234,7 @@
     color: #666;
   }
 
-  /* Barra de ações mobile (inicialmente oculta no desktop) */
+  /* Barra de ações mobile (oculta no desktop) */
   .mobile-actions-bar {
     display: none;
   }
@@ -268,7 +268,7 @@
 
   @media (max-width: 768px) {
     .top-bar {
-      display: none; /* Esconde a barra dourada no celular como antes */
+      display: none;
     }
     .header-container {
       flex-direction: column;
@@ -280,30 +280,39 @@
     .quick-register {
       display: none;
     }
-    /* Mostra a barra de carrinho e login compacta no celular */
+
+    /* Estilo Boutique Sofisticado para os Botões Mobile */
     .mobile-actions-bar {
       display: flex;
-      justify-content: space-around;
-      align-items: center;
-      background-color: var(--bg-light, #fbf9f4);
-      border-top: 1px solid #eee;
-      border-bottom: 1px solid #eee;
-      margin-top: 12px;
-      padding: 8px 10px;
-      border-radius: 8px;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 14px;
+      padding: 0 4px;
     }
     .mobile-action-item {
       display: flex;
       align-items: center;
       gap: 6px;
+      background: #ffffff;
+      padding: 9px 15px;
+      border-radius: 25px;
+      border: 1px solid #eae1d0;
+      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.04);
       text-decoration: none;
       color: var(--primary-green, #2d4a3e);
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 600;
+      letter-spacing: 0.3px;
+      transition: all 0.2s ease;
+    }
+    .mobile-action-item:active {
+      transform: scale(0.96);
+      background-color: #fbf9f4;
     }
     .mobile-action-item svg {
       color: var(--gold, #d4af37);
     }
+
     .nav-bar ul {
       gap: 12px;
       padding: 10px 10px;
