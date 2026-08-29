@@ -1,0 +1,105 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
+---
+
+<Layout title="Termos de Uso e Política de Privacidade | Entre Ave-Marias">
+  <Header />
+
+  <main class="legal-page">
+    <div class="legal-container">
+      <h1>Termos de Uso e Política de Privacidade</h1>
+      <p class="last-update">Última atualização: Agosto de 2026</p>
+
+      <section class="legal-section">
+        <h2>1. Bem-vindo à Entre Ave-Marias</h2>
+        <p>Agradecemos por visitar nossa loja de artigos religiosos. Estes Termos de Uso regulam o acesso e a utilização do nosso site e dos serviços oferecidos. Ao navegar ou realizar pedidos conosco, você concorda com as condições descritas abaixo.</p>
+      </section>
+
+      <section class="legal-section">
+        <h2>2. Uso do Site e Produtos</h2>
+        <p>Nossos produtos são confeccionados artesanalmente com dedicação e respeito à fé católica. Nos esforçamos para exibir com precisão as cores e detalhes das peças, mas pequenas variações podem ocorrer devido à natureza artesanal da fabricação.</p>
+      </section>
+
+      <section class="legal-section">
+        <h2>3. Privacidade e Proteção de Dados (LGPD)</h2>
+        <p>Garantimos a segurança e a privacidade dos seus dados pessoais. As informações fornecidas durante o cadastro e atendimento (como nome, endereço e telefone) são utilizadas estritamente para o processamento de pedidos, entregas e suporte via WhatsApp.</p>
+        <ul>
+          <li>Seus dados nunca serão comercializados ou cedidos a terceiros.</li>
+          <li>Utilizamos canais seguros para comunicação e transações.</li>
+        </ul>
+      </section>
+
+      <section class="legal-section">
+        <h2>4. Política de Encomendas e Entregas</h2>
+        <p>Realizamos envios conforme as modalidades descritas no site. Para a região de São Bernardo do Campo - SP, oferecemos condições especiais de frete. O prazo de entrega pode variar dependendo da disponibilidade da peça artesanal e da modalidade de transporte escolhida.</p>
+      </section>
+
+      <section class="legal-section">
+        <h2>5. Atendimento ao Cliente</h2>
+        <p>Em caso de dúvidas, trocas ou solicitações de encomendas personalizadas, entre em contato conosco através dos nossos canais oficiais:</p>
+        <p><strong>WhatsApp:</strong> (11) 93218-9878<br><strong>E-mail:</strong> contato@entreavemarias.com.br</p>
+      </section>
+    </div>
+  </main>
+
+  <Footer />
+  <WhatsAppButton />
+</Layout>
+
+<style>
+  .legal-page {
+    padding: 60px 20px;
+    background-color: var(--bg-light, #fbf9f4);
+  }
+  .legal-container {
+    max-width: 850px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+    border: 1px solid #eae1d0;
+  }
+  .legal-container h1 {
+    font-size: 32px;
+    color: var(--primary-green, #2d4a3e);
+    margin-bottom: 8px;
+    font-family: 'Playfair Display', serif;
+  }
+  .last-update {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 30px;
+    font-style: italic;
+  }
+  .legal-section {
+    margin-bottom: 25px;
+  }
+  .legal-section h2 {
+    font-size: 20px;
+    color: var(--primary-green, #2d4a3e);
+    margin-bottom: 10px;
+    font-family: 'Playfair Display', serif;
+  }
+  .legal-section p, .legal-section li {
+    font-size: 15px;
+    color: #444;
+    line-height: 1.6;
+    margin-bottom: 8px;
+  }
+  .legal-section ul {
+    padding-left: 20px;
+  }
+
+  @media (max-width: 768px) {
+    .legal-container {
+      padding: 20px;
+    }
+    .legal-container h1 {
+      font-size: 26px;
+    }
+  }
+</style>
