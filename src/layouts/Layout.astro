@@ -11,7 +11,6 @@ const {
   image = "/logo.jpeg" 
 } = Astro.props;
 
-// ATENÇÃO: Quando você colocar o site no ar (produção), substitua a URL abaixo pelo domínio real da sua loja
 const siteUrl = "https://entre-ave-marias.com.br"; 
 const imageUrl = new URL(image, siteUrl).toString();
 ---
@@ -25,47 +24,45 @@ const imageUrl = new URL(image, siteUrl).toString();
     <title>{title}</title>
     <meta name="description" content={description} />
 
-    <!-- Meta Tags para Compartilhamento (WhatsApp, Facebook, LinkedIn, etc.) -->
+    <!-- Meta Tags para o WhatsApp / Redes Sociais -->
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={imageUrl} />
     <meta property="og:type" content="website" />
 
-    <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={imageUrl} />
-
-    <!-- Estilos globais da loja -->
-    <style is:global>
-      :root {
-        --gold: #b89753;
-        --gold-dark: #9a7d43;
-        --dark: #2c2c2c;
-        --white: #ffffff;
-        --bg-light: #fbf9f6;
-      }
-
-      * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-      }
-
-      body {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background-color: var(--bg-light);
-        color: var(--dark);
-        line-height: 1.6;
-      }
-
-      h1, h2, h3 {
-        font-family: 'Georgia', serif;
-      }
-    </style>
   </head>
   <body>
     <slot />
   </body>
 </html>
+
+<style is:global>
+  :root {
+    --gold: #b89753;
+    --gold-dark: #9a7d43;
+    --dark: #2c2c2c;
+    --white: #ffffff;
+    --bg-light: #fbf9f6;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-light);
+    color: var(--dark);
+    line-height: 1.6;
+  }
+
+  h1, h2, h3 {
+    font-family: 'Georgia', serif;
+  }
+</style>
