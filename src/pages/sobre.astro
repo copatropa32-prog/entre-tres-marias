@@ -1,58 +1,107 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
 ---
 
 <Layout title="Quem Somos | Entre Ave-Marias">
-  <section class="about-container">
-    <div class="about-image-card">
-      <img src="/sobre-nos.webp" alt="Quem Somos - Entre Ave-Marias" />
-    </div>
+  <Header />
 
-    <div class="actions">
-      <a href="https://wa.me/5511932189878" class="btn-primary" target="_blank">Fale Conosco pelo WhatsApp</a>
+  <main class="sobre-main">
+    <div class="sobre-container">
+      <h2>Quem Somos</h2>
+      <div class="sobre-content">
+        <div class="sobre-text">
+          <p>
+            Bem-vindo ao <strong>Entre Ave-Marias</strong>. Nascemos da devoção e do desejo de levar até o seu lar peças artesanais que alimentam a fé e transformam ambientes em lugares de oração e paz.
+          </p>
+          <p>
+            Cada terço, quadro, imagem e artigo religioso é selecionado e preparado com todo o cuidado, carinho e respeito à nossa tradição católica. Acreditamos que os detalhes sagrados aproximam o coração humano do sagrado.
+          </p>
+          <p>
+            Estamos situados em São Paulo e prestigiamos nossos clientes locais com condições especiais de entrega. Será uma honra fazer parte da sua jornada espiritual.
+          </p>
+          <a href="https://wa.me/5511932189878" class="btn-whatsapp" target="_blank">
+            Fale Conosco pelo WhatsApp
+          </a>
+        </div>
+        <div class="sobre-image">
+          <img src="https://images.unsplash.com/photo-1543852786-1cf6624b9987?auto=format&fit=crop&w=600&q=80" alt="Artigos Religiosos Entre Ave-Marias" />
+        </div>
+      </div>
     </div>
-  </section>
+  </main>
+
+  <Footer />
+  <WhatsAppButton />
 </Layout>
 
 <style>
-  .about-container {
-    max-width: 650px;
-    margin: 60px auto;
-    padding: 0 20px;
+  .sobre-main {
+    padding: 60px 20px;
+    background-color: var(--bg-light);
+    min-height: 70vh;
+  }
+  .sobre-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    background: var(--white);
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+  }
+  .sobre-container h2 {
+    font-size: 32px;
+    color: var(--primary-green);
+    margin-bottom: 30px;
     text-align: center;
   }
-
-  .about-image-card {
+  .sobre-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+  }
+  .sobre-text p {
+    margin-bottom: 16px;
+    color: #555;
+    line-height: 1.7;
+    font-size: 15px;
+  }
+  .sobre-image {
     width: 100%;
-    border-radius: 16px;
+    height: 350px;
+    border-radius: 10px;
     overflow: hidden;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
-    margin-bottom: 30px;
-    background-color: var(--white);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
   }
-
-  .about-image-card img {
+  .sobre-image img {
     width: 100%;
-    height: auto;
-    display: block;
+    height: 100%;
+    object-fit: cover;
   }
-
-  .actions {
-    margin-top: 20px;
-  }
-
-  .btn-primary {
+  .btn-whatsapp {
     display: inline-block;
-    background-color: var(--gold);
-    color: var(--white);
-    padding: 12px 30px;
+    background-color: #25d366;
+    color: white;
+    padding: 10px 20px;
     border-radius: 25px;
     text-decoration: none;
     font-weight: 500;
+    margin-top: 10px;
     transition: background 0.3s;
   }
+  .btn-whatsapp:hover {
+    background-color: #1ebe57;
+  }
 
-  .btn-primary:hover {
-    background-color: var(--gold-dark);
+  @media (max-width: 768px) {
+    .sobre-content {
+      grid-template-columns: 1fr;
+    }
+    .sobre-container {
+      padding: 20px;
+    }
   }
 </style>
