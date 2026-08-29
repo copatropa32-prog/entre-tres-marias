@@ -1,5 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
 
 const categories = [
   { name: "Terços", image: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=300&q=80" },
@@ -18,44 +21,51 @@ const products = [
 ---
 
 <Layout title="Entre Três Marias | Artigos Religiosos">
-  <section class="hero">
-    <div class="hero-content">
-      <span class="hero-tag">Coleção Exclusiva</span>
-      <h2>Fé que toca a alma</h2>
-      <p>Cada peça feita à mão, um reflexo de devoção e exclusividade para o seu lar.</p>
-      <a href="https://wa.me/5511932189878" class="btn-primary" target="_blank">Fazer Encomenda</a>
-    </div>
-  </section>
+  <Header />
 
-  <section class="categories-section">
-    <h3>Nossas Coleções</h3>
-    <div class="categories-grid">
-      {categories.map(cat => (
-        <div class="category-card">
-          <div class="category-img-container">
-            <img src={cat.image} alt={cat.name} />
-          </div>
-          <span>{cat.name}</span>
-        </div>
-      ))}
-    </div>
-  </section>
+  <main>
+    <section class="hero">
+      <div class="hero-content">
+        <span class="hero-tag">Coleção Exclusiva</span>
+        <h2>Fé que toca a alma</h2>
+        <p>Cada peça feita à mão, um reflexo de devoção e exclusividade para o seu lar.</p>
+        <a href="https://wa.me/5511932189878" class="btn-primary" target="_blank">Fazer Encomenda</a>
+      </div>
+    </section>
 
-  <section class="products-section">
-    <h3>Produtos em Destaque</h3>
-    <div class="products-grid">
-      {products.map(prod => (
-        <div class="product-card">
-          <div class="product-img-container">
-            <img src={prod.image} alt={prod.name} />
+    <section class="categories-section">
+      <h3>Nossas Coleções</h3>
+      <div class="categories-grid">
+        {categories.map(cat => (
+          <div class="category-card">
+            <div class="category-img-container">
+              <img src={cat.image} alt={cat.name} />
+            </div>
+            <span>{cat.name}</span>
           </div>
-          <h4>{prod.name}</h4>
-          <div class="price">{prod.price}</div>
-          <a href="https://wa.me/5511932189878" class="btn-whatsapp" target="_blank">Comprar via WhatsApp</a>
-        </div>
-      ))}
-    </div>
-  </section>
+        ))}
+      </div>
+    </section>
+
+    <section class="products-section">
+      <h3>Produtos em Destaque</h3>
+      <div class="products-grid">
+        {products.map(prod => (
+          <div class="product-card">
+            <div class="product-img-container">
+              <img src={prod.image} alt={prod.name} />
+            </div>
+            <h4>{prod.name}</h4>
+            <div class="price">{prod.price}</div>
+            <a href="https://wa.me/5511932189878" class="btn-whatsapp" target="_blank">Comprar via WhatsApp</a>
+          </div>
+        ))}
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+  <WhatsAppButton />
 </Layout>
 
 <style>
@@ -121,7 +131,7 @@ const products = [
   .category-img-container {
     width: 130px;
     height: 130px;
-    border-radius: 50%; /* Arredondado igual referência */
+    border-radius: 50%;
     overflow: hidden;
     border: 2px solid var(--gold);
     margin-bottom: 10px;
