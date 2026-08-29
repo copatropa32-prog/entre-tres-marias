@@ -1,126 +1,223 @@
-<header class="header">
+<header class="site-header">
+  <!-- Barra Superior de Utilidades -->
   <div class="top-bar">
-    <p>✨ Encomendas abertas | Envio seguro de São Bernardo do Campo para todo o Brasil ✨</p>
+    <div class="top-bar-container">
+      <span class="top-announcement">✨ Frete grátis para São Bernardo do Campo nas compras acima de R$ 150</span>
+      <div class="top-links">
+        <a href="/envio">Rastrear Pedido</a>
+        <a href="https://wa.me/5511932189878" target="_blank">Atendimento</a>
+        <a href="https://instagram.com" target="_blank">Instagram</a>
+      </div>
+    </div>
   </div>
-  <div class="header-container">
-    <div class="search-box">
-      <input type="text" placeholder="Pesquisar artigos..." />
-    </div>
-    
-    <div class="logo-area">
-      <a href="/" style="text-decoration: none;">
-        <h1 class="logo-text">Entre Três Marias</h1>
-        <span class="logo-subtitle">artigos religiosos</span>
-      </a>
-    </div>
 
-    <div class="user-actions">
-      <a href="/sobre">Quem Somos</a>
-      <a href="/envio">Envio</a>
-      <a href="#">Carrinho (0)</a>
+  <!-- Cabeçalho Principal -->
+  <div class="main-header">
+    <div class="header-container">
+      <!-- Barra de Pesquisa à Esquerda -->
+      <div class="search-box">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <input type="text" placeholder="Pesquisar artigos..." />
+      </div>
+
+      <!-- Logo Centralizado -->
+      <div class="logo-area">
+        <a href="/">
+          <h1>Entre Três Marias</h1>
+          <span class="sub-logo">Artigos Religiosos</span>
+        </a>
+      </div>
+
+      <!-- Ações à Direita (Carrinho / WhatsApp) -->
+      <div class="header-actions">
+        <a href="https://wa.me/5511932189878" target="_blank" class="cart-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+          <span>Carrinho (0)</span>
+        </a>
+      </div>
     </div>
   </div>
-  
-  <nav class="nav-menu">
+
+  <!-- Menu de Categorias / Navegação -->
+  <nav class="nav-bar">
     <ul>
       <li><a href="/">Início</a></li>
       <li><a href="/sobre">Quem Somos</a></li>
       <li><a href="/envio">Formas de Envio</a></li>
-      <li><a href="https://wa.me/5511932189878" target="_blank">Encomendas por WhatsApp</a></li>
+      <li><a href="#categorias">Terços</a></li>
+      <li><a href="#categorias">Quadros</a></li>
+      <li><a href="#categorias">Imagens</a></li>
+      <li><a href="#categorias">Presentes</a></li>
+      <li><a href="#categorias">Velas</a></li>
     </ul>
   </nav>
 </header>
 
 <style>
+  .site-header {
+    background-color: var(--white);
+    border-bottom: 1px solid #eaeaea;
+    width: 100%;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+
+  /* Barra Superior */
   .top-bar {
     background-color: var(--primary-green);
     color: var(--white);
-    text-align: center;
-    padding: 8px 15px;
-    font-size: 13px;
-    letter-spacing: 0.5px;
+    font-size: 12px;
+    padding: 6px 20px;
+  }
+  .top-bar-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .top-links {
+    display: flex;
+    gap: 20px;
+  }
+  .top-links a {
+    color: var(--white);
+    text-decoration: none;
+    opacity: 0.85;
+    transition: opacity 0.2s;
+  }
+  .top-links a:hover {
+    opacity: 1;
   }
 
-  .header {
-    background-color: var(--white);
-    border-bottom: 1px solid #E5E0D8;
-    position: sticky;
-    top: 0;
-    z-index: 100;
+  /* Cabeçalho Principal */
+  .main-header {
+    padding: 20px;
   }
-
   .header-container {
     max-width: 1200px;
     margin: 0 auto;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 20px;
+    gap: 20px;
   }
 
+  /* Pesquisa */
+  .search-box {
+    display: flex;
+    align-items: center;
+    background: #f4f4f4;
+    border-radius: 25px;
+    padding: 8px 16px;
+    width: 280px;
+    gap: 10px;
+    border: 1px solid transparent;
+    transition: border 0.3s;
+  }
+  .search-box:focus-within {
+    border-color: var(--gold);
+    background: #fff;
+  }
   .search-box input {
-    padding: 10px 15px;
-    border: 1px solid #D1C9BC;
-    border-radius: 20px;
-    width: 220px;
-    background-color: var(--light-bg);
-    font-family: 'Montserrat', sans-serif;
-    font-size: 13px;
+    border: none;
+    background: transparent;
+    outline: none;
+    font-size: 14px;
+    width: 100%;
+    color: #333;
+  }
+  .search-box svg {
+    color: #777;
   }
 
+  /* Logo */
   .logo-area {
     text-align: center;
   }
-
-  .logo-text {
+  .logo-area a {
+    text-decoration: none;
+  }
+  .logo-area h1 {
     font-size: 26px;
     color: var(--primary-green);
-    font-weight: 600;
+    font-family: serif;
+    letter-spacing: 1px;
+    margin: 0;
   }
-
-  .logo-subtitle {
-    font-size: 10px;
+  .sub-logo {
+    font-size: 11px;
     text-transform: uppercase;
-    letter-spacing: 2px;
+    letter-spacing: 3px;
     color: var(--gold);
-    display: block;
   }
 
-  .user-actions {
+  /* Ações (Carrinho) */
+  .header-actions {
     display: flex;
-    gap: 20px;
-    font-size: 14px;
+    align-items: center;
   }
-
-  .user-actions a {
-    color: var(--text-dark);
+  .cart-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 8px 16px;
+    border-radius: 20px;
     text-decoration: none;
-    transition: color 0.3s;
+    color: var(--primary-green);
+    font-weight: 500;
+    font-size: 14px;
+    transition: all 0.3s;
+  }
+  .cart-btn:hover {
+    border-color: var(--gold);
+    background: #fff;
   }
 
-  .user-actions a:hover {
-    color: var(--gold);
+  /* Menu de Navegação Inferior */
+  .nav-bar {
+    border-top: 1px solid #f0f0f0;
+    background: #fff;
   }
-
-  .nav-menu ul {
+  .nav-bar ul {
+    max-width: 1200px;
+    margin: 0 auto;
     display: flex;
     justify-content: center;
     list-style: none;
-    gap: 35px;
-    padding: 12px 0;
-    border-top: 1px solid #F0ECE4;
-    background-color: var(--white);
+    gap: 30px;
+    padding: 12px 20px;
+    flex-wrap: wrap;
   }
-
-  .nav-menu a {
+  .nav-bar a {
     text-decoration: none;
-    color: var(--text-dark);
+    color: #444;
     font-size: 14px;
     font-weight: 500;
     transition: color 0.3s;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .nav-bar a:hover {
+    color: var(--gold);
   }
 
-  .nav-menu a:hover {
-    color: var(--gold);
+  /* Responsivo para celulares */
+  @media (max-width: 768px) {
+    .header-container {
+      flex-direction: column;
+    }
+    .search-box {
+      width: 100%;
+    }
+    .top-bar {
+      display: none;
+    }
+    .nav-bar ul {
+      gap: 15px;
+    }
   }
 </style>
