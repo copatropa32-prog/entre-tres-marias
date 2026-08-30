@@ -1,0 +1,127 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Meu Painel - Entre Ave-Marias">
+  <main class="profile-container">
+    <div class="profile-card">
+      <h1>Painel do Cliente</h1>
+      <p class="subtitle">Gerencie sua conta e acompanhe seus pedidos</p>
+
+      <div id="loading" class="info-box">
+        <p>Verificando autenticação...</p>
+      </div>
+
+      <div id="profile-content" style="display: none;">
+        <div class="user-info">
+          <p><strong>E-mail cadastrado:</strong> <span id="user-email"></span></p>
+          <p><strong>ID do usuário:</strong> <span id="user-id"></span></p>
+        </div>
+
+        <div class="actions">
+          <button id="logout-btn" class="btn-logout">Sair da conta</button>
+        </div>
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<script>
+  import { supabase } from '../lib/supabase';
+
+  async function initProfile() {
+    // Verifica a sessão atual no Supabase
+    const { data: { session } } = await supabase.auth.getSession();
+
+    const loadingEl = document.getElementById('loading');
+    const contentEl = document.getElementById('profile-content');
+    const emailEl = document.getElementById('user-email');
+    const idEl = document.getElementById('user-id');
+    const logoutBtn = document.getElementById('logout-btn');
+
+    if (!session) {
+      // Se não estiver logado, redireciona imediatamente para o login
+      window.location.href = '/login';
+      return;
+    }
+
+    // Se estiver logado, exibe os dados na tela
+    if (emailEl) emailEl.textContent = session.user.email ?? '';
+    if (idEl) idEl.textContent = session.user.id ?? '';
+
+    if (loadingEl) loadingEl.style.display = 'none';
+    if (contentEl) contentEl.style.display = 'block';
+
+    // Ação do botão de sair
+    logoutBtn?.addEventListener('click', async () => {
+      await supabase.auth.signOut();
+      window.location.href = '/login';
+    });
+  }
+
+  initProfile();
+</script>
+
+<style>
+  .profile-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 60vh;
+    background-color: #faf8f5;
+    padding: 20px;
+    font-family: sans-serif;
+  }
+  .profile-card {
+    background: #fff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    width: 100%;
+    max-width: 500px;
+    border: 1px solid #eae1d0;
+    text-align: center;
+  }
+  .profile-card h1 {
+    color: #2d4a3e;
+    margin-bottom: 5px;
+  }
+  .subtitle {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 30px;
+  }
+  .info-box {
+    padding: 20px;
+    color: #555;
+  }
+  .user-info {
+    background: #fdfcfa;
+    border: 1px solid #f2eedb;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: left;
+    margin-bottom: 25px;
+  }
+  .user-info p {
+    margin: 10px 0;
+    color: #333;
+    font-size: 14px;
+    word-break: break-all;
+  }
+  .btn-logout {
+    background-color: #a94442;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    width: 100%;
+    transition: background 0.2s;
+  }
+  .btn-logout:hover {
+    background-color: #8a3634;
+  }
+</style>

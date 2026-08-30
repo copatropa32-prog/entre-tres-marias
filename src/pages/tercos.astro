@@ -1,0 +1,599 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
+
+// Lista de produtos
+const tercos = [
+  {
+    nome: "Terço de Pérolas com o Divino Espírito Santo",
+    imagem: "/terco-luz.webp",
+    descricao: "Um terço que une delicadeza e devoção.\n\nNosso terço de pérolas com entremeio do Divino Espírito Santo é um convite à oração conduzida pela luz, sabedoria e fortaleza que vêm do alto.\n\nQue cada Ave-Maria rezada seja inspirada pelo Espírito Santo e que Ele conduza seus passos com paz e discernimento.",
+    detalhes: [
+      "Pérolas em tons de azul e rosa com detalhes translúcidos",
+      "Entremeio exclusivo com a imagem do Divino Espírito Santo",
+      "Crucifixo ornamentado em metal prateado",
+      "Símbolo de luz, sabedoria e fortaleza na oração"
+    ],
+    sugestao: "Disponível na nossa loja Entre Ave-Marias – Artigos Religiosos.\n\n#terço #divinoespíritosanto #devoção #artigosreligiosos #entreavemarias"
+  },
+  {
+    nome: "Terço de Viagem – São Cristóvão",
+    imagem: "/terco-viagem.webp",
+    descricao: "Para quem vive na estrada, a fé é o melhor companheiro de viagem.\n\nNosso terço de miçanga simples do padroeiro dos motoristas é um sinal de proteção e confiança em cada trajeto. Pequeno, prático e cheio de significado, ideal para carregar no carro ou na bolsa.\n\nQue cada quilômetro seja guiado por Deus e protegido por São Cristóvão.",
+    detalhes: [
+      "Miçangas em tom rosa com separadores em branco e cordão resistente",
+      "Entremeio exclusivo com a imagem de São Cristóvão (padroeiro dos motoristas)",
+      "Tamanho prático e compacto, ideal para carregar no carro ou na bolsa",
+      "Símbolo de proteção e confiança em cada trajeto"
+    ],
+    sugestao: "Disponível na nossa loja Entre Ave-Marias – Artigos Religiosos.\n\n#terço #sãocristóvão #proteção #viagem #artigosreligiosos #entreavemarias"
+  },
+  {
+    nome: "Terço Vermelho e Dourado do Divino Espírito Santo",
+    imagem: "/terco-fogo.jpg",
+    descricao: "O vermelho que representa o amor e o fogo do Espírito...\nO dourado que lembra a luz e a presença de Deus. ✨🔥\n\nEste terço em vermelho e dourado, com entremeio do Divino Espírito Santo, é mais do que um artigo religioso — é um símbolo de fé viva e confiança na ação de Deus em cada detalhe da sua vida. 🙏\n\nQue o Espírito Santo conduza seus passos, fortaleça suas decisões e renove sua esperança todos os dias. 🤍",
+    detalhes: [
+      "Contas vermelhas e douradas de excelente qualidade",
+      "Entremeio exclusivo do Divino Espírito Santo",
+      "Crucifixo ornamentado em metal dourado",
+      "Símbolo de fé viva e confiança na ação de Deus"
+    ],
+    sugestao: "Se você deseja essa presença na sua caminhada, comente:\n\"Vinde, Espírito Santo.\" 🔥\n\nEntre Ave-Marias – Artigos Religiosos\nLevando fé para o seu dia a dia."
+  },
+  {
+    nome: "Terço de Nossa Senhora Aparecida para Noivas",
+    imagem: "/terco-rosa.jpg",
+    descricao: "Terço de Nossa Senhora Aparecida para Noivas 🤍\n\nDelicado terço em rosa bebê e dourado, com entremeio de Nossa Senhora Aparecida, perfeito para momentos de oração e também uma linda opção para noivas.\n\nIdeal para acompanhar no dia do casamento, levar no buquê ou guardar como lembrança desse momento tão especial.",
+    detalhes: [
+      "Contas em rosa bebê com acabamento delicado e detalhes dourados",
+      "Entremeio exclusivo com a imagem de Nossa Senhora Aparecida",
+      "Crucifixo ornamentado em metal dourado",
+      "Perfeito para acompanhar no buquê ou guardar de lembrança"
+    ],
+    sugestao: "🤍 Delicado e elegante\n🙏 Símbolo de fé e proteção\n👰‍♀️ Perfeito para noivas e casamentos\n\n#terço #noivas #casamentocatólico #nossasenhoraaparecida #artigosreligiosos #entreavemarias"
+  },
+  {
+    nome: "Terço da Sagrada Família em Madeira",
+    imagem: "/terco-madeira.jpg",
+    descricao: "Terço da Sagrada Família em madeira\n\nUm terço especial que representa amor, união e proteção para sua família.\nInspirado na Sagrada Família, é perfeito para momentos de oração e para presentear quem você ama.",
+    detalhes: [
+      "Contas em madeira de alta qualidade com nós firmes",
+      "Entremeio com imagem da Sagrada Família",
+      "Crucifixo tradicional em metal detalhado",
+      "Perfeito para momentos de oração e para presentear quem você ama"
+    ],
+    sugestao: "🤎 Feito em madeira\n🙏 Símbolo de fé e proteção\n👨‍👩‍👧 Para abençoar seu lar\n\n#terço #sagradafamília #terçodemadeira #fé #proteção #artigosreligiosos #entreavemarias"
+  },
+  {
+    nome: "Terço Vermelho com Cheiro de Rosas",
+    imagem: "/terco-vermelho.jpg",
+    descricao: "Terço Vermelho com Cheiro de Rosas 🌹\n\nUm terço especial que une fé e delicadeza, com contas vermelhas e suave perfume de rosas, tornando o momento de oração ainda mais significativo.\n\nPerfeito para sua devoção diária ou para presentear alguém especial.",
+    detalhes: [
+      "Contas vermelhas com suave perfume de rosas",
+      "Entremeio especial e crucifixo detalhado em metal",
+      "Torna o momento de oração ainda mais significativo",
+      "Perfeito para devoção diária ou para presentear alguém especial"
+    ],
+    sugestao: "🌹 Aroma delicado de rosas\n🙏 Ideal para oração\n💖 Símbolo de amor e fé\n\n#terço #terçovermelho #cheiroderosas #devoção #artigosreligiosos #entreavemarias"
+  },
+  {
+    nome: "Pulseira/Terço de São Bento em Hematita",
+    imagem: "/pulseira-terco.jpg",
+    descricao: "Delicada pulseira/terço em hematita com medalha de São Bento, unindo fé, proteção e elegância para o dia a dia. Ideal para quem deseja carregar a devoção sempre consigo.",
+    detalhes: [
+      "Pedra de hematita de alta qualidade e brilho marcante",
+      "Proteção e medalha de São Bento",
+      "Design discreto, elegante e confortável para o uso diário",
+      "Perfeita para carregar sua devoção sempre consigo"
+    ],
+    sugestao: "Aceitamos encomendas personalizadas.\n\n#pulseira #terço #saobento #hematita #fé #proteção #artigosreligiosos #entreavemarias"
+  },
+  {
+    nome: "Terço Azul com Miçangas de Vidro",
+    imagem: "/terco-azul-vidro.jpg",
+    descricao: "Delicado nos detalhes, profundo no significado. 💙🙏\n\nEste terço azul com miçangas de vidro e entremeio de Nossa Senhora Aparecida é um convite à oração e à confiança na proteção da Mãe que nunca nos abandona.\n\nQue cada Ave-Maria seja um passo mais próximo de Deus e um gesto de entrega nas mãos de Maria. 🤍✨",
+    detalhes: [
+      "Miçangas de vidro azul de excelente brilho e qualidade",
+      "Entremeio especial de Nossa Senhora Aparecida",
+      "Crucifixo trabalhado em metal com detalhe em tom azul",
+      "Perfeito para momentos de oração e profunda devoção"
+    ],
+    sugestao: "Se você confia na Mãe Aparecida, comente:\n\"Rogai por nós.\" 🙏\n\n#terço #nossasenhoraaparecida #devoção #artigosreligiosos #entreavemarias"
+  },
+  {
+    nome: "Terço em Tons de Azul",
+    imagem: "/terco-tons-azul.jpg",
+    descricao: "Um terço especial em tons de azul, inspirado no manto de Nossa Senhora, com detalhes em dourado que remetem à realeza do céu e toques em branco que simbolizam pureza e paz. 💙\n\nCada detalhe foi pensado com amor para fortalecer sua fé e tornar seus momentos de oração ainda mais especiais.\n\nPerfeito para presentear ou carregar consigo essa devoção tão linda.",
+    detalhes: [
+      "Inspirado no manto de Nossa Senhora em tons de azul",
+      "Detalhes em dourado que remetem à realeza do céu",
+      "Toques em branco simbolizando pureza e paz",
+      "Perfeito para presentear ou carregar consigo"
+    ],
+    sugestao: "📥 Encomendas abertas! Personalizamos com carinho para você.\n\n#terço #nossasenhora #devoção #artigosreligiosos #entreavemarias"
+  },
+  {
+    nome: "Terço Infantil Personalizado",
+    imagem: "/terco-infantil.jpg",
+    descricao: "Um terço infantil delicado e cheio de significado 💕✨\n\nFeito por encomenda com muito carinho, pensado especialmente para uma pequena devota. Com detalhes encantadores e entremeio do Anjo da Guarda, ele representa proteção, fé e amor desde os primeiros passos na caminhada cristã.\n\nUma peça única, perfeita para presentear e cultivar a devoção desde a infância.",
+    detalhes: [
+      "Feito por encomenda com nome personalizado (ex: Catarina)",
+      "Entremeio encantador do Anjo da Guarda",
+      "Contas coloridas e alegres, perfeitas para os pequenos",
+      "Ideal para presentear em batizados, aniversários e na primeira infância"
+    ],
+    sugestao: "Encomendas abertas 💕\n\n#terçoinfantil #anjodaguarda #fé #infânciacomdeus #artigosreligiosos"
+  },
+  {
+    nome: "Pulseira de Hematita com Nossa Senhora Aparecida",
+    imagem: "/pulseira-hematita.jpg",
+    descricao: "Pulseira de hematita com Nossa Senhora Aparecida, feita com carinho para te acompanhar no dia a dia, fortalecendo a fé e trazendo proteção em cada momento.\n\nPerfeita para quem gosta de carregar sua devoção de forma discreta e especial.",
+    detalhes: [
+      "Feita com contas de hematita de alta qualidade e brilho marcante",
+      "Medalha delicada de Nossa Senhora Aparecida",
+      "Ajustável e confortável para o uso diário",
+      "Ideal para carregar sua devoção de forma discreta e especial"
+    ],
+    sugestao: "Aceitamos encomendas personalizadas\n\n#devoção #nossasenhoraaparecida #pulseira #artigoreligioso"
+  },
+  {
+    nome: "Terço da Sagrada Família em Tom Esmeralda",
+    imagem: "/terco-esm.jpg",
+    descricao: "Verde que transmite esperança, fé que fortalece o coração.\n\nTerço delicado com miçangas em tom esmeralda, detalhes em branco e entremeio da Sagrada Família — um convite diário à oração e à confiança em Deus.\n\nFeito com carinho e propósito\nIdeal para presentear ou levar sempre com você",
+    detalhes: [
+      "Miçangas em tom esmeralda de excelente brilho e qualidade",
+      "Delicados detalhes em branco",
+      "Entremeio da Sagrada Família rico em significado",
+      "Perfeito para presentear ou levar sempre com você"
+    ],
+    sugestao: "Aceitamos encomendas personalizadas\n\n#terço #fé #sagradafamilia #EntreAveMarias #ArtesanatoCatólico"
+  },
+  {
+    nome: "Terço de São Bento em Hematita",
+    imagem: "/terco-hematita.jpg",
+    descricao: "A força da hematita unida à poderosa proteção do São Bento em um terço feito para acompanhar sua caminhada de fé.\n\nCom detalhes marcantes e cheios de significado, este terço de São Bento representa oração, proteção e confiança em Deus diante das batalhas do dia a dia.\n\nQue cada Ave-Maria rezada fortaleça seu coração e cubra seus caminhos com bênçãos e proteção.",
+    detalhes: [
+      "Feito com contas de hematita de alta resistência e brilho marcante",
+      "Crucifixo e entremeio de São Bento ricos em detalhes",
+      "Símbolo de proteção, oração e confiança diante das batalhas diárias",
+      "Aceitamos encomendas e enviamos para todo o Brasil"
+    ],
+    sugestao: "Aceitamos encomendas – faça seu pedido pelo direct.\nSe você confia na intercessão de São Bento, comente:\n\"A cruz sagrada seja minha luz.\""
+  },
+  {
+    nome: "Terço de Noiva",
+    imagem: "/terco-perolas-brancas.jpg",
+    descricao: "Um detalhe cheio de graça para o dia mais especial.\n\nNosso Terço de Noiva, com pérolas brancas e delicados detalhes em dourado, foi pensado para acompanhar esse momento único com fé, beleza e significado. Um gesto de entrega nas mãos de Deus e de Nossa Senhora.\n\nPerfeito para levar no buquê e guardar como lembrança desse dia inesquecível",
+    detalhes: [
+      "Terço de Noiva com pérolas brancas",
+      "Delicados detalhes em dourado",
+      "Perfeito para levar no buquê e guardar como lembrança",
+      "Aceitamos encomendas personalizadas e enviamos para todo o Brasil"
+    ],
+    sugestao: "#tercodenoiva #noivacatolica #fé #nossasenhora #entreavemarias #casamentocatolico #casamentos"
+  },
+  {
+    nome: "Terço Perolado Azul",
+    imagem: "/terco-perolado-azul.jpg",
+    descricao: "Terço de Nossa Senhora Aparecida em acabamento perolado azul, com detalhes em prata que trazem ainda mais delicadeza e elegância à peça. O entremeio em resina níquel completa o design com um toque refinado e durável, tornando este terço uma expressão de fé e beleza em cada detalhe.\n\nUma peça especial para momentos de oração e devoção.\n\nAceitamos encomendas",
+    detalhes: [
+      "Terço de Nossa Senhora Aparecida em acabamento perolado azul",
+      "Detalhes em prata que trazem delicadeza e elegância",
+      "Entremeio em resina níquel refinado e durável",
+      "Peça especial para momentos de oração e devoção"
+    ],
+    sugestao: "Aceitamos encomendas. Entre em contato para garantir o seu!"
+  },
+  {
+    nome: "Terço de Olho de Boi",
+    imagem: "/terco-olhodeboi.jpg",
+    descricao: "Terço confeccionado com pedras naturais de Olho de Boi, conhecido por seus tons profundos em marrom avermelhado e pelo brilho marcante que torna cada peça única e cheia de personalidade.\n\nNa espiritualidade e na tradição das pedras naturais, o Olho de Boi é associado à força, proteção e equilíbrio emocional. É uma pedra conhecida por ajudar a fortalecer a coragem, afastar energias negativas e trazer mais segurança nos momentos difíceis. Também é muito utilizada por transmitir firmeza, foco e estabilidade, sendo ideal para quem busca manter a fé fortalecida no dia a dia.\n\nCada detalhe deste terço foi pensado com carinho: o entremeio em resina com acabamento em ouro velho traz um toque clássico e devocional, harmonizando perfeitamente com a intensidade das pedras naturais. A cruz em ouro velho completa a peça com elegância e significado, tornando este terço não apenas um item de oração, mas também uma peça especial para carregar consigo proteção e devoção.\n\nUma peça feita para quem deseja rezar com beleza, significado e conexão espiritual.",
+    detalhes: [
+      "Confeccionado com pedras naturais de Olho de Boi (tons em marrom avermelhado)",
+      "Associação com força, proteção, coragem e equilíbrio emocional",
+      "Entremeio e cruz em metal com acabamento em ouro velho",
+      "Peça exclusiva para rezar com beleza e conexão espiritual"
+    ],
+    sugestao: "Entre Ave-Marias – Evangelizando através da devoção."
+  },
+  {
+    nome: "Pulseira de Nossa Senhora de Fátima",
+    imagem: "/pulseira-nossa-senhora.jpg",
+    descricao: "Delicada e cheia de significado\n\nPulseira de Nossa Senhora de Fátima feita sob encomenda, com cristais em tons rosas e detalhes que tornam cada peça única. Um acessório de fé, proteção e devoção para carregar consigo todos os dias.\n\nProduzimos peças personalizadas com muito carinho e atenção em cada detalhe. Encomendas abertas.",
+    detalhes: [
+      "Feita sob encomenda",
+      "Cristais em tons rosas e detalhes únicos",
+      "Acessório de fé, proteção e devoção para o dia a dia",
+      "Peça personalizada produzida com muito carinho"
+    ],
+    sugestao: "#nossasenhoradefatima #catolicismo #catolico #devoção #artigosreligiosos"
+  },
+  {
+    nome: "Terço do Brasil",
+    imagem: "/terco-brasil.jpg",
+    descricao: "Unidos na fé, unidos pelo Brasil!\n\nNeste período de Copa do Mundo, que possamos vestir nossas cores com orgulho, mas sem esquecer daquele que está acima de todas as vitórias: Deus.\n\n💚💛💙 Este terço artesanal foi inspirado nas cores da nossa bandeira e representa a união do povo brasileiro em oração, esperança e amor à nossa pátria.\n\nQue cada Ave-Maria seja uma prece pelo Brasil, pelas famílias e por um futuro de paz e prosperidade para todos.",
+    detalhes: [
+      "Terço artesanal inspirado nas cores da bandeira do Brasil",
+      "Representa a união do povo brasileiro em oração e esperança",
+      "Uma prece pela pátria, pelas famílias e pela paz",
+      "Feito sob encomenda com todo carinho"
+    ],
+    sugestao: "Terço disponível para encomenda. Entre em contato e garanta o seu!\n\n\"Nossa força vem de Deus, nossa esperança floresce na oração.\"\n\n#terço #copa2026 #copadomundo2026 #devoção #nossasenhora"
+  },
+  {
+    nome: "Terço Azul Clássico",
+    imagem: "/terco-azul.jpg",
+    descricao: "Deixe que cada Ave-Maria fortaleça sua fé e ilumine seu caminho. Este terço, confeccionado com delicadas pedras naturais em tons de azul-turquesa, une beleza, devoção e significado em cada detalhe. Um convite para viver momentos de oração com ainda mais serenidade, tendo Nossa Senhora como guia e intercessora.",
+    detalhes: [
+      "Confeccionado com delicadas pedras naturais em tons de azul-turquesa",
+      "União de beleza, devoção e significado em cada detalhe",
+      "Mais que um acessório, um companheiro para sua caminhada com Deus",
+      "Nossa Senhora como guia e intercessora"
+    ],
+    sugestao: "Entre Ave-Marias – Artigos Religiosos. 'Evangelizando através da beleza e da devoção.'"
+  },
+  {
+    nome: "Escapulário de São Bento",
+    imagem: "/escapulario-de-saobento.jpg",
+    descricao: "Um acessório de fé e proteção para te acompanhar todos os dias. Nosso escapulário de São Bento une beleza, significado e devoção em uma peça marcante, com acabamento em tom envelhecido e medalhas ricas em detalhes. Um símbolo especial para quem deseja carregar consigo a proteção e a intercessão de São Bento.",
+    detalhes: [
+      "Escapulário com medalhas de São Bento",
+      "Acabamento em tom envelhecido",
+      "Símbolo de fé, proteção e devoção",
+      "Uma linda opção para presentear"
+    ],
+    sugestao: "Enviamos para todo o Brasil. Chame no direct para mais informações. Entre Ave-Marias — Evangelizando através da devoção. #escapulario #escapulariodesaobento #saobento #artigosreligiosos #fecatolica #devocao #presentescatolicos"
+  },
+  {
+    nome: "Colares com Crucifixos",
+    imagem: "/colares.jpg",
+    descricao: "Leve sua fé sempre junto ao coração. Colares com diferentes modelos de crucifixos, perfeitos para expressar sua devoção no dia a dia ou presentear alguém especial. Escolha aquele que mais representa a sua fé!",
+    detalhes: [
+      "Diferentes modelos de crucifixos disponíveis",
+      "Perfeitos para expressar sua devoção no dia a dia",
+      "Ótima opção para presentear alguém especial",
+      "Acabamento resistente e de alta qualidade"
+    ],
+    sugestao: "📦 Enviamos para todo o Brasil\n💕 Encomendas pelo direct\n\nEntre Ave-Marias — Evangelizando através da devoção.\n\n#EntreAveMarias #ColarReligioso #Crucifixo #FéCatólica #ArtigosReligiosos #Devoção #PresenteCatólico #JesusCristo #SãoBento #LojaCatólica"
+  },
+  {
+    nome: "Pulseira Terço Branca e Dourada",
+    imagem: "/nossa-pulseira-terco-branca-dourada.jpg",
+    descricao: "Nossa Pulseira Terço Branca e Dourada foi criada para quem deseja carregar a sua devoção sempre por perto. Com pérolas delicadas, detalhes dourados e pingentes que representam a nossa fé, ela é uma peça elegante e especial para usar no dia a dia ou presentear alguém querido.",
+    detalhes: [
+      "Pérolas delicadas de alta qualidade",
+      "Detalhes e acabamentos dourados",
+      "Pingentes especiais que representam a nossa fé",
+      "Perfeita para uso diário ou para presentear"
+    ],
+    sugestao: "Cada peça da Entre Ave-Marias é preparada com carinho, porque acreditamos que um presente pode ser muito mais do que algo bonito: pode ser também um instrumento de fé e evangelização."
+  },
+  {
+    nome: "Terço Azul Claro",
+    imagem: "/terco-azul-claro.jpg",
+    descricao: "Cada Ave-Maria é um passo em direção ao coração de Deus. Este terço foi confeccionado artesanalmente com delicadeza e devoção, unindo a suavidade das pérolas em tom azul-claro aos detalhes brancos e ao entremeio de Nossa Senhora Aparecida, tornando cada oração ainda mais especial.",
+    detalhes: [
+      "Confeccionado artesanalmente com delicadeza e devoção",
+      "Pérolas em tom azul-claro combinadas com detalhes brancos",
+      "Entremeio especial de Nossa Senhora Aparecida",
+      "Feito sob encomenda, com carinho em cada detalhe"
+    ],
+    sugestao: "Entre Ave-Marias – Artesanato religioso feito com fé."
+  },
+  {
+    nome: "Terço Infantil Colorido",
+    imagem: "/terco-colorido.jpg",
+    descricao: "A fé pode começar desde a infância. Cada oração é uma semente de amor plantada no coração dos pequenos. Nosso Terço Infantil foi criado com carinho para tornar esse momento ainda mais especial, incentivando as crianças a caminharem ao lado de Jesus.",
+    detalhes: [
+      "Criado especialmente com carinho para as crianças",
+      "Contas coloridas e lúdicas de alta durabilidade",
+      "Incentiva o hábito da oração e a caminhada ao lado de Jesus",
+      "Perfeito para batizados, aniversários e Primeira Eucaristia"
+    ],
+    sugestao: "Um presente cheio de significado para batizados, aniversários, Primeira Eucaristia ou simplesmente para ensinar o valor da oração."
+  },
+  {
+    nome: "Terço Nossa Senhora de Guadalupe",
+    imagem: "/terco-nossa-senhora-de-guadalupe.jpg",
+    descricao: "Um terço cheio de delicadeza, cor e significado para tornar seus momentos de oração ainda mais especiais.\n\nCom contas em tons de rosa, azul e perolado, detalhes em metal envelhecido, medalha de Nossa Senhora de Guadalupe, rosa decorativa e um lindo crucifixo trabalhado, essa peça une fé e beleza em cada detalhe.\n\nPerfeito para uso pessoal, presentear alguém especial ou demonstrar sua devoção à Virgem de Guadalupe.",
+    detalhes: [
+      "Contas em tons de rosa, azul e perolado",
+      "Detalhes em metal envelhecido",
+      "Medalha de Nossa Senhora de Guadalupe, rosa decorativa e lindo crucifixo trabalhado",
+      "Peça que une fé e beleza em cada detalhe"
+    ],
+    sugestao: "Entre Ave-Marias – Evangelizando através da devoção.\n\nPara valores e pedidos, entre em contato pelo direct.\n\n#nossasenhoradeguadalupe #terço #terçocatólico #artigosreligiosos #Fé #devoção #nossasenhora #católicos #presentecatólico #EntreAveMarias"
+  },
+  {
+    nome: "Chaveiro Terço",
+    imagem: "/chaveiro-terco.jpg",
+    descricao: "Um acessório delicado, cheio de significado e perfeito para acompanhar sua rotina. Nossa Senhora Aparecida nos recorda que, mesmo nos pequenos detalhes do dia a dia, Deus caminha ao nosso lado.",
+    detalhes: [
+      "Ideal para usar na bolsa, chaves, mochila, estojo ou como presente especial",
+      "Feito com carinho e devoção",
+      "Tamanho compacto e funcional",
+      "Argola e metal altamente resistentes"
+    ],
+    sugestao: "\"Ó Maria, concebida sem pecado, rogai por nós que recorremos a vós.\" Entre Ave-Marias – Evangelizando com amor."
+  }
+];
+---
+
+<Layout title="Terços e Pulseiras | Entre Ave-Marias">
+  <Header />
+
+  <main class="catalog-page">
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="/">Início</a> &gt; <span>Terços e Pulseiras</span>
+      </div>
+
+      <div class="page-header">
+        <h1>Terços e Pulseiras</h1>
+        <p>Peças exclusivas e feitas à mão para acompanhar os seus momentos de fé e oração.</p>
+      </div>
+
+      <div class="products-grid">
+        {tercos.map((terco) => {
+          const whatsappMessage = encodeURIComponent(`Olá! Gostaria de fazer minha encomenda do produto ${terco.nome}. Poderia me informar valor, disponibilidade e formas de envio?`);
+          return (
+            <div class="product-card">
+              <div class="product-image-wrapper clickable-img" data-img={terco.imagem}>
+                <img src={terco.imagem} alt={terco.nome} />
+                <span class="zoom-hint">🔍 Clique para ampliar</span>
+              </div>
+              <div class="product-info">
+                <h2>{terco.nome}</h2>
+                <p class="product-description" style="white-space: pre-line;">{terco.descricao}</p>
+                
+                <p class="section-title">Detalhes do produto:</p>
+                <ul class="product-details">
+                  {terco.detalhes.map((detalhe) => (
+                    <li>{detalhe}</li>
+                  ))}
+                </ul>
+
+                <p class="product-gift" style="white-space: pre-line;">{terco.sugestao}</p>
+
+                <a 
+                  href={`https://wa.me/5511999999999?text=${whatsappMessage}`} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  class="btn-order"
+                >
+                  Faça sua encomenda
+                </a>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  </main>
+
+  <!-- Modal para visualização da imagem em tela cheia -->
+  <div id="imageModal" class="modal">
+    <span class="close-modal">&times;</span>
+    <img class="modal-content" id="img01" alt="Imagem ampliada" />
+  </div>
+
+  <Footer />
+  <WhatsAppButton />
+</Layout>
+
+<script>
+  const modal = document.getElementById('imageModal');
+  const modalImg = document.getElementById('img01') as HTMLImageElement;
+  const closeBtn = document.getElementsByClassName('close-modal')[0] as HTMLElement;
+  const clickableImages = document.querySelectorAll('.clickable-img');
+
+  clickableImages.forEach((wrapper) => {
+    wrapper.addEventListener('click', () => {
+      const imgSrc = wrapper.getAttribute('data-img');
+      if (modal && modalImg && imgSrc) {
+        modal.style.display = 'flex';
+        modalImg.src = imgSrc;
+      }
+    });
+  });
+
+  if (closeBtn && modal) {
+    closeBtn.onclick = () => {
+      modal.style.display = 'none';
+    };
+  }
+
+  if (modal) {
+    modal.onclick = (e) => {
+      if (e.target === modal) {
+        modal.style.display = 'none';
+      }
+    };
+  }
+</script>
+
+<style>
+  .catalog-page {
+    padding: 40px 20px 80px 20px;
+    background-color: var(--bg-light, #fbf9f4);
+    min-height: 70vh;
+  }
+  .container {
+    max-width: 950px;
+    margin: 0 auto;
+  }
+  .breadcrumb {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 20px;
+  }
+  .breadcrumb a {
+    color: var(--primary-green, #2d4a3e);
+    text-decoration: none;
+  }
+  .page-header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  .page-header h1 {
+    font-size: 36px;
+    color: var(--primary-green, #2d4a3e);
+    margin-bottom: 10px;
+  }
+  .page-header p {
+    color: #555;
+    font-size: 16px;
+  }
+  .products-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+  .product-card {
+    background: #fff;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border: 1px solid #eee;
+  }
+  @media(min-width: 768px) {
+    .product-card {
+      flex-direction: row;
+    }
+  }
+
+  .product-image-wrapper {
+    flex: 1;
+    min-height: 380px;
+    overflow: hidden;
+    background-color: #f5f3ed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    cursor: pointer;
+  }
+
+  .zoom-hint {
+    position: absolute;
+    bottom: 10px;
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .product-image-wrapper:hover .zoom-hint {
+    opacity: 1;
+  }
+
+  .product-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: transform 0.5s ease;
+  }
+
+  .product-card:hover .product-image-wrapper img {
+    transform: scale(1.05);
+  }
+
+  .product-info {
+    flex: 1;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .product-info h2 {
+    font-size: 24px;
+    color: var(--primary-green, #2d4a3e);
+    margin-bottom: 12px;
+  }
+  .product-description {
+    font-size: 14px;
+    color: #444;
+    line-height: 1.6;
+    margin-bottom: 15px;
+  }
+  .section-title {
+    font-size: 13px;
+    font-weight: bold;
+    color: #2d4a3e;
+    margin-bottom: 6px;
+  }
+  .product-details {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 15px;
+    padding-left: 18px;
+    line-height: 1.5;
+  }
+  .product-details li {
+    margin-bottom: 4px;
+  }
+  .product-gift {
+    font-size: 13px;
+    color: #444;
+    line-height: 1.5;
+    margin-bottom: 20px;
+    font-style: italic;
+  }
+  .btn-order {
+    display: block;
+    text-align: center;
+    background-color: var(--gold, #d4af37);
+    color: #fff;
+    padding: 12px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background 0.3s;
+  }
+  .btn-order:hover {
+    background-color: var(--gold-dark, #b89728);
+  }
+
+  /* Estilos do Modal de Ampliação */
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .modal-content {
+    max-width: 90%;
+    max-height: 90vh;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 5px 30px rgba(0,0,0,0.5);
+  }
+  .close-modal {
+    position: absolute;
+    top: 20px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  .close-modal:hover {
+    color: #d4af37;
+  }
+</style>

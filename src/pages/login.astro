@@ -1,0 +1,305 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Entrar ou Cadastrar - Entre Ave-Marias">
+  <div class="login-container">
+    <div class="login-card">
+      <div class="login-header">
+        <img src="/logotipo.png" alt="Logo" class="logo-img" />
+        <h1 id="form-title">Criar sua conta</h1>
+        <p id="form-subtitle">Acesse sua conta para uma compra rápida</p>
+      </div>
+
+      <div id="error-message" class="alert error" style="display: none;"></div>
+      <div id="success-message" class="alert success" style="display: none;"></div>
+
+      <!-- Botão Social (Google) -->
+      <button type="button" id="google-btn" class="social-btn google-btn">
+        <span class="icon">G</span> Continuar com o Google
+      </button>
+
+      <div class="divider">
+        <span>ou com e-mail</span>
+      </div>
+
+      <form id="auth-form">
+        <div class="form-group" id="name-group" style="display: block;">
+          <label for="name">Nome completo</label>
+          <input type="text" id="name" placeholder="Seu nome" />
+        </div>
+
+        <div class="form-group">
+          <label for="email">E-mail</label>
+          <input type="email" id="email" required placeholder="seu@email.com" />
+        </div>
+
+        <div class="form-group">
+          <label for="senha">Senha</label>
+          <input type="password" id="senha" required placeholder="Sua senha secreta" />
+        </div>
+
+        <button type="submit" id="submit-btn" class="submit-btn">Cadastrar agora</button>
+      </form>
+
+      <div class="toggle-mode">
+        <p id="toggle-text">Já possui uma conta? <a href="#" id="toggle-link">Entrar</a></p>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  import { supabase } from '../lib/supabase';
+
+  let isLogin = false; // Começa na tela de cadastro
+
+  const formTitle = document.getElementById('form-title');
+  const formSubtitle = document.getElementById('form-subtitle');
+  const nameGroup = document.getElementById('name-group');
+  const submitBtn = document.getElementById('submit-btn');
+  const toggleText = document.getElementById('toggle-text');
+  const toggleLink = document.getElementById('toggle-link');
+  const authForm = document.getElementById('auth-form');
+  const errorMsg = document.getElementById('error-message');
+  const successMsg = document.getElementById('success-message');
+  const googleBtn = document.getElementById('google-btn');
+
+  // Alternar entre Login e Cadastro
+  toggleLink?.addEventListener('click', (e) => {
+    e.preventDefault();
+    isLogin = !isLogin;
+    if (errorMsg) errorMsg.style.display = 'none';
+    if (successMsg) successMsg.style.display = 'none';
+
+    if (isLogin) {
+      if (formTitle) formTitle.textContent = 'Entrar na sua conta';
+      if (formSubtitle) formSubtitle.textContent = 'Bem-vindo(a) de volta! Faça login.';
+      if (nameGroup) nameGroup.style.display = 'none';
+      if (submitBtn) submitBtn.textContent = 'Entrar';
+      if (toggleText) toggleText.innerHTML = 'Não possui uma conta? <a href="#" id="toggle-link">Cadastre-se</a>';
+    } else {
+      if (formTitle) formTitle.textContent = 'Criar sua conta';
+      if (formSubtitle) formSubtitle.textContent = 'Acesse sua conta para uma compra rápida';
+      if (nameGroup) nameGroup.style.display = 'block';
+      if (submitBtn) submitBtn.textContent = 'Cadastrar agora';
+      if (toggleText) toggleText.innerHTML = 'Já possui uma conta? <a href="#" id="toggle-link">Entrar</a>';
+    }
+    attachToggleEvent();
+  });
+
+  function attachToggleEvent() {
+    const newToggleLink = document.getElementById('toggle-link');
+    newToggleLink?.addEventListener('click', (e) => {
+      e.preventDefault();
+      toggleLink?.click();
+    });
+  }
+
+  // Login com Google
+  googleBtn?.addEventListener('click', async () => {
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: {
+        redirectTo: window.location.origin + '/'
+      }
+    });
+    if (error) {
+      if (errorMsg) {
+        errorMsg.textContent = error.message;
+        errorMsg.style.display = 'block';
+      }
+    }
+  });
+
+  // Envio do formulário (E-mail e Senha)
+  authForm?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (errorMsg) errorMsg.style.display = 'none';
+    if (successMsg) successMsg.style.display = 'none';
+
+    const emailInput = document.getElementById('email') as HTMLInputElement;
+    const passwordInput = document.getElementById('senha') as HTMLInputElement;
+    const nameInput = document.getElementById('name') as HTMLInputElement;
+
+    const email = emailInput?.value;
+    const password = passwordInput?.value;
+    const name = nameInput?.value;
+
+    if (submitBtn) {
+      submitBtn.textContent = 'Carregando...';
+      submitBtn.setAttribute('disabled', 'true');
+    }
+
+    if (isLogin) {
+      const { error } = await supabase.auth.signInWithPassword({ email, password });
+      if (error) {
+        if (errorMsg) {
+          errorMsg.textContent = error.message;
+          errorMsg.style.display = 'block';
+        }
+        if (submitBtn) {
+          submitBtn.textContent = 'Entrar';
+          submitBtn.removeAttribute('disabled');
+        }
+      } else {
+        if (successMsg) {
+          successMsg.textContent = 'Login efetuado com sucesso! Redirecionando...';
+          successMsg.style.display = 'block';
+        }
+        setTimeout(() => { window.location.href = '/'; }, 1200);
+      }
+    } else {
+      const { error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: { data: { full_name: name } }
+      });
+      if (error) {
+        if (errorMsg) {
+          errorMsg.textContent = error.message;
+          errorMsg.style.display = 'block';
+        }
+        if (submitBtn) {
+          submitBtn.textContent = 'Cadastrar agora';
+          submitBtn.removeAttribute('disabled');
+        }
+      } else {
+        if (successMsg) {
+          successMsg.textContent = 'Cadastro realizado com sucesso! Verifique seu e-mail.';
+          successMsg.style.display = 'block';
+        }
+        if (submitBtn) {
+          submitBtn.textContent = 'Cadastrar agora';
+          submitBtn.removeAttribute('disabled');
+        }
+      }
+    }
+  });
+</script>
+
+<style>
+  .login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    padding: 20px;
+    background-color: #fcfbfa;
+  }
+  .login-card {
+    background: #fff;
+    padding: 35px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    width: 100%;
+    max-width: 440px;
+    border: 1px solid #eae1d0;
+  }
+  .login-header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .logo-img {
+    width: 60px !important;
+    height: 60px !important;
+    max-width: 60px;
+    max-height: 60px;
+    object-fit: cover;
+    margin: 0 auto 10px auto;
+    display: block;
+    border-radius: 50%;
+  }
+  .login-header h1 {
+    font-size: 20px;
+    color: #2d4a3e;
+    margin-bottom: 5px;
+  }
+  .login-header p {
+    font-size: 13px;
+    color: #666;
+  }
+  .social-btn {
+    width: 100%;
+    padding: 11px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    border: 1px solid #ddd;
+    background: #fff;
+    transition: background 0.2s;
+  }
+  .google-btn:hover { background: #f8f9fa; }
+  .divider {
+    text-align: center;
+    border-bottom: 1px solid #eee;
+    line-height: 0.1em;
+    margin: 20px 0;
+  }
+  .divider span {
+    background: #fff;
+    padding: 0 10px;
+    color: #888;
+    font-size: 12px;
+  }
+  .form-group {
+    margin-bottom: 15px;
+  }
+  .form-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #333;
+  }
+  .form-group input {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+  }
+  .form-group input:focus {
+    border-color: #d4af37;
+  }
+  .submit-btn {
+    width: 100%;
+    background-color: #2d4a3e;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 5px;
+    transition: background 0.2s;
+  }
+  .submit-btn:hover { background-color: #1f332a; }
+  .toggle-mode {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 13px;
+  }
+  .toggle-mode a {
+    color: #d4af37;
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .toggle-mode a:hover { text-decoration: underline; }
+  .alert {
+    padding: 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    margin-bottom: 15px;
+    text-align: center;
+  }
+  .alert.error { background-color: #fde8e8; color: #9b1c1c; border: 1px solid #f8b4b4; }
+  .alert.success { background-color: #def7ec; color: #03543f; border: 1px solid #bcf0da; }
+</style>

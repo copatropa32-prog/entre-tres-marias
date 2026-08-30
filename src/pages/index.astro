@@ -24,36 +24,47 @@ import WhatsAppButton from '../components/WhatsAppButton.astro';
       <div class="container">
         <h2>Nossas Coleções</h2>
         <div class="collections-grid">
-          <div class="collection-card">
+          
+          <!-- Terços (Clicável) -->
+          <a href="/tercos" class="collection-card">
             <div class="card-image-wrapper">
-              <img src="/logo.jpeg" alt="Terços" />
+               <img src="/terco-perolas-brancas.jpg" alt="Terços" />
             </div>
             <h3>Terços</h3>
-          </div>
-          <div class="collection-card">
+          </a>
+
+          <!-- Artigos (Clicável) -->
+          <a href="/artigos" class="collection-card">
             <div class="card-image-wrapper">
-              <img src="/logo.jpeg" alt="Quadros" />
+               <img src="/leque-sagrado.jpg" alt="Artigos" />
             </div>
-            <h3>Quadros</h3>
-          </div>
-          <div class="collection-card">
+            <h3>Artigos</h3>
+          </a>
+
+          <!-- Camisetas -->
+          <a href="/camisetas" class="collection-card">
             <div class="card-image-wrapper">
-              <img src="/logo.jpeg" alt="Imagens" />
+               <img src="/camiseta.crista.jpg" alt="Camisetas" />
             </div>
-            <h3>Imagens</h3>
-          </div>
+            <h3>Camisetas</h3>
+          </a>
+
+          <!-- Estátuas -->
           <div class="collection-card">
             <div class="card-image-wrapper">
-              <img src="/logo.jpeg" alt="Presentes" />
+              <img src="/quadros.jpg" alt="Estátuas" />
             </div>
-            <h3>Presentes</h3>
+            <h3>Estátuas</h3>
           </div>
+
+          <!-- Velas -->
           <div class="collection-card">
             <div class="card-image-wrapper">
-              <img src="/logo.jpeg" alt="Velas" />
+              <img src="/velas.jpg" alt="Velas" />
             </div>
             <h3>Velas</h3>
           </div>
+
         </div>
       </div>
     </section>
@@ -138,6 +149,8 @@ import WhatsAppButton from '../components/WhatsAppButton.astro';
     box-shadow: 0 4px 12px rgba(0,0,0,0.03);
     transition: transform 0.3s, box-shadow 0.3s;
     cursor: pointer;
+    text-decoration: none;
+    display: block;
   }
   .collection-card:hover {
     transform: translateY(-5px);

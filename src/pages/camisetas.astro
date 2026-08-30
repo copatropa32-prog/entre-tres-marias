@@ -1,0 +1,299 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
+
+// Lista de camisetas
+const camisetas = [
+  {
+    nome: "Camiseta Nossa Senhora – Cuida do Meu Coração",
+    imagem: "/camiseta.crista.jpg",
+    descricao: "Nossa camiseta foi pensada para quem deseja expressar sua devoção também no dia a dia. Confortável, delicada e cheia de significado, ela é mais do que uma peça de roupa — é um testemunho de amor a Deus e à Nossa Senhora.\n\nQue cada passo seja guiado pela fé e cada dia seja vivido com propósito. 💙",
+    detalhes: [
+      "Confeccionada em tecido de alta qualidade, confortável e macio",
+      "Estampa exclusiva de Nossa Senhora com a frase \"Nossa Senhora me dê a mão cuida do meu coração\"",
+      "Modelagem leve e ideal para o uso diário",
+      "Um testemunho de amor, fé e devoção para vestir"
+    ],
+    sugestao: "Disponível na nossa Loja Entre Ave-Marias – Artigos Religiosos.\n\n#camisetareligiosa #nossasenhoraaparecida #fé #devocao #artigosreligiosos #entreavemarias"
+  }
+];
+---
+
+<Layout title="Camisetas | Entre Ave-Marias">
+  <Header />
+
+  <main class="catalog-page">
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="/">Início</a> &gt; <span>Camisetas</span>
+      </div>
+
+      <div class="page-header">
+        <h1>Camisetas Católicas</h1>
+        <p>Vista sua fé com conforto, delicadeza e significado no dia a dia.</p>
+      </div>
+
+      <div class="products-grid">
+        {camisetas.map((camiseta) => {
+          const whatsappMessage = encodeURIComponent(`Olá! Gostaria de fazer minha encomenda do produto ${camiseta.nome}. Poderia me informar tamanhos, disponibilidade e formas de envio?`);
+          return (
+            <div class="product-card">
+              <div class="product-image-wrapper clickable-img" data-img={camiseta.imagem}>
+                <img src={camiseta.imagem} alt={camiseta.nome} />
+                <span class="zoom-hint">🔍 Clique para ampliar</span>
+              </div>
+              <div class="product-info">
+                <h2>{camiseta.nome}</h2>
+                <p class="product-description" style="white-space: pre-line;">{camiseta.descricao}</p>
+                
+                <p class="section-title">Detalhes do produto:</p>
+                <ul class="product-details">
+                  {camiseta.detalhes.map((detalhe) => (
+                    <li>{detalhe}</li>
+                  ))}
+                </ul>
+
+                <p class="product-gift" style="white-space: pre-line;">{camiseta.sugestao}</p>
+
+                <a 
+                  href={`https://wa.me/5511999999999?text=${whatsappMessage}`} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  class="btn-order"
+                >
+                  Faça sua encomenda
+                </a>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  </main>
+
+  <!-- Modal para visualização da imagem em tela cheia -->
+  <div id="imageModal" class="modal">
+    <span class="close-modal">&times;</span>
+    <img class="modal-content" id="img01" alt="Imagem ampliada" />
+  </div>
+
+  <Footer />
+  <WhatsAppButton />
+</Layout>
+
+<script>
+  const modal = document.getElementById('imageModal');
+  const modalImg = document.getElementById('img01') as HTMLImageElement;
+  const closeBtn = document.getElementsByClassName('close-modal')[0] as HTMLElement;
+  const clickableImages = document.querySelectorAll('.clickable-img');
+
+  clickableImages.forEach((wrapper) => {
+    wrapper.addEventListener('click', () => {
+      const imgSrc = wrapper.getAttribute('data-img');
+      if (modal && modalImg && imgSrc) {
+        modal.style.display = 'flex';
+        modalImg.src = imgSrc;
+      }
+    });
+  });
+
+  if (closeBtn && modal) {
+    closeBtn.onclick = () => {
+      modal.style.display = 'none';
+    };
+  }
+
+  if (modal) {
+    modal.onclick = (e) => {
+      if (e.target === modal) {
+        modal.style.display = 'none';
+      }
+    };
+  }
+</script>
+
+<style>
+  .catalog-page {
+    padding: 40px 20px 80px 20px;
+    background-color: var(--bg-light, #fbf9f4);
+    min-height: 70vh;
+  }
+  .container {
+    max-width: 950px;
+    margin: 0 auto;
+  }
+  .breadcrumb {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 20px;
+  }
+  .breadcrumb a {
+    color: var(--primary-green, #2d4a3e);
+    text-decoration: none;
+  }
+  .page-header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  .page-header h1 {
+    font-size: 36px;
+    color: var(--primary-green, #2d4a3e);
+    margin-bottom: 10px;
+  }
+  .page-header p {
+    color: #555;
+    font-size: 16px;
+  }
+  .products-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+  .product-card {
+    background: #fff;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border: 1px solid #eee;
+  }
+  @media(min-width: 768px) {
+    .product-card {
+      flex-direction: row;
+    }
+  }
+
+  .product-image-wrapper {
+    flex: 1;
+    min-height: 380px;
+    overflow: hidden;
+    background-color: #f5f3ed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    cursor: pointer;
+  }
+
+  .zoom-hint {
+    position: absolute;
+    bottom: 10px;
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .product-image-wrapper:hover .zoom-hint {
+    opacity: 1;
+  }
+
+  .product-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: transform 0.5s ease;
+  }
+
+  .product-card:hover .product-image-wrapper img {
+    transform: scale(1.05);
+  }
+
+  .product-info {
+    flex: 1;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .product-info h2 {
+    font-size: 24px;
+    color: var(--primary-green, #2d4a3e);
+    margin-bottom: 12px;
+  }
+  .product-description {
+    font-size: 14px;
+    color: #444;
+    line-height: 1.6;
+    margin-bottom: 15px;
+  }
+  .section-title {
+    font-size: 13px;
+    font-weight: bold;
+    color: #2d4a3e;
+    margin-bottom: 6px;
+  }
+  .product-details {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 15px;
+    padding-left: 18px;
+    line-height: 1.5;
+  }
+  .product-details li {
+    margin-bottom: 4px;
+  }
+  .product-gift {
+    font-size: 13px;
+    color: #444;
+    line-height: 1.5;
+    margin-bottom: 20px;
+    font-style: italic;
+  }
+  .btn-order {
+    display: block;
+    text-align: center;
+    background-color: var(--gold, #d4af37);
+    color: #fff;
+    padding: 12px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background 0.3s;
+  }
+  .btn-order:hover {
+    background-color: var(--gold-dark, #b89728);
+  }
+
+  /* Estilos do Modal de Ampliação */
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .modal-content {
+    max-width: 90%;
+    max-height: 90vh;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 5px 30px rgba(0,0,0,0.5);
+  }
+  .close-modal {
+    position: absolute;
+    top: 20px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  .close-modal:hover {
+    color: #d4af37;
+  }
+</style>
