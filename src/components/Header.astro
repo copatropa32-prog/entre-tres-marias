@@ -16,7 +16,7 @@
   <div class="main-header">
     <div class="header-left">
       <!-- Botão Hambúrguer (Mobile) -->
-      <button class="menu-toggle" id="menuToggle" aria-label="Abrir Menu">
+      <button class="menu-toggle" id="menuToggle" aria-label="Abrir Menu" type="button">
         <span></span>
         <span></span>
         <span></span>
@@ -32,10 +32,10 @@
       </a>
     </div>
 
-    <!-- Barra de pesquisa visível no desktop e adaptada no mobile se necessário -->
+    <!-- Barra de pesquisa -->
     <div class="search-bar">
       <input type="text" placeholder="Faça uma pesquisa..." />
-      <button><i class="search-icon">🔍</i></button>
+      <button type="button"><i class="search-icon">🔍</i></button>
     </div>
 
     <div class="header-right-actions">
@@ -64,7 +64,7 @@
         <span>Entre Ave-Marias</span>
         <small>Menu Principal</small>
       </div>
-      <button class="close-menu" id="closeMenu">&times;</button>
+      <button class="close-menu" id="closeMenu" type="button">&times;</button>
     </div>
     
     <!-- Categorias Principais -->
@@ -80,7 +80,7 @@
     <a href="/estatuas">🗿 Estátuas</a>
     <a href="/velas">🕯️ Velas</a>
 
-    <!-- Todos os Links Relevantes de Conta e Ajuda no Mobile -->
+    <!-- Links de Conta e Ajuda no Mobile -->
     <div class="menu-section-label">Minha Conta & Pedidos</div>
     <div class="mobile-extra-links">
       <a href="/carrinho">🛒 Meu Carrinho (0)</a>
@@ -97,90 +97,100 @@
 <script>
   import { supabase } from '../lib/supabase';
 
-  const menuToggle = document.getElementById('menuToggle');
-  const closeMenu = document.getElementById('closeMenu');
-  const navMenu = document.getElementById('navMenu');
-  const menuOverlay = document.getElementById('menuOverlay');
+  function initHeader() {
+    const menuToggle = document.getElementById('menuToggle');
+    const closeMenu = document.getElementById('closeMenu');
+    const navMenu = document.getElementById('navMenu');
+    const menuOverlay = document.getElementById('menuOverlay');
 
-  function toggleMenu() {
-    navMenu?.classList.toggle('active');
-    menuOverlay?.classList.toggle('active');
-    document.body.classList.toggle('no-scroll');
-  }
+    if (!menuToggle || !navMenu) return;
 
-  menuToggle?.addEventListener('click', toggleMenu);
-  closeMenu?.addEventListener('click', toggleMenu);
-  menuOverlay?.addEventListener('click', toggleMenu);
+    function toggleMenu() {
+      navMenu.classList.toggle('active');
+      menuOverlay?.classList.toggle('active');
+      document.body.classList.toggle('no-scroll');
+    }
 
-  // Fechar menu ao clicar em qualquer link interno no mobile
-  navMenu?.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => {
-      if (window.innerWidth < 768) {
-        toggleMenu();
-      }
+    // Remove event listeners antigos se existirem clonando os nós ou limpando
+    // Garantir eventos de clique limpos
+    menuToggle.onclick = toggleMenu;
+    if (closeMenu) closeMenu.onclick = toggleMenu;
+    if (menuOverlay) menuOverlay.onclick = toggleMenu;
+
+    // Fechar menu ao clicar em qualquer link interno no mobile
+    navMenu.querySelectorAll('a').forEach(link => {
+      link.onclick = () => {
+        if (window.innerWidth < 768) {
+          toggleMenu();
+        }
+      };
     });
-  });
 
-  // Sincronização de Sessão Supabase
-  async function checkUser() {
-    const { data: { session } } = await supabase.auth.getSession();
-    
-    const authLinkDesktop = document.getElementById('auth-link-desktop');
-    const authLinkMobile = document.getElementById('auth-link-mobile');
-    const headerUserAction = document.getElementById('header-user-action');
-
-    if (session && session.user) {
-      const email = session.user.email;
+    // Sincronização de Sessão Supabase
+    async function checkUser() {
+      const { data: { session } } = await supabase.auth.getSession();
       
-      // Desktop
-      if (authLinkDesktop) {
-        authLinkDesktop.textContent = email;
-        authLinkDesktop.setAttribute('href', '#');
-        authLinkDesktop.style.background = '#d4af37';
-        authLinkDesktop.style.color = '#fff';
-        authLinkDesktop.style.padding = '4px 10px';
-        authLinkDesktop.style.borderRadius = '4px';
-        authLinkDesktop.addEventListener('click', async (e) => {
-          e.preventDefault();
-          if (confirm('Deseja sair da sua conta?')) {
-            await supabase.auth.signOut();
-            window.location.href = '/';
-          }
-        });
-      }
+      const authLinkDesktop = document.getElementById('auth-link-desktop');
+      const authLinkMobile = document.getElementById('auth-link-mobile');
+      const headerUserAction = document.getElementById('header-user-action');
 
-      // Mobile
-      if (authLinkMobile) {
-        authLinkMobile.textContent = `Sair da Conta (${email})`;
-        authLinkMobile.style.background = '#f8d7da';
-        authLinkMobile.style.color = '#721c24';
-        authLinkMobile.addEventListener('click', async (e) => {
-          e.preventDefault();
-          if (confirm('Deseja sair da sua conta?')) {
-            await supabase.auth.signOut();
-            window.location.href = '/';
-          }
-        });
-      }
-
-      // Desktop Box
-      if (headerUserAction) {
-        headerUserAction.setAttribute('href', '#');
-        const bottomTxt = headerUserAction.querySelector('.bottom-txt');
-        const topTxt = headerUserAction.querySelector('.top-txt');
-        if (topTxt) topTxt.textContent = 'Olá, bem-vindo(a)!';
-        if (bottomTxt) bottomTxt.textContent = 'Clique para Sair';
+      if (session && session.user) {
+        const email = session.user.email;
         
-        headerUserAction.addEventListener('click', async (e) => {
-          e.preventDefault();
-          await supabase.auth.signOut();
-          window.location.href = '/';
-        });
+        // Desktop
+        if (authLinkDesktop) {
+          authLinkDesktop.textContent = email;
+          authLinkDesktop.setAttribute('href', '#');
+          authLinkDesktop.style.background = '#d4af37';
+          authLinkDesktop.style.color = '#fff';
+          authLinkDesktop.style.padding = '4px 10px';
+          authLinkDesktop.style.borderRadius = '4px';
+          authLinkDesktop.onclick = async (e) => {
+            e.preventDefault();
+            if (confirm('Deseja sair da sua conta?')) {
+              await supabase.auth.signOut();
+              window.location.href = '/';
+            }
+          };
+        }
+
+        // Mobile
+        if (authLinkMobile) {
+          authLinkMobile.textContent = `Sair da Conta (${email})`;
+          authLinkMobile.style.background = '#f8d7da';
+          authLinkMobile.style.color = '#721c24';
+          authLinkMobile.onclick = async (e) => {
+            e.preventDefault();
+            if (confirm('Deseja sair da sua conta?')) {
+              await supabase.auth.signOut();
+              window.location.href = '/';
+            }
+          };
+        }
+
+        // Desktop Box
+        if (headerUserAction) {
+          headerUserAction.setAttribute('href', '#');
+          const bottomTxt = headerUserAction.querySelector('.bottom-txt');
+          const topTxt = headerUserAction.querySelector('.top-txt');
+          if (topTxt) topTxt.textContent = 'Olá, bem-vindo(a)!';
+          if (bottomTxt) bottomTxt.textContent = 'Clique para Sair';
+          
+          headerUserAction.onclick = async (e) => {
+            e.preventDefault();
+            await supabase.auth.signOut();
+            window.location.href = '/';
+          };
+        }
       }
     }
+
+    checkUser();
   }
 
-  checkUser();
+  // Executa ao carregar a página inicialmente e também em navegações do Astro
+  document.addEventListener('DOMContentLoaded', initHeader);
+  document.addEventListener('astro:page-load', initHeader);
 </script>
 
 <style>
