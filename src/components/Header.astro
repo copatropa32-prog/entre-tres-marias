@@ -181,11 +181,14 @@ import { supabase } from '../lib/supabase';
     background: #2d4a3e;
     color: #fcfbfa;
     font-size: 12px;
-    display: flex;
+    display: none;
     justify-content: space-between;
     align-items: center;
     padding: 8px 40px;
     letter-spacing: 0.3px;
+  }
+  @media(min-width: 768px) {
+    .top-bar { display: flex; }
   }
   .top-links { display: flex; gap: 20px; align-items: center; }
   .top-links a, .link-btn { color: #fcfbfa; text-decoration: none; background: none; border: none; font-size: 12px; cursor: pointer; padding: 0; font-family: inherit; transition: opacity 0.2s; }
@@ -304,6 +307,7 @@ import { supabase } from '../lib/supabase';
   .user-text .top-txt { font-size: 12px; font-weight: 700; color: #2d4a3e; }
   .user-text .bottom-txt { font-size: 10px; color: #666; }
 
+  /* Menu fixo lateral apenas para mobile */
   .nav-menu {
     position: fixed;
     top: 0;
@@ -406,31 +410,10 @@ import { supabase } from '../lib/supabase';
     color: #991b1b !important;
   }
 
+  /* No desktop, oculta completamente a gaveta lateral mobile */
   @media(min-width: 768px) {
-    .menu-section-label { display: none; }
-    .mobile-extra-links { display: contents; }
-    .mobile-extra-links a, .mobile-extra-links .menu-link-item { color: #2d4a3e; font-size: 13px; padding: 6px 12px; border: none; font-weight: 500; width: auto; }
-
     .nav-menu {
-      position: static;
-      height: auto;
-      width: 100%;
-      box-shadow: none;
-      flex-direction: row;
-      justify-content: center;
-      gap: 15px;
-      padding: 8px 0;
-      border-top: 1px solid #eae1d0;
-      background: #ffffff;
-      flex-wrap: wrap;
-      left: auto !important;
-      z-index: 1000;
-    }
-    .nav-menu a, .menu-link-item {
-      padding: 6px 12px;
-      border: none;
-      font-size: 13px;
-      border-radius: 4px;
+      display: none !important;
     }
   }
 
@@ -452,10 +435,5 @@ import { supabase } from '../lib/supabase';
   #menu-checkbox:checked ~ .menu-overlay {
     visibility: visible;
     opacity: 1;
-  }
-
-  .top-bar { display: none; }
-  @media(min-width: 768px) {
-    .top-bar { display: flex; }
   }
 </style>
