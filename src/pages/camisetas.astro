@@ -39,10 +39,28 @@ const camisetas = [
           const whatsappMessage = encodeURIComponent(`Olá! Gostaria de fazer minha encomenda do produto ${camiseta.nome}. Poderia me informar tamanhos, disponibilidade e formas de envio?`);
           return (
             <div class="product-card">
-              <div class="product-image-wrapper clickable-img" data-img={camiseta.imagem}>
-                <img src={camiseta.imagem} alt={camiseta.nome} />
-                <span class="zoom-hint">🔍 Clique para ampliar</span>
+              <div class="product-image-wrapper">
+                <!-- Botão de Favoritos (Coração) -->
+                <button 
+                  type="button" 
+                  class="btn-favorite" 
+                  aria-label="Adicionar aos favoritos"
+                  onclick={`window.handleToggleFavorite({
+                    id: '${camiseta.id}',
+                    name: '${camiseta.nome.replace(/'/g, "\\'")}',
+                    price: ${camiseta.preco},
+                    image: '${camiseta.imagem}'
+                  }, this)`}
+                >
+                  ❤️
+                </button>
+
+                <div class="clickable-img" data-img={camiseta.imagem} style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
+                  <img src={camiseta.imagem} alt={camiseta.nome} />
+                  <span class="zoom-hint">🔍 Clique para ampliar</span>
+                </div>
               </div>
+
               <div class="product-info">
                 <div>
                   <h2>{camiseta.nome}</h2>
@@ -101,11 +119,16 @@ const camisetas = [
 </Layout>
 
 <script>
-  import { addToCart } from '../utils/store.js';
+  import { addToCart, toggleFavorite } from '../utils/store.js';
 
-  // Expõe a função globalmente para os botões do HTML gerados pelo Astro
+  // Expõe as funções globalmente para os botões do HTML gerados pelo Astro
   window.handleAddToCart = (product) => {
     addToCart(product);
+  };
+
+  window.handleToggleFavorite = (product, btnElement) => {
+    toggleFavorite(product);
+    btnElement.classList.toggle('active');
   };
 
   const modal = document.getElementById('imageModal');
@@ -200,7 +223,34 @@ const camisetas = [
     align-items: center;
     justify-content: center;
     position: relative;
+  }
+
+  /* Botão de Favoritos flutuante na foto */
+  .btn-favorite {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
     cursor: pointer;
+    z-index: 10;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: transform 0.2s, background 0.2s;
+  }
+  .btn-favorite:hover {
+    transform: scale(1.1);
+    background: #fff5f5;
+  }
+  .btn-favorite.active {
+    background: #ffe6e6;
+    border-color: #ff4d4d;
   }
 
   .zoom-hint {
@@ -224,6 +274,7 @@ const camisetas = [
     height: 100%;
     object-fit: contain;
     transition: transform 0.5s ease;
+    cursor: pointer;
   }
 
   .product-card:hover .product-image-wrapper img {
