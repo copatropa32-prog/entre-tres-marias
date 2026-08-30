@@ -3,10 +3,12 @@ import Layout from '../layouts/Layout.astro';
 import Footer from '../components/Footer.astro';
 import WhatsAppButton from '../components/WhatsAppButton.astro';
 
-// Lista de produtos
+// Lista de produtos com ID e Preço adicionados para o Carrinho funcionar
 const tercos = [
   {
+    id: 'terco-luz',
     nome: "Terço de Pérolas com o Divino Espírito Santo",
+    preco: 49.90,
     imagem: "/terco-luz.webp",
     descricao: "Um terço que une delicadeza e devoção.\n\nNosso terço de pérolas com entremeio do Divino Espírito Santo é um convite à oração conduzida pela luz, sabedoria e fortaleza que vêm do alto.\n\nQue cada Ave-Maria rezada seja inspirada pelo Espírito Santo e que Ele conduza seus passos com paz e discernimento.",
     detalhes: [
@@ -18,7 +20,9 @@ const tercos = [
     sugestao: "Disponível na nossa loja Entre Ave-Marias – Artigos Religiosos.\n\n#terço #divinoespíritosanto #devoção #artigosreligiosos #entreavemarias"
   },
   {
+    id: 'terco-viagem',
     nome: "Terço de Viagem – São Cristóvão",
+    preco: 39.90,
     imagem: "/terco-viagem.webp",
     descricao: "Para quem vive na estrada, a fé é o melhor companheiro de viagem.\n\nNosso terço de miçanga simples do padroeiro dos motoristas é um sinal de proteção e confiança em cada trajeto. Pequeno, prático e cheio de significado, ideal para carregar no carro ou na bolsa.\n\nQue cada quilômetro seja guiado por Deus e protegido por São Cristóvão.",
     detalhes: [
@@ -30,7 +34,9 @@ const tercos = [
     sugestao: "Disponível na nossa loja Entre Ave-Marias – Artigos Religiosos.\n\n#terço #sãocristóvão #proteção #viagem #artigosreligiosos #entreavemarias"
   },
   {
+    id: 'terco-fogo',
     nome: "Terço Vermelho e Dourado do Divino Espírito Santo",
+    preco: 54.90,
     imagem: "/terco-fogo.jpg",
     descricao: "O vermelho que representa o amor e o fogo do Espírito...\nO dourado que lembra a luz e a presença de Deus. ✨🔥\n\nEste terço em vermelho e dourado, com entremeio do Divino Espírito Santo, é mais do que um artigo religioso — é um símbolo de fé viva e confiança na ação de Deus em cada detalhe da sua vida. 🙏\n\nQue o Espírito Santo conduza seus passos, fortaleça suas decisões e renove sua esperança todos os dias. 🤍",
     detalhes: [
@@ -42,7 +48,9 @@ const tercos = [
     sugestao: "Se você deseja essa presença na sua caminhada, comente:\n\"Vinde, Espírito Santo.\" 🔥\n\nEntre Ave-Marias – Artigos Religiosos\nLevando fé para o seu dia a dia."
   },
   {
+    id: 'terco-rosa',
     nome: "Terço de Nossa Senhora Aparecida para Noivas",
+    preco: 69.90,
     imagem: "/terco-rosa.jpg",
     descricao: "Terço de Nossa Senhora Aparecida para Noivas 🤍\n\nDelicado terço em rosa bebê e dourado, com entremeio de Nossa Senhora Aparecida, perfeito para momentos de oração e também uma linda opção para noivas.\n\nIdeal para acompanhar no dia do casamento, levar no buquê ou guardar como lembrança desse momento tão especial.",
     detalhes: [
@@ -54,7 +62,9 @@ const tercos = [
     sugestao: "🤍 Delicado e elegante\n🙏 Símbolo de fé e proteção\n👰‍♀️ Perfeito para noivas e casamentos\n\n#terço #noivas #casamentocatólico #nossasenhoraaparecida #artigosreligiosos #entreavemarias"
   },
   {
+    id: 'terco-madeira',
     nome: "Terço da Sagrada Família em Madeira",
+    preco: 42.90,
     imagem: "/terco-madeira.jpg",
     descricao: "Terço da Sagrada Família em madeira\n\nUm terço especial que representa amor, união e proteção para sua família.\nInspirado na Sagrada Família, é perfeito para momentos de oração e para presentear quem você ama.",
     detalhes: [
@@ -66,7 +76,9 @@ const tercos = [
     sugestao: "🤎 Feito em madeira\n🙏 Símbolo de fé e proteção\n👨‍👩‍👧 Para abençoar seu lar\n\n#terço #sagradafamília #terçodemadeira #fé #proteção #artigosreligiosos #entreavemarias"
   },
   {
+    id: 'terco-vermelho',
     nome: "Terço Vermelho com Cheiro de Rosas",
+    preco: 45.90,
     imagem: "/terco-vermelho.jpg",
     descricao: "Terço Vermelho com Cheiro de Rosas 🌹\n\nUm terço especial que une fé e delicadeza, com contas vermelhas e suave perfume de rosas, tornando o momento de oração ainda mais significativo.\n\nPerfeito para sua devoção diária ou para presentear alguém especial.",
     detalhes: [
@@ -78,7 +90,9 @@ const tercos = [
     sugestao: "🌹 Aroma delicado de rosas\n🙏 Ideal para oração\n💖 Símbolo de amor e fé\n\n#terço #terçovermelho #cheiroderosas #devoção #artigosreligiosos #entreavemarias"
   },
   {
+    id: 'pulseira-terco',
     nome: "Pulseira/Terço de São Bento em Hematita",
+    preco: 34.90,
     imagem: "/pulseira-terco.jpg",
     descricao: "Delicada pulseira/terço em hematita com medalha de São Bento, unindo fé, proteção e elegância para o dia a dia. Ideal para quem deseja carregar a devoção sempre consigo.",
     detalhes: [
@@ -90,7 +104,9 @@ const tercos = [
     sugestao: "Aceitamos encomendas personalizadas.\n\n#pulseira #terço #saobento #hematita #fé #proteção #artigosreligiosos #entreavemarias"
   },
   {
+    id: 'terco-azul-vidro',
     nome: "Terço Azul com Miçangas de Vidro",
+    preco: 46.90,
     imagem: "/terco-azul-vidro.jpg",
     descricao: "Delicado nos detalhes, profundo no significado. 💙🙏\n\nEste terço azul com miçangas de vidro e entremeio de Nossa Senhora Aparecida é um convite à oração e à confiança na proteção da Mãe que nunca nos abandona.\n\nQue cada Ave-Maria seja um passo mais próximo de Deus e um gesto de entrega nas mãos de Maria. 🤍✨",
     detalhes: [
@@ -102,7 +118,9 @@ const tercos = [
     sugestao: "Se você confia na Mãe Aparecida, comente:\n\"Rogai por nós.\" 🙏\n\n#terço #nossasenhoraaparecida #devoção #artigosreligiosos #entreavemarias"
   },
   {
+    id: 'terco-tons-azul',
     nome: "Terço em Tons de Azul",
+    preco: 49.90,
     imagem: "/terco-tons-azul.jpg",
     descricao: "Um terço especial em tons de azul, inspirado no manto de Nossa Senhora, com detalhes em dourado que remetem à realeza do céu e toques em branco que simbolizam pureza e paz. 💙\n\nCada detalhe foi pensado com amor para fortalecer sua fé e tornar seus momentos de oração ainda mais especiais.\n\nPerfeito para presentear ou carregar consigo essa devoção tão linda.",
     detalhes: [
@@ -114,7 +132,9 @@ const tercos = [
     sugestao: "📥 Encomendas abertas! Personalizamos com carinho para você.\n\n#terço #nossasenhora #devoção #artigosreligiosos #entreavemarias"
   },
   {
+    id: 'terco-infantil',
     nome: "Terço Infantil Personalizado",
+    preco: 39.90,
     imagem: "/terco-infantil.jpg",
     descricao: "Um terço infantil delicado e cheio de significado 💕✨\n\nFeito por encomenda com muito carinho, pensado especialmente para uma pequena devota. Com detalhes encantadores e entremeio do Anjo da Guarda, ele representa proteção, fé e amor desde os primeiros passos na caminhada cristã.\n\nUma peça única, perfeita para presentear e cultivar a devoção desde a infância.",
     detalhes: [
@@ -126,7 +146,9 @@ const tercos = [
     sugestao: "Encomendas abertas 💕\n\n#terçoinfantil #anjodaguarda #fé #infânciacomdeus #artigosreligiosos"
   },
   {
+    id: 'pulseira-hematita',
     nome: "Pulseira de Hematita com Nossa Senhora Aparecida",
+    preco: 32.90,
     imagem: "/pulseira-hematita.jpg",
     descricao: "Pulseira de hematita com Nossa Senhora Aparecida, feita com carinho para te acompanhar no dia a dia, fortalecendo a fé e trazendo proteção em cada momento.\n\nPerfeita para quem gosta de carregar sua devoção de forma discreta e especial.",
     detalhes: [
@@ -138,7 +160,9 @@ const tercos = [
     sugestao: "Aceitamos encomendas personalizadas\n\n#devoção #nossasenhoraaparecida #pulseira #artigoreligioso"
   },
   {
+    id: 'terco-esm',
     nome: "Terço da Sagrada Família em Tom Esmeralda",
+    preco: 52.90,
     imagem: "/terco-esm.jpg",
     descricao: "Verde que transmite esperança, fé que fortalece o coração.\n\nTerço delicado com miçangas em tom esmeralda, detalhes em branco e entremeio da Sagrada Família — um convite diário à oração e à confiança em Deus.\n\nFeito com carinho e propósito\nIdeal para presentear ou levar sempre com você",
     detalhes: [
@@ -150,7 +174,9 @@ const tercos = [
     sugestao: "Aceitamos encomendas personalizadas\n\n#terço #fé #sagradafamilia #EntreAveMarias #ArtesanatoCatólico"
   },
   {
+    id: 'terco-hematita',
     nome: "Terço de São Bento em Hematita",
+    preco: 59.90,
     imagem: "/terco-hematita.jpg",
     descricao: "A força da hematita unida à poderosa proteção do São Bento em um terço feito para acompanhar sua caminhada de fé.\n\nCom detalhes marcantes e cheios de significado, este terço de São Bento representa oração, proteção e confiança em Deus diante das batalhas do dia a dia.\n\nQue cada Ave-Maria rezada fortaleça seu coração e cubra seus caminhos com bênçãos e proteção.",
     detalhes: [
@@ -162,7 +188,9 @@ const tercos = [
     sugestao: "Aceitamos encomendas – faça seu pedido pelo direct.\nSe você confia na intercessão de São Bento, comente:\n\"A cruz sagrada seja minha luz.\""
   },
   {
+    id: 'terco-perolas-brancas',
     nome: "Terço de Noiva",
+    preco: 89.90,
     imagem: "/terco-perolas-brancas.jpg",
     descricao: "Um detalhe cheio de graça para o dia mais especial.\n\nNosso Terço de Noiva, com pérolas brancas e delicados detalhes em dourado, foi pensado para acompanhar esse momento único com fé, beleza e significado. Um gesto de entrega nas mãos de Deus e de Nossa Senhora.\n\nPerfeito para levar no buquê e guardar como lembrança desse dia inesquecível",
     detalhes: [
@@ -174,7 +202,9 @@ const tercos = [
     sugestao: "#tercodenoiva #noivacatolica #fé #nossasenhora #entreavemarias #casamentocatolico #casamentos"
   },
   {
+    id: 'terco-perolado-azul',
     nome: "Terço Perolado Azul",
+    preco: 48.90,
     imagem: "/terco-perolado-azul.jpg",
     descricao: "Terço de Nossa Senhora Aparecida em acabamento perolado azul, com detalhes em prata que trazem ainda mais delicadeza e elegância à peça. O entremeio em resina níquel completa o design com um toque refinado e durável, tornando este terço uma expressão de fé e beleza em cada detalhe.\n\nUma peça especial para momentos de oração e devoção.\n\nAceitamos encomendas",
     detalhes: [
@@ -186,7 +216,9 @@ const tercos = [
     sugestao: "Aceitamos encomendas. Entre em contato para garantir o seu!"
   },
   {
+    id: 'terco-olhodeboi',
     nome: "Terço de Olho de Boi",
+    preco: 56.90,
     imagem: "/terco-olhodeboi.jpg",
     descricao: "Terço confeccionado com pedras naturais de Olho de Boi, conhecido por seus tons profundos em marrom avermelhado e pelo brilho marcante que torna cada peça única e cheia de personalidade.\n\nNa espiritualidade e na tradição das pedras naturais, o Olho de Boi é associado à força, proteção e equilíbrio emocional. É uma pedra conhecida por ajudar a fortalecer a coragem, afastar energias negativas e trazer mais segurança nos momentos difíceis. Também é muito utilizada por transmitir firmeza, foco e estabilidade, sendo ideal para quem busca manter a fé fortalecida no dia a dia.\n\nCada detalhe deste terço foi pensado com carinho: o entremeio em resina com acabamento em ouro velho traz um toque clássico e devocional, harmonizando perfeitamente com a intensidade das pedras naturais. A cruz em ouro velho completa a peça com elegância e significado, tornando este terço não apenas um item de oração, mas também uma peça especial para carregar consigo proteção e devoção.\n\nUma peça feita para quem deseja rezar com beleza, significado e conexão espiritual.",
     detalhes: [
@@ -198,7 +230,9 @@ const tercos = [
     sugestao: "Entre Ave-Marias – Evangelizando através da devoção."
   },
   {
+    id: 'pulseira-nossa-senhora',
     nome: "Pulseira de Nossa Senhora de Fátima",
+    preco: 32.90,
     imagem: "/pulseira-nossa-senhora.jpg",
     descricao: "Delicada e cheia de significado\n\nPulseira de Nossa Senhora de Fátima feita sob encomenda, com cristais em tons rosas e detalhes que tornam cada peça única. Um acessório de fé, proteção e devoção para carregar consigo todos os dias.\n\nProduzimos peças personalizadas com muito carinho e atenção em cada detalhe. Encomendas abertas.",
     detalhes: [
@@ -210,7 +244,9 @@ const tercos = [
     sugestao: "#nossasenhoradefatima #catolicismo #catolico #devoção #artigosreligiosos"
   },
   {
+    id: 'terco-brasil',
     nome: "Terço do Brasil",
+    preco: 49.90,
     imagem: "/terco-brasil.jpg",
     descricao: "Unidos na fé, unidos pelo Brasil!\n\nNeste período de Copa do Mundo, que possamos vestir nossas cores com orgulho, mas sem esquecer daquele que está acima de todas as vitórias: Deus.\n\n💚💛💙 Este terço artesanal foi inspirado nas cores da nossa bandeira e representa a união do povo brasileiro em oração, esperança e amor à nossa pátria.\n\nQue cada Ave-Maria seja uma prece pelo Brasil, pelas famílias e por um futuro de paz e prosperidade para todos.",
     detalhes: [
@@ -222,7 +258,9 @@ const tercos = [
     sugestao: "Terço disponível para encomenda. Entre em contato e garanta o seu!\n\n\"Nossa força vem de Deus, nossa esperança floresce na oração.\"\n\n#terço #copa2026 #copadomundo2026 #devoção #nossasenhora"
   },
   {
+    id: 'terco-azul',
     nome: "Terço Azul Clássico",
+    preco: 45.90,
     imagem: "/terco-azul.jpg",
     descricao: "Deixe que cada Ave-Maria fortaleça sua fé e ilumine seu caminho. Este terço, confeccionado com delicadas pedras naturais em tons de azul-turquesa, une beleza, devoção e significado em cada detalhe. Um convite para viver momentos de oração com ainda mais serenidade, tendo Nossa Senhora como guia e intercessora.",
     detalhes: [
@@ -234,7 +272,9 @@ const tercos = [
     sugestao: "Entre Ave-Marias – Artigos Religiosos. 'Evangelizando através da beleza e da devoção.'"
   },
   {
+    id: 'escapulario-de-saobento',
     nome: "Escapulário de São Bento",
+    preco: 39.90,
     imagem: "/escapulario-de-saobento.jpg",
     descricao: "Um acessório de fé e proteção para te acompanhar todos os dias. Nosso escapulário de São Bento une beleza, significado e devoção em uma peça marcante, com acabamento em tom envelhecido e medalhas ricas em detalhes. Um símbolo especial para quem deseja carregar consigo a proteção e a intercessão de São Bento.",
     detalhes: [
@@ -246,7 +286,9 @@ const tercos = [
     sugestao: "Enviamos para todo o Brasil. Chame no direct para mais informações. Entre Ave-Marias — Evangelizando através da devoção. #escapulario #escapulariodesaobento #saobento #artigosreligiosos #fecatolica #devocao #presentescatolicos"
   },
   {
+    id: 'colares',
     nome: "Colares com Crucifixos",
+    preco: 42.90,
     imagem: "/colares.jpg",
     descricao: "Leve sua fé sempre junto ao coração. Colares com diferentes modelos de crucifixos, perfeitos para expressar sua devoção no dia a dia ou presentear alguém especial. Escolha aquele que mais representa a sua fé!",
     detalhes: [
@@ -258,7 +300,9 @@ const tercos = [
     sugestao: "📦 Enviamos para todo o Brasil\n💕 Encomendas pelo direct\n\nEntre Ave-Marias — Evangelizando através da devoção.\n\n#EntreAveMarias #ColarReligioso #Crucifixo #FéCatólica #ArtigosReligiosos #Devoção #PresenteCatólico #JesusCristo #SãoBento #LojaCatólica"
   },
   {
+    id: 'nossa-pulseira-terco-branca-dourada',
     nome: "Pulseira Terço Branca e Dourada",
+    preco: 34.90,
     imagem: "/nossa-pulseira-terco-branca-dourada.jpg",
     descricao: "Nossa Pulseira Terço Branca e Dourada foi criada para quem deseja carregar a sua devoção sempre por perto. Com pérolas delicadas, detalhes dourados e pingentes que representam a nossa fé, ela é uma peça elegante e especial para usar no dia a dia ou presentear alguém querido.",
     detalhes: [
@@ -270,7 +314,9 @@ const tercos = [
     sugestao: "Cada peça da Entre Ave-Marias é preparada com carinho, porque acreditamos que um presente pode ser muito mais do que algo bonito: pode ser também um instrumento de fé e evangelização."
   },
   {
+    id: 'terco-azul-claro',
     nome: "Terço Azul Claro",
+    preco: 46.90,
     imagem: "/terco-azul-claro.jpg",
     descricao: "Cada Ave-Maria é um passo em direção ao coração de Deus. Este terço foi confeccionado artesanalmente com delicadeza e devoção, unindo a suavidade das pérolas em tom azul-claro aos detalhes brancos e ao entremeio de Nossa Senhora Aparecida, tornando cada oração ainda mais especial.",
     detalhes: [
@@ -282,7 +328,9 @@ const tercos = [
     sugestao: "Entre Ave-Marias – Artesanato religioso feito com fé."
   },
   {
+    id: 'terco-colorido',
     nome: "Terço Infantil Colorido",
+    preco: 38.90,
     imagem: "/terco-colorido.jpg",
     descricao: "A fé pode começar desde a infância. Cada oração é uma semente de amor plantada no coração dos pequenos. Nosso Terço Infantil foi criado com carinho para tornar esse momento ainda mais especial, incentivando as crianças a caminharem ao lado de Jesus.",
     detalhes: [
@@ -294,7 +342,9 @@ const tercos = [
     sugestao: "Um presente cheio de significado para batizados, aniversários, Primeira Eucaristia ou simplesmente para ensinar o valor da oração."
   },
   {
+    id: 'terco-nossa-senhora-de-guadalupe',
     nome: "Terço Nossa Senhora de Guadalupe",
+    preco: 54.90,
     imagem: "/terco-nossa-senhora-de-guadalupe.jpg",
     descricao: "Um terço cheio de delicadeza, cor e significado para tornar seus momentos de oração ainda mais especiais.\n\nCom contas em tons de rosa, azul e perolado, detalhes em metal envelhecido, medalha de Nossa Senhora de Guadalupe, rosa decorativa e um lindo crucifixo trabalhado, essa peça une fé e beleza em cada detalhe.\n\nPerfeito para uso pessoal, presentear alguém especial ou demonstrar sua devoção à Virgem de Guadalupe.",
     detalhes: [
@@ -306,7 +356,9 @@ const tercos = [
     sugestao: "Entre Ave-Marias – Evangelizando através da devoção.\n\nPara valores e pedidos, entre em contato pelo direct.\n\n#nossasenhoradeguadalupe #terço #terçocatólico #artigosreligiosos #Fé #devoção #nossasenhora #católicos #presentecatólico #EntreAveMarias"
   },
   {
+    id: 'chaveiro-terco',
     nome: "Chaveiro Terço",
+    preco: 24.90,
     imagem: "/chaveiro-terco.jpg",
     descricao: "Um acessório delicado, cheio de significado e perfeito para acompanhar sua rotina. Nossa Senhora Aparecida nos recorda que, mesmo nos pequenos detalhes do dia a dia, Deus caminha ao nosso lado.",
     detalhes: [
@@ -334,7 +386,7 @@ const tercos = [
 
       <div class="products-grid">
         {tercos.map((terco) => {
-          const whatsappMessage = encodeURIComponent(`Olá! Gostaria de fazer minha encomenda do produto ${terco.nome}. Poderia me informar valor, disponibilidade e formas de envio?`);
+          const whatsappMessage = encodeURIComponent(`Olá! Gostaria de fazer minha encomenda do produto ${terco.nome}. Poderia me informar disponibilidade e formas de envio?`);
           return (
             <div class="product-card">
               <div class="product-image-wrapper clickable-img" data-img={terco.imagem}>
@@ -342,26 +394,44 @@ const tercos = [
                 <span class="zoom-hint">🔍 Clique para ampliar</span>
               </div>
               <div class="product-info">
-                <h2>{terco.nome}</h2>
-                <p class="product-description" style="white-space: pre-line;">{terco.descricao}</p>
-                
-                <p class="section-title">Detalhes do produto:</p>
-                <ul class="product-details">
-                  {terco.detalhes.map((detalhe) => (
-                    <li>{detalhe}</li>
-                  ))}
-                </ul>
+                <div>
+                  <h2>{terco.nome}</h2>
+                  <p class="product-price">R$ {terco.preco.toFixed(2)}</p>
+                  <p class="product-description" style="white-space: pre-line;">{terco.descricao}</p>
+                  
+                  <p class="section-title">Detalhes do produto:</p>
+                  <ul class="product-details">
+                    {terco.detalhes.map((detalhe) => (
+                      <li>{detalhe}</li>
+                    ))}
+                  </ul>
 
-                <p class="product-gift" style="white-space: pre-line;">{terco.sugestao}</p>
+                  <p class="product-gift" style="white-space: pre-line;">{terco.sugestao}</p>
+                </div>
 
-                <a 
-                  href={`https://wa.me/5511999999999?text=${whatsappMessage}`} 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  class="btn-order"
-                >
-                  Faça sua encomenda
-                </a>
+                <div class="product-actions">
+                  <button 
+                    type="button" 
+                    class="btn-cart"
+                    onclick={`window.handleAddToCart({
+                      id: '${terco.id}',
+                      name: '${terco.nome.replace(/'/g, "\\'")}',
+                      price: ${terco.preco},
+                      image: '${terco.imagem}'
+                    })`}
+                  >
+                    Adicionar ao Carrinho 🛒
+                  </button>
+
+                  <a 
+                    href={`https://wa.me/5511999999999?text=${whatsappMessage}`} 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    class="btn-order"
+                  >
+                    Encomendar via WhatsApp
+                  </a>
+                </div>
               </div>
             </div>
           );
@@ -380,6 +450,13 @@ const tercos = [
 </Layout>
 
 <script>
+  import { addToCart } from '../utils/store.js';
+
+  // Expõe a função globalmente para os botões do HTML gerados pelo Astro
+  window.handleAddToCart = (product) => {
+    addToCart(product);
+  };
+
   const modal = document.getElementById('imageModal');
   const modalImg = document.getElementById('img01') as HTMLImageElement;
   const closeBtn = document.getElementsByClassName('close-modal')[0] as HTMLElement;
@@ -512,6 +589,12 @@ const tercos = [
   .product-info h2 {
     font-size: 24px;
     color: var(--primary-green, #2d4a3e);
+    margin-bottom: 6px;
+  }
+  .product-price {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--gold, #d4af37);
     margin-bottom: 12px;
   }
   .product-description {
@@ -543,6 +626,30 @@ const tercos = [
     margin-bottom: 20px;
     font-style: italic;
   }
+  
+  .product-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .btn-cart {
+    display: block;
+    text-align: center;
+    background-color: var(--primary-green, #2d4a3e);
+    color: #fff;
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+    text-decoration: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  .btn-cart:hover {
+    background-color: var(--primary-green-dark, #1e332a);
+  }
+
   .btn-order {
     display: block;
     text-align: center;

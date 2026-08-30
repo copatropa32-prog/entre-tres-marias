@@ -3,9 +3,12 @@ import Layout from '../layouts/Layout.astro';
 import Footer from '../components/Footer.astro';
 import WhatsAppButton from '../components/WhatsAppButton.astro';
 
+// Lista de artigos com ID e Preço adicionados para o Carrinho funcionar
 const artigos = [
   {
+    id: 'leque-sagrada-familia',
     nome: "Leque Sagrada Família",
+    preco: 44.90,
     imagem: "/leque-sagrado.jpg",
     descricao: "Além de transmitir uma mensagem especial de fé e proteção, ele é leve, elegante e perfeito para usar em missas, festas religiosas, romarias, encontros, casamentos, celebrações ou no dia a dia.",
     detalhes: [
@@ -43,26 +46,44 @@ const artigos = [
                 <span class="zoom-hint">🔍 Clique para ampliar</span>
               </div>
               <div class="product-info">
-                <h2>{artigo.nome}</h2>
-                <p class="product-description">{artigo.descricao}</p>
-                
-                <p class="section-title">Detalhes do produto:</p>
-                <ul class="product-details">
-                  {artigo.detalhes.map((detalhe) => (
-                    <li>{detalhe}</li>
-                  ))}
-                </ul>
+                <div>
+                  <h2>{artigo.nome}</h2>
+                  <p class="product-price">R$ {artigo.preco.toFixed(2)}</p>
+                  <p class="product-description">{artigo.descricao}</p>
+                  
+                  <p class="section-title">Detalhes do produto:</p>
+                  <ul class="product-details">
+                    {artigo.detalhes.map((detalhe) => (
+                      <li>{detalhe}</li>
+                    ))}
+                  </ul>
 
-                <p class="product-gift">{artigo.sugestao}</p>
+                  <p class="product-gift">{artigo.sugestao}</p>
+                </div>
 
-                <a 
-                  href={`https://wa.me/5511999999999?text=${whatsappMessage}`} 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  class="btn-order"
-                >
-                  Fazer Encomenda
-                </a>
+                <div class="product-actions">
+                  <button 
+                    type="button" 
+                    class="btn-cart"
+                    onclick={`window.handleAddToCart({
+                      id: '${artigo.id}',
+                      name: '${artigo.nome.replace(/'/g, "\\'")}',
+                      price: ${artigo.preco},
+                      image: '${artigo.imagem}'
+                    })`}
+                  >
+                    Adicionar ao Carrinho 🛒
+                  </button>
+
+                  <a 
+                    href={`https://wa.me/5511999999999?text=${whatsappMessage}`} 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    class="btn-order"
+                  >
+                    Fazer Encomenda
+                  </a>
+                </div>
               </div>
             </div>
           );
@@ -82,6 +103,13 @@ const artigos = [
 </Layout>
 
 <script>
+  import { addToCart } from '../utils/store.js';
+
+  // Expõe a função globalmente para os botões do HTML gerados pelo Astro
+  window.handleAddToCart = (product) => {
+    addToCart(product);
+  };
+
   // Script para abrir e fechar a imagem em tela cheia (Modal)
   const modal = document.getElementById('imageModal');
   const modalImg = document.getElementById('img01') as HTMLImageElement;
@@ -216,6 +244,12 @@ const artigos = [
   .product-info h2 {
     font-size: 24px;
     color: var(--primary-green, #2d4a3e);
+    margin-bottom: 6px;
+  }
+  .product-price {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--gold, #d4af37);
     margin-bottom: 12px;
   }
   .product-description {
@@ -247,6 +281,30 @@ const artigos = [
     margin-bottom: 20px;
     font-style: italic;
   }
+
+  .product-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .btn-cart {
+    display: block;
+    text-align: center;
+    background-color: var(--primary-green, #2d4a3e);
+    color: #fff;
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+    text-decoration: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  .btn-cart:hover {
+    background-color: var(--primary-green-dark, #1e332a);
+  }
+
   .btn-order {
     display: block;
     text-align: center;

@@ -1,18 +1,22 @@
+---
+import { supabase } from '../lib/supabase';
+---
+
 <header class="header">
   <!-- Top Bar (Desktop) -->
   <div class="top-bar">
     <span>✨ Frete grátis para São Bernardo do Campo nas compras acima de R$ 150</span>
     <div class="top-links">
       <a href="/envio">Rastrear pedido</a>
-      <a href="/favoritos">Favoritos</a>
-      <a href="/carrinho">Meu carrinho (0)</a>
+      <button type="button" class="link-btn" id="open-favorites-desktop">Favoritos</button>
+      <button type="button" class="link-btn" id="open-cart-desktop">Meu carrinho (<span class="cart-count-num">0</span>)</button>
       <div id="user-menu-desktop" class="user-desktop-wrapper">
         <a href="/login" id="auth-link-desktop" class="login-btn">Entrar</a>
       </div>
     </div>
   </div>
 
-  <!-- Checkbox invisível que controla a abertura do menu mobile (CSS Puro, 100% funcional) -->
+  <!-- Checkbox invisível que controla a abertura do menu mobile -->
   <input type="checkbox" id="menu-checkbox" class="menu-checkbox" />
 
   <!-- Main Header -->
@@ -43,9 +47,9 @@
 
     <div class="header-right-actions">
       <!-- Ícone de Carrinho para Mobile -->
-      <a href="/carrinho" class="mobile-cart-icon" title="Carrinho">
-        🛒 <span class="cart-count">0</span>
-      </a>
+      <button type="button" class="mobile-cart-icon" id="open-cart-mobile" title="Carrinho">
+        🛒 <span class="cart-count cart-count-num">0</span>
+      </button>
 
       <!-- Bloco de Usuário (Desktop) -->
       <div class="user-action-box">
@@ -67,7 +71,6 @@
         <span>Entre Ave-Marias</span>
         <small>Artigos Religiosos</small>
       </div>
-      <!-- O label fecha o menu desmarcando o checkbox -->
       <label for="menu-checkbox" class="close-menu" aria-label="Fechar Menu">&times;</label>
     </div>
     
@@ -87,8 +90,8 @@
     <!-- Links de Conta e Ajuda no Mobile -->
     <div class="menu-section-label">Minha Conta & Pedidos</div>
     <div class="mobile-extra-links">
-      <a href="/carrinho">🛒 Meu Carrinho (0)</a>
-      <a href="/favoritos">❤️ Meus Favoritos</a>
+      <button type="button" class="menu-link-item" id="open-cart-mobile-menu">🛒 Meu Carrinho (<span class="cart-count-num">0</span>)</button>
+      <button type="button" class="menu-link-item" id="open-favorites-mobile-menu">❤️ Meus Favoritos</button>
       <a href="/envio">📦 Rastrear Pedido</a>
       <a href="/login" id="auth-link-mobile" class="mobile-login-highlight">👤 Entrar / Cadastrar</a>
     </div>
@@ -172,12 +175,8 @@
     z-index: 99999;
   }
   
-  /* Esconde o checkbox real */
-  .menu-checkbox {
-    display: none;
-  }
+  .menu-checkbox { display: none; }
 
-  /* Top Bar */
   .top-bar {
     background: #2d4a3e;
     color: #fcfbfa;
@@ -189,8 +188,8 @@
     letter-spacing: 0.3px;
   }
   .top-links { display: flex; gap: 20px; align-items: center; }
-  .top-links a { color: #fcfbfa; text-decoration: none; transition: opacity 0.2s; }
-  .top-links a:hover { opacity: 0.8; text-decoration: underline; }
+  .top-links a, .link-btn { color: #fcfbfa; text-decoration: none; background: none; border: none; font-size: 12px; cursor: pointer; padding: 0; font-family: inherit; transition: opacity 0.2s; }
+  .top-links a:hover, .link-btn:hover { opacity: 0.8; text-decoration: underline; }
   .user-desktop-wrapper { display: inline-block; margin-left: 10px; }
   .user-logged-badge {
     background: #d4af37;
@@ -200,7 +199,6 @@
     font-weight: 500;
   }
 
-  /* Main Header */
   .main-header {
     display: flex;
     justify-content: space-between;
@@ -216,7 +214,6 @@
 
   .header-left { display: flex; align-items: center; gap: 16px; }
 
-  /* Botão Hambúrguer como Label vinculado ao Checkbox */
   .menu-toggle {
     display: flex;
     flex-direction: column;
@@ -256,7 +253,6 @@
     .logo-text .sub { display: block; }
   }
 
-  /* Search Bar */
   .search-bar { display: none; border: 1px solid #dcd3c1; border-radius: 24px; overflow: hidden; width: 360px; background: #faf8f5; transition: border-color 0.2s; }
   .search-bar:focus-within { border-color: #2d4a3e; background: #fff; }
   @media(min-width: 768px) {
@@ -270,10 +266,13 @@
   .mobile-cart-icon {
     display: flex;
     align-items: center;
+    background: none;
+    border: none;
     text-decoration: none;
     font-size: 22px;
     position: relative;
     color: #2d4a3e;
+    cursor: pointer;
   }
   .cart-count {
     font-size: 10px;
@@ -305,7 +304,6 @@
   .user-text .top-txt { font-size: 12px; font-weight: 700; color: #2d4a3e; }
   .user-text .bottom-txt { font-size: 10px; color: #666; }
 
-  /* Nav Menu / Gaveta Lateral Mobile */
   .nav-menu {
     position: fixed;
     top: 0;
@@ -323,7 +321,6 @@
     overflow-y: auto;
   }
 
-  /* QUANDO O CHECKBOX ESTIVER MARCADO, ABRE O MENU */
   #menu-checkbox:checked ~ .nav-menu {
     left: 0;
   }
@@ -371,7 +368,7 @@
     margin-top: 4px;
   }
 
-  .nav-menu a {
+  .nav-menu a, .menu-link-item {
     text-decoration: none;
     font-size: 14px;
     font-weight: 600;
@@ -379,15 +376,23 @@
     padding: 14px 20px;
     border-bottom: 1px solid #f4f0e6;
     display: block;
+    background: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    font-family: inherit;
     transition: background 0.2s, color 0.2s;
   }
-  .nav-menu a:hover { color: #d4af37; background: #faf8f3; }
+  .nav-menu a:hover, .menu-link-item:hover { color: #d4af37; background: #faf8f3; }
 
   .mobile-extra-links {
     display: flex;
     flex-direction: column;
   }
-  .mobile-extra-links a {
+  .mobile-extra-links a, .mobile-extra-links .menu-link-item {
     color: #444;
     font-size: 13px;
   }
@@ -404,7 +409,7 @@
   @media(min-width: 768px) {
     .menu-section-label { display: none; }
     .mobile-extra-links { display: contents; }
-    .mobile-extra-links a { color: #2d4a3e; font-size: 13px; padding: 6px 12px; border: none; font-weight: 500; }
+    .mobile-extra-links a, .mobile-extra-links .menu-link-item { color: #2d4a3e; font-size: 13px; padding: 6px 12px; border: none; font-weight: 500; width: auto; }
 
     .nav-menu {
       position: static;
@@ -421,7 +426,7 @@
       left: auto !important;
       z-index: 1000;
     }
-    .nav-menu a {
+    .nav-menu a, .menu-link-item {
       padding: 6px 12px;
       border: none;
       font-size: 13px;
@@ -429,7 +434,6 @@
     }
   }
 
-  /* Overlay */
   .menu-overlay {
     position: fixed;
     top: 0;
@@ -445,7 +449,6 @@
     cursor: pointer;
   }
 
-  /* QUANDO O CHECKBOX ESTIVER MARCADO, MOSTRA O OVERLAY */
   #menu-checkbox:checked ~ .menu-overlay {
     visibility: visible;
     opacity: 1;

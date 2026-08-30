@@ -3,10 +3,12 @@ import Layout from '../layouts/Layout.astro';
 import Footer from '../components/Footer.astro';
 import WhatsAppButton from '../components/WhatsAppButton.astro';
 
-// Lista de camisetas
+// Lista de camisetas com ID e Preço adicionados para o Carrinho funcionar
 const camisetas = [
   {
+    id: 'camiseta-nossa-senhora',
     nome: "Camiseta Nossa Senhora – Cuida do Meu Coração",
+    preco: 59.90,
     imagem: "/camiseta.crista.jpg",
     descricao: "Nossa camiseta foi pensada para quem deseja expressar sua devoção também no dia a dia. Confortável, delicada e cheia de significado, ela é mais do que uma peça de roupa — é um testemunho de amor a Deus e à Nossa Senhora.\n\nQue cada passo seja guiado pela fé e cada dia seja vivido com propósito. 💙",
     detalhes: [
@@ -42,26 +44,44 @@ const camisetas = [
                 <span class="zoom-hint">🔍 Clique para ampliar</span>
               </div>
               <div class="product-info">
-                <h2>{camiseta.nome}</h2>
-                <p class="product-description" style="white-space: pre-line;">{camiseta.descricao}</p>
-                
-                <p class="section-title">Detalhes do produto:</p>
-                <ul class="product-details">
-                  {camiseta.detalhes.map((detalhe) => (
-                    <li>{detalhe}</li>
-                  ))}
-                </ul>
+                <div>
+                  <h2>{camiseta.nome}</h2>
+                  <p class="product-price">R$ {camiseta.preco.toFixed(2)}</p>
+                  <p class="product-description" style="white-space: pre-line;">{camiseta.descricao}</p>
+                  
+                  <p class="section-title">Detalhes do produto:</p>
+                  <ul class="product-details">
+                    {camiseta.detalhes.map((detalhe) => (
+                      <li>{detalhe}</li>
+                    ))}
+                  </ul>
 
-                <p class="product-gift" style="white-space: pre-line;">{camiseta.sugestao}</p>
+                  <p class="product-gift" style="white-space: pre-line;">{camiseta.sugestao}</p>
+                </div>
 
-                <a 
-                  href={`https://wa.me/5511999999999?text=${whatsappMessage}`} 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  class="btn-order"
-                >
-                  Faça sua encomenda
-                </a>
+                <div class="product-actions">
+                  <button 
+                    type="button" 
+                    class="btn-cart"
+                    onclick={`window.handleAddToCart({
+                      id: '${camiseta.id}',
+                      name: '${camiseta.nome.replace(/'/g, "\\'")}',
+                      price: ${camiseta.preco},
+                      image: '${camiseta.imagem}'
+                    })`}
+                  >
+                    Adicionar ao Carrinho 🛒
+                  </button>
+
+                  <a 
+                    href={`https://wa.me/5511999999999?text=${whatsappMessage}`} 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    class="btn-order"
+                  >
+                    Encomendar via WhatsApp
+                  </a>
+                </div>
               </div>
             </div>
           );
@@ -81,6 +101,13 @@ const camisetas = [
 </Layout>
 
 <script>
+  import { addToCart } from '../utils/store.js';
+
+  // Expõe a função globalmente para os botões do HTML gerados pelo Astro
+  window.handleAddToCart = (product) => {
+    addToCart(product);
+  };
+
   const modal = document.getElementById('imageModal');
   const modalImg = document.getElementById('img01') as HTMLImageElement;
   const closeBtn = document.getElementsByClassName('close-modal')[0] as HTMLElement;
@@ -213,6 +240,12 @@ const camisetas = [
   .product-info h2 {
     font-size: 24px;
     color: var(--primary-green, #2d4a3e);
+    margin-bottom: 6px;
+  }
+  .product-price {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--gold, #d4af37);
     margin-bottom: 12px;
   }
   .product-description {
@@ -244,6 +277,30 @@ const camisetas = [
     margin-bottom: 20px;
     font-style: italic;
   }
+
+  .product-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .btn-cart {
+    display: block;
+    text-align: center;
+    background-color: var(--primary-green, #2d4a3e);
+    color: #fff;
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+    text-decoration: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  .btn-cart:hover {
+    background-color: var(--primary-green-dark, #1e332a);
+  }
+
   .btn-order {
     display: block;
     text-align: center;
