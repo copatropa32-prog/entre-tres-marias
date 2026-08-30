@@ -1,9 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Footer from '../components/Footer.astro';
 import WhatsAppButton from '../components/WhatsAppButton.astro';
 
-// Lista de artigos com ID e Preço adicionados para o Carrinho funcionar
 const artigos = [
   {
     id: 'leque-sagrada-familia',
@@ -42,17 +40,15 @@ const artigos = [
           return (
             <div class="product-card">
               <div class="product-image-wrapper">
-                <!-- Botão de Favoritos (Coração) -->
+                <!-- Botão de Favoritos Padronizado com atributos data-* -->
                 <button 
                   type="button" 
                   class="btn-favorite" 
+                  data-id={artigo.id}
+                  data-name={artigo.nome}
+                  data-price={artigo.preco}
+                  data-image={artigo.imagem}
                   aria-label="Adicionar aos favoritos"
-                  onclick={`window.handleToggleFavorite({
-                    id: '${artigo.id}',
-                    name: '${artigo.nome.replace(/'/g, "\\'")}',
-                    price: ${artigo.preco},
-                    image: '${artigo.imagem}'
-                  }, this)`}
                 >
                   ❤️
                 </button>
@@ -67,7 +63,7 @@ const artigos = [
                 <div>
                   <h2>{artigo.nome}</h2>
                   <p class="product-price">R$ {artigo.preco.toFixed(2)}</p>
-                  <p class="product-description">{artigo.descricao}</p>
+                  <p class="product-description" style="white-space: pre-line;">{artigo.descricao}</p>
                   
                   <p class="section-title">Detalhes do produto:</p>
                   <ul class="product-details">
@@ -76,7 +72,7 @@ const artigos = [
                     ))}
                   </ul>
 
-                  <p class="product-gift">{artigo.sugestao}</p>
+                  <p class="product-gift" style="white-space: pre-line;">{artigo.sugestao}</p>
                 </div>
 
                 <div class="product-actions">
@@ -94,7 +90,7 @@ const artigos = [
                   </button>
 
                   <a 
-                    href={`https://wa.me/5511999999999?text=${whatsappMessage}`} 
+                    href={`https://wa.me/5511932189878?text=${whatsappMessage}`} 
                     target="_blank" 
                     rel="noopener noreferrer" 
                     class="btn-order"
@@ -110,30 +106,97 @@ const artigos = [
     </div>
   </main>
 
-  <!-- Modal para visualização da imagem em tela cheia -->
   <div id="imageModal" class="modal">
     <span class="close-modal">&times;</span>
     <img class="modal-content" id="img01" alt="Imagem ampliada" />
   </div>
 
-  <Footer />
   <WhatsAppButton />
 </Layout>
 
 <script>
-  import { addToCart, toggleFavorite } from '../utils/store.js';
-
-  // Expõe as funções globalmente para os botões do HTML gerados pelo Astro
   window.handleAddToCart = (product) => {
-    addToCart(product);
+    let cart = [];
+    try {
+      cart = JSON.parse(localStorage.getItem('cart') || '[]');
+    } catch (e) {
+      cart = [];
+    }
+
+    const existingIndex = cart.findIndex(item => item.id === product.id);
+    if (existingIndex > -1) {
+      cart[existingIndex].quantity = (Number(cart[existingIndex].quantity) || 1) + 1;
+    } else {
+      cart.push({ ...product, quantity: 1 });
+    }
+
+    localStorage.setItem('cart', JSON.stringify(cart));
+    
+    if (typeof window.updateCartUI === 'function') {
+      window.updateCartUI();
+    }
+    
+    document.getElementById('cart-drawer')?.classList.add('open');
+    document.getElementById('drawer-overlay')?.classList.add('open');
   };
 
-  window.handleToggleFavorite = (product, btnElement) => {
-    toggleFavorite(product);
-    btnElement.classList.toggle('active');
-  };
+  // Gerenciador global e unificado de cliques para favoritos
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest('.btn-favorite');
+    if (!btn) return;
 
-  // Script para abrir e fechar a imagem em tela cheia (Modal)
+    const product = {
+      id: btn.getAttribute('data-id'),
+      name: btn.getAttribute('data-name'),
+      price: Number(btn.getAttribute('data-price')),
+      image: btn.getAttribute('data-image')
+    };
+
+    if (typeof window.toggleFavorite === 'function') {
+      window.toggleFavorite(product);
+    } else {
+      let favs = [];
+      try {
+        favs = JSON.parse(localStorage.getItem('favorites') || '[]');
+      } catch (err) {
+        favs = [];
+      }
+
+      const index = favs.findIndex(item => item.id === product.id);
+      if (index > -1) {
+        favs.splice(index, 1);
+      } else {
+        favs.push(product);
+      }
+      localStorage.setItem('favorites', JSON.stringify(favs));
+    }
+
+    syncFavoriteButtons();
+    window.dispatchEvent(new CustomEvent('favoritesUpdated'));
+  });
+
+  // Função robusta para pintar os corações caso já estejam salvos
+  function syncFavoriteButtons() {
+    try {
+      const favs = JSON.parse(localStorage.getItem('favorites') || '[]');
+      document.querySelectorAll('.btn-favorite').forEach(btn => {
+        const id = btn.getAttribute('data-id');
+        const isFav = favs.some(fav => fav.id === id);
+        if (isFav) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+    } catch (e) {
+      console.error('Erro ao sincronizar favoritos:', e);
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', syncFavoriteButtons);
+  window.addEventListener('favoritesUpdated', syncFavoriteButtons);
+
+  // Modal de zoom nas imagens
   const modal = document.getElementById('imageModal');
   const modalImg = document.getElementById('img01') as HTMLImageElement;
   const closeBtn = document.getElementsByClassName('close-modal')[0] as HTMLElement;
@@ -228,7 +291,6 @@ const artigos = [
     position: relative;
   }
 
-  /* Botão de Favoritos flutuante na foto */
   .btn-favorite {
     position: absolute;
     top: 15px;
@@ -256,7 +318,6 @@ const artigos = [
     border-color: #ff4d4d;
   }
 
-  /* Aviso discreto para indicar que a imagem pode ser clicada */
   .zoom-hint {
     position: absolute;
     bottom: 10px;
@@ -312,7 +373,7 @@ const artigos = [
   .section-title {
     font-size: 13px;
     font-weight: bold;
-    color: #2d4a3e;
+    color: var(--primary-green, #2d4a3e);
     margin-bottom: 6px;
   }
   .product-details {
@@ -357,21 +418,20 @@ const artigos = [
   }
 
   .btn-order {
-    display: block;
-    text-align: center;
     background-color: var(--gold, #d4af37);
     color: #fff;
     padding: 12px;
     border-radius: 8px;
+    text-align: center;
     text-decoration: none;
     font-weight: 600;
     transition: background 0.3s;
+    display: block;
   }
   .btn-order:hover {
     background-color: var(--gold-dark, #b89728);
   }
 
-  /* Estilos do Modal de Ampliação */
   .modal {
     display: none;
     position: fixed;
