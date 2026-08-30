@@ -1,13 +1,10 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import WhatsAppButton from '../components/WhatsAppButton.astro';
 ---
 
 <Layout title="Entre Ave-Marias | Artigos Religiosos">
-  <Header />
-
   <main>
     <!-- Seção Principal (Hero) -->
     <section class="hero-section">
@@ -41,7 +38,7 @@ import WhatsAppButton from '../components/WhatsAppButton.astro';
             <h3>Artigos</h3>
           </a>
 
-          <!-- Camisetas -->
+          <!-- Camisetas (Clicável) -->
           <a href="/camisetas" class="collection-card">
             <div class="card-image-wrapper">
                <img src="/camiseta.crista.jpg" alt="Camisetas" />
@@ -49,21 +46,21 @@ import WhatsAppButton from '../components/WhatsAppButton.astro';
             <h3>Camisetas</h3>
           </a>
 
-          <!-- Estátuas -->
-          <div class="collection-card">
+          <!-- Estátuas (Clicável) -->
+          <a href="/estatuas" class="collection-card">
             <div class="card-image-wrapper">
               <img src="/quadros.jpg" alt="Estátuas" />
             </div>
             <h3>Estátuas</h3>
-          </div>
+          </a>
 
-          <!-- Velas -->
-          <div class="collection-card">
+          <!-- Velas (Clicável) -->
+          <a href="/velas" class="collection-card">
             <div class="card-image-wrapper">
               <img src="/velas.jpg" alt="Velas" />
             </div>
             <h3>Velas</h3>
-          </div>
+          </a>
 
         </div>
       </div>
