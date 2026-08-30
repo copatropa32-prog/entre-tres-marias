@@ -32,6 +32,7 @@
       </a>
     </div>
 
+    <!-- Barra de pesquisa visível no desktop e adaptada no mobile se necessário -->
     <div class="search-bar">
       <input type="text" placeholder="Faça uma pesquisa..." />
       <button><i class="search-icon">🔍</i></button>
@@ -56,38 +57,46 @@
     </div>
   </div>
 
-  <!-- Menu de Navegação Principal -->
+  <!-- Menu de Navegação / Gaveta Lateral Mobile -->
   <nav class="nav-menu" id="navMenu">
     <div class="mobile-menu-header">
-      <span>Menu</span>
+      <div class="mobile-menu-title">
+        <span>Entre Ave-Marias</span>
+        <small>Menu Principal</small>
+      </div>
       <button class="close-menu" id="closeMenu">&times;</button>
     </div>
     
-    <a href="/">INÍCIO</a>
-    <a href="/sobre">QUEM SOMOS</a>
-    <a href="/envio">FORMAS DE ENVIO</a>
-    <a href="/tercos">TERÇOS</a>
-    <a href="/artigos">ARTIGOS</a>
-    <a href="/camisetas">CAMISETAS</a>
-    <a href="/estatuas">ESTÁTUAS</a>
-    <a href="/velas">VELAS</a>
+    <!-- Categorias Principais -->
+    <div class="menu-section-label">Navegação</div>
+    <a href="/">🏠 Início</a>
+    <a href="/sobre">🕊️ Quem Somos</a>
+    <a href="/envio">🚚 Formas de Envio</a>
 
-    <!-- Links extras visíveis apenas no menu mobile -->
+    <div class="menu-section-label">Coleções</div>
+    <a href="/tercos">📿 Terços</a>
+    <a href="/artigos">🕯️ Artigos Sagrados</a>
+    <a href="/camisetas">👕 Camisetas</a>
+    <a href="/estatuas">🗿 Estátuas</a>
+    <a href="/velas">🕯️ Velas</a>
+
+    <!-- Todos os Links Relevantes de Conta e Ajuda no Mobile -->
+    <div class="menu-section-label">Minha Conta & Pedidos</div>
     <div class="mobile-extra-links">
-      <a href="/envio">📦 Rastrear pedido</a>
-      <a href="/favoritos">❤️ Favoritos</a>
-      <a href="/login" id="auth-link-mobile">👤 Entrar / Cadastrar</a>
+      <a href="/carrinho">🛒 Meu Carrinho (0)</a>
+      <a href="/favoritos">❤️ Meus Favoritos</a>
+      <a href="/envio">📦 Rastrear Pedido</a>
+      <a href="/login" id="auth-link-mobile" class="mobile-login-highlight">👤 Entrar / Cadastrar</a>
     </div>
   </nav>
   
-  <!-- Overlay escuro para quando o menu mobile abrir -->
+  <!-- Overlay escuro para fechar ao clicar fora -->
   <div class="menu-overlay" id="menuOverlay"></div>
 </header>
 
 <script>
   import { supabase } from '../lib/supabase';
 
-  // Controle do menu mobile
   const menuToggle = document.getElementById('menuToggle');
   const closeMenu = document.getElementById('closeMenu');
   const navMenu = document.getElementById('navMenu');
@@ -103,6 +112,15 @@
   closeMenu?.addEventListener('click', toggleMenu);
   menuOverlay?.addEventListener('click', toggleMenu);
 
+  // Fechar menu ao clicar em qualquer link interno no mobile
+  navMenu?.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      if (window.innerWidth < 768) {
+        toggleMenu();
+      }
+    });
+  });
+
   // Sincronização de Sessão Supabase
   async function checkUser() {
     const { data: { session } } = await supabase.auth.getSession();
@@ -114,7 +132,7 @@
     if (session && session.user) {
       const email = session.user.email;
       
-      // Atualiza link desktop
+      // Desktop
       if (authLinkDesktop) {
         authLinkDesktop.textContent = email;
         authLinkDesktop.setAttribute('href', '#');
@@ -131,9 +149,11 @@
         });
       }
 
-      // Atualiza link mobile
+      // Mobile
       if (authLinkMobile) {
-        authLinkMobile.textContent = `Sair (${email})`;
+        authLinkMobile.textContent = `Sair da Conta (${email})`;
+        authLinkMobile.style.background = '#f8d7da';
+        authLinkMobile.style.color = '#721c24';
         authLinkMobile.addEventListener('click', async (e) => {
           e.preventDefault();
           if (confirm('Deseja sair da sua conta?')) {
@@ -143,7 +163,7 @@
         });
       }
 
-      // Atualiza o bloco lateral do usuário no desktop
+      // Desktop Box
       if (headerUserAction) {
         headerUserAction.setAttribute('href', '#');
         const bottomTxt = headerUserAction.querySelector('.bottom-txt');
@@ -177,15 +197,15 @@
     .main-header { padding: 15px 40px; }
   }
 
-  .header-left { display: flex; align-items: center; gap: 12px; }
+  .header-left { display: flex; align-items: center; gap: 14px; }
 
   /* Botão Hambúrguer */
   .menu-toggle {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    width: 26px;
-    height: 20px;
+    width: 28px;
+    height: 22px;
     background: transparent;
     border: none;
     cursor: pointer;
@@ -258,11 +278,11 @@
   .nav-menu {
     position: fixed;
     top: 0;
-    left: -280px;
-    width: 270px;
+    left: -300px;
+    width: 280px;
     height: 100vh;
     background: #fff;
-    box-shadow: 4px 0 15px rgba(0,0,0,0.1);
+    box-shadow: 4px 0 20px rgba(0,0,0,0.15);
     display: flex;
     flex-direction: column;
     gap: 0;
@@ -280,14 +300,15 @@
     padding: 18px 20px;
     background: #2d4a3e;
     color: #fff;
-    font-weight: bold;
-    font-size: 16px;
   }
+  .mobile-menu-title span { display: block; font-weight: bold; font-size: 16px; }
+  .mobile-menu-title small { font-size: 11px; opacity: 0.8; }
+
   .close-menu {
     background: transparent;
     border: none;
     color: #fff;
-    font-size: 28px;
+    font-size: 30px;
     cursor: pointer;
     line-height: 1;
   }
@@ -295,35 +316,49 @@
     .mobile-menu-header { display: none; }
   }
 
+  .menu-section-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #888;
+    background: #fbf9f4;
+    padding: 10px 20px;
+    font-weight: bold;
+    border-bottom: 1px solid #f2eedb;
+    border-top: 1px solid #f2eedb;
+    margin-top: 5px;
+  }
+
   .nav-menu a {
     text-decoration: none;
     font-size: 14px;
-    font-weight: bold;
+    font-weight: 600;
     color: #2d4a3e;
-    padding: 15px 20px;
+    padding: 13px 20px;
     border-bottom: 1px solid #f4f0e6;
+    display: block;
   }
   .nav-menu a:hover { color: #d4af37; background: #faf8f3; }
 
   .mobile-extra-links {
-    margin-top: auto;
-    padding: 20px;
-    background: #fbf9f4;
     display: flex;
     flex-direction: column;
-    gap: 10px;
   }
   .mobile-extra-links a {
-    padding: 10px 0;
-    border: none;
+    color: #444;
     font-size: 13px;
-    color: #555;
   }
-  @media(min-width: 768px) {
-    .mobile-extra-links { display: none; }
+  .mobile-login-highlight {
+    background: #fdf8eb;
+    color: #2d4a3e !important;
+    font-weight: bold !important;
   }
 
   @media(min-width: 768px) {
+    .menu-section-label { display: none; }
+    .mobile-extra-links { display: contents; }
+    .mobile-extra-links a { color: #2d4a3e; font-size: 13px; padding: 5px 10px; border: none; }
+
     .nav-menu {
       position: static;
       height: auto;
