@@ -105,28 +105,27 @@
 
     if (!menuToggle || !navMenu) return;
 
-    function toggleMenu() {
+    const toggleMenu = (e) => {
+      if (e) e.preventDefault();
       navMenu.classList.toggle('active');
       menuOverlay?.classList.toggle('active');
       document.body.classList.toggle('no-scroll');
-    }
+    };
 
-    // Remove event listeners antigos se existirem clonando os nós ou limpando
-    // Garantir eventos de clique limpos
     menuToggle.onclick = toggleMenu;
     if (closeMenu) closeMenu.onclick = toggleMenu;
     if (menuOverlay) menuOverlay.onclick = toggleMenu;
 
-    // Fechar menu ao clicar em qualquer link interno no mobile
     navMenu.querySelectorAll('a').forEach(link => {
       link.onclick = () => {
         if (window.innerWidth < 768) {
-          toggleMenu();
+          navMenu.classList.remove('active');
+          menuOverlay?.classList.remove('active');
+          document.body.classList.remove('no-scroll');
         }
       };
     });
 
-    // Sincronização de Sessão Supabase
     async function checkUser() {
       const { data: { session } } = await supabase.auth.getSession();
       
@@ -137,7 +136,6 @@
       if (session && session.user) {
         const email = session.user.email;
         
-        // Desktop
         if (authLinkDesktop) {
           authLinkDesktop.textContent = email;
           authLinkDesktop.setAttribute('href', '#');
@@ -154,7 +152,6 @@
           };
         }
 
-        // Mobile
         if (authLinkMobile) {
           authLinkMobile.textContent = `Sair da Conta (${email})`;
           authLinkMobile.style.background = '#f8d7da';
@@ -168,7 +165,6 @@
           };
         }
 
-        // Desktop Box
         if (headerUserAction) {
           headerUserAction.setAttribute('href', '#');
           const bottomTxt = headerUserAction.querySelector('.bottom-txt');
@@ -188,8 +184,12 @@
     checkUser();
   }
 
-  // Executa ao carregar a página inicialmente e também em navegações do Astro
-  document.addEventListener('DOMContentLoaded', initHeader);
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initHeader);
+  } else {
+    initHeader();
+  }
+  
   document.addEventListener('astro:page-load', initHeader);
 </script>
 
