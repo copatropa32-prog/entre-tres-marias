@@ -1,6 +1,5 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import WhatsAppButton from '../components/WhatsAppButton.astro';
 
@@ -322,8 +321,6 @@ const tercos = [
 ---
 
 <Layout title="Terços e Pulseiras | Entre Ave-Marias">
-  <Header />
-
   <main class="catalog-page">
     <div class="container">
       <div class="breadcrumb">
@@ -373,7 +370,6 @@ const tercos = [
     </div>
   </main>
 
-  <!-- Modal para visualização da imagem em tela cheia -->
   <div id="imageModal" class="modal">
     <span class="close-modal">&times;</span>
     <img class="modal-content" id="img01" alt="Imagem ampliada" />
