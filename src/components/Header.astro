@@ -1,45 +1,68 @@
 <header class="header">
+  <!-- Top Bar (Desktop) -->
   <div class="top-bar">
     <span>✨ Frete grátis para São Bernardo do Campo nas compras acima de R$ 150</span>
     <div class="top-links">
       <a href="/envio">Rastrear pedido</a>
       <a href="/favoritos">Favoritos</a>
       <a href="/carrinho">Meu carrinho (0)</a>
-      
-      <!-- Área dinamicamente controlada pelo JS -->
-      <div id="user-menu" style="display: inline-block; margin-left: 15px;">
-        <a href="/login" id="auth-link" class="login-btn">Entrar</a>
+      <div id="user-menu-desktop" style="display: inline-block; margin-left: 15px;">
+        <a href="/login" id="auth-link-desktop" class="login-btn">Entrar</a>
       </div>
     </div>
   </div>
 
+  <!-- Main Header -->
   <div class="main-header">
-    <a href="/" class="logo">
-      <img src="/logotipo.png" alt="Entre Ave-Marias" />
-      <div class="logo-text">
-        <span>Entre</span>
-        <span class="brand">Ave-Marias</span>
-        <span class="sub">artigos religiosos</span>
-      </div>
-    </a>
+    <div class="header-left">
+      <!-- Botão Hambúrguer (Mobile) -->
+      <button class="menu-toggle" id="menuToggle" aria-label="Abrir Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <a href="/" class="logo">
+        <img src="/logotipo.png" alt="Entre Ave-Marias" />
+        <div class="logo-text">
+          <span>Entre</span>
+          <span class="brand">Ave-Marias</span>
+          <span class="sub">artigos religiosos</span>
+        </div>
+      </a>
+    </div>
 
     <div class="search-bar">
       <input type="text" placeholder="Faça uma pesquisa..." />
       <button><i class="search-icon">🔍</i></button>
     </div>
 
-    <div class="user-action-box">
-      <a href="/login" id="header-user-action" class="user-box-link">
-        <div class="user-icon">👤</div>
-        <div class="user-text">
-          <span class="top-txt">Cadastre-se</span>
-          <span class="bottom-txt">para uma compra rápida!</span>
-        </div>
+    <div class="header-right-actions">
+      <!-- Ícone de Carrinho para Mobile -->
+      <a href="/carrinho" class="mobile-cart-icon" title="Carrinho">
+        🛒 <span class="cart-count">0</span>
       </a>
+
+      <!-- Bloco de Usuário (Desktop) -->
+      <div class="user-action-box">
+        <a href="/login" id="header-user-action" class="user-box-link">
+          <div class="user-icon">👤</div>
+          <div class="user-text">
+            <span class="top-txt">Cadastre-se</span>
+            <span class="bottom-txt">para compra rápida!</span>
+          </div>
+        </a>
+      </div>
     </div>
   </div>
 
-  <nav class="nav-menu">
+  <!-- Menu de Navegação Principal -->
+  <nav class="nav-menu" id="navMenu">
+    <div class="mobile-menu-header">
+      <span>Menu</span>
+      <button class="close-menu" id="closeMenu">&times;</button>
+    </div>
+    
     <a href="/">INÍCIO</a>
     <a href="/sobre">QUEM SOMOS</a>
     <a href="/envio">FORMAS DE ENVIO</a>
@@ -48,31 +71,58 @@
     <a href="/camisetas">CAMISETAS</a>
     <a href="/estatuas">ESTÁTUAS</a>
     <a href="/velas">VELAS</a>
+
+    <!-- Links extras visíveis apenas no menu mobile -->
+    <div class="mobile-extra-links">
+      <a href="/envio">📦 Rastrear pedido</a>
+      <a href="/favoritos">❤️ Favoritos</a>
+      <a href="/login" id="auth-link-mobile">👤 Entrar / Cadastrar</a>
+    </div>
   </nav>
+  
+  <!-- Overlay escuro para quando o menu mobile abrir -->
+  <div class="menu-overlay" id="menuOverlay"></div>
 </header>
 
 <script>
   import { supabase } from '../lib/supabase';
 
+  // Controle do menu mobile
+  const menuToggle = document.getElementById('menuToggle');
+  const closeMenu = document.getElementById('closeMenu');
+  const navMenu = document.getElementById('navMenu');
+  const menuOverlay = document.getElementById('menuOverlay');
+
+  function toggleMenu() {
+    navMenu?.classList.toggle('active');
+    menuOverlay?.classList.toggle('active');
+    document.body.classList.toggle('no-scroll');
+  }
+
+  menuToggle?.addEventListener('click', toggleMenu);
+  closeMenu?.addEventListener('click', toggleMenu);
+  menuOverlay?.addEventListener('click', toggleMenu);
+
+  // Sincronização de Sessão Supabase
   async function checkUser() {
     const { data: { session } } = await supabase.auth.getSession();
     
-    const authLink = document.getElementById('auth-link');
+    const authLinkDesktop = document.getElementById('auth-link-desktop');
+    const authLinkMobile = document.getElementById('auth-link-mobile');
     const headerUserAction = document.getElementById('header-user-action');
 
     if (session && session.user) {
       const email = session.user.email;
       
-      // Atualiza o botão superior "Entrar" para mostrar o e-mail e opção de Sair
-      if (authLink) {
-        authLink.textContent = email;
-        authLink.setAttribute('href', '#');
-        authLink.style.background = '#d4af37';
-        authLink.style.color = '#fff';
-        authLink.style.padding = '4px 10px';
-        authLink.style.borderRadius = '4px';
-        
-        authLink.addEventListener('click', async (e) => {
+      // Atualiza link desktop
+      if (authLinkDesktop) {
+        authLinkDesktop.textContent = email;
+        authLinkDesktop.setAttribute('href', '#');
+        authLinkDesktop.style.background = '#d4af37';
+        authLinkDesktop.style.color = '#fff';
+        authLinkDesktop.style.padding = '4px 10px';
+        authLinkDesktop.style.borderRadius = '4px';
+        authLinkDesktop.addEventListener('click', async (e) => {
           e.preventDefault();
           if (confirm('Deseja sair da sua conta?')) {
             await supabase.auth.signOut();
@@ -81,7 +131,19 @@
         });
       }
 
-      // Atualiza o bloco lateral direito
+      // Atualiza link mobile
+      if (authLinkMobile) {
+        authLinkMobile.textContent = `Sair (${email})`;
+        authLinkMobile.addEventListener('click', async (e) => {
+          e.preventDefault();
+          if (confirm('Deseja sair da sua conta?')) {
+            await supabase.auth.signOut();
+            window.location.href = '/';
+          }
+        });
+      }
+
+      // Atualiza o bloco lateral do usuário no desktop
       if (headerUserAction) {
         headerUserAction.setAttribute('href', '#');
         const bottomTxt = headerUserAction.querySelector('.bottom-txt');
@@ -102,27 +164,210 @@
 </script>
 
 <style>
-  .header { background: #fff; border-bottom: 1px solid #eae1d0; font-family: sans-serif; }
+  .header { background: #fff; border-bottom: 1px solid #eae1d0; font-family: sans-serif; position: relative; z-index: 100; }
+  
+  /* Top Bar */
   .top-bar { background: #d4af37; color: #fff; font-size: 12px; display: flex; justify-content: space-between; padding: 6px 40px; }
   .top-links { display: flex; gap: 15px; align-items: center; }
   .top-links a { color: #fff; text-decoration: none; }
-  .main-header { display: flex; justify-content: space-between; align-items: center; padding: 15px 40px; }
-  .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-  .logo img { width: 50px; height: 50px; border-radius: 50%; object-fit: contain; }
+
+  /* Main Header */
+  .main-header { display: flex; justify-content: space-between; align-items: center; padding: 12px 20px; }
+  @media(min-width: 768px) {
+    .main-header { padding: 15px 40px; }
+  }
+
+  .header-left { display: flex; align-items: center; gap: 12px; }
+
+  /* Botão Hambúrguer */
+  .menu-toggle {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 26px;
+    height: 20px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+  }
+  .menu-toggle span {
+    width: 100%;
+    height: 3px;
+    background-color: #2d4a3e;
+    border-radius: 2px;
+  }
+  @media(min-width: 768px) {
+    .menu-toggle { display: none; }
+  }
+
+  .logo { display: flex; align-items: center; gap: 8px; text-decoration: none; }
+  .logo img { width: 42px; height: 42px; border-radius: 50%; object-fit: contain; }
   .logo-text { display: flex; flex-direction: column; line-height: 1.1; }
-  .logo-text span { font-size: 11px; color: #555; letter-spacing: 1px; }
-  .logo-text .brand { font-size: 16px; font-weight: bold; color: #2d4a3e; }
-  .logo-text .sub { font-size: 9px; color: #888; }
-  .search-bar { display: flex; border: 1px solid #ddd; border-radius: 20px; overflow: hidden; width: 350px; }
+  .logo-text span { font-size: 10px; color: #555; letter-spacing: 1px; }
+  .logo-text .brand { font-size: 15px; font-weight: bold; color: #2d4a3e; }
+  .logo-text .sub { font-size: 8px; color: #888; display: none; }
+  @media(min-width: 480px) {
+    .logo img { width: 50px; height: 50px; }
+    .logo-text .sub { display: block; }
+  }
+
+  /* Search Bar */
+  .search-bar { display: none; border: 1px solid #ddd; border-radius: 20px; overflow: hidden; width: 320px; }
+  @media(min-width: 768px) {
+    .search-bar { display: flex; }
+  }
   .search-bar input { width: 100%; border: none; padding: 8px 15px; outline: none; font-size: 13px; }
   .search-bar button { background: #fff; border: none; padding: 0 12px; cursor: pointer; }
-  .user-action-box { display: flex; align-items: center; }
-  .user-box-link { display: flex; align-items: center; gap: 10px; text-decoration: none; border: 1px solid #eae1d0; padding: 8px 15px; border-radius: 30px; }
-  .user-icon { font-size: 20px; color: #2d4a3e; }
+
+  .header-right-actions { display: flex; align-items: center; gap: 15px; }
+
+  .mobile-cart-icon {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    font-size: 20px;
+    position: relative;
+    color: #2d4a3e;
+  }
+  .cart-count {
+    font-size: 11px;
+    background: #d4af37;
+    color: #fff;
+    border-radius: 50%;
+    padding: 1px 5px;
+    position: absolute;
+    top: -6px;
+    right: -8px;
+  }
+  @media(min-width: 768px) {
+    .mobile-cart-icon { display: none; }
+  }
+
+  .user-action-box { display: none; }
+  @media(min-width: 768px) {
+    .user-action-box { display: flex; align-items: center; }
+  }
+  .user-box-link { display: flex; align-items: center; gap: 10px; text-decoration: none; border: 1px solid #eae1d0; padding: 6px 14px; border-radius: 30px; }
+  .user-icon { font-size: 18px; color: #2d4a3e; }
   .user-text { display: flex; flex-direction: column; }
-  .user-text .top-txt { font-size: 13px; font-weight: bold; color: #2d4a3e; }
-  .user-text .bottom-txt { font-size: 11px; color: #666; }
-  .nav-menu { display: flex; justify-content: center; gap: 25px; padding: 10px 0; border-top: 1px solid #f2eedb; background: #fff; flex-wrap: wrap; }
-  .nav-menu a { text-decoration: none; font-size: 13px; font-weight: bold; color: #2d4a3e; padding: 5px 10px; }
-  .nav-menu a:hover { color: #d4af37; }
+  .user-text .top-txt { font-size: 12px; font-weight: bold; color: #2d4a3e; }
+  .user-text .bottom-txt { font-size: 10px; color: #666; }
+
+  /* Nav Menu / Menu Lateral Mobile */
+  .nav-menu {
+    position: fixed;
+    top: 0;
+    left: -280px;
+    width: 270px;
+    height: 100vh;
+    background: #fff;
+    box-shadow: 4px 0 15px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding: 0;
+    transition: left 0.3s ease;
+    z-index: 1000;
+    overflow-y: auto;
+  }
+  .nav-menu.active { left: 0; }
+
+  .mobile-menu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 20px;
+    background: #2d4a3e;
+    color: #fff;
+    font-weight: bold;
+    font-size: 16px;
+  }
+  .close-menu {
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 28px;
+    cursor: pointer;
+    line-height: 1;
+  }
+  @media(min-width: 768px) {
+    .mobile-menu-header { display: none; }
+  }
+
+  .nav-menu a {
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+    color: #2d4a3e;
+    padding: 15px 20px;
+    border-bottom: 1px solid #f4f0e6;
+  }
+  .nav-menu a:hover { color: #d4af37; background: #faf8f3; }
+
+  .mobile-extra-links {
+    margin-top: auto;
+    padding: 20px;
+    background: #fbf9f4;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .mobile-extra-links a {
+    padding: 10px 0;
+    border: none;
+    font-size: 13px;
+    color: #555;
+  }
+  @media(min-width: 768px) {
+    .mobile-extra-links { display: none; }
+  }
+
+  @media(min-width: 768px) {
+    .nav-menu {
+      position: static;
+      height: auto;
+      width: 100%;
+      box-shadow: none;
+      flex-direction: row;
+      justify-content: center;
+      gap: 20px;
+      padding: 10px 0;
+      border-top: 1px solid #f2eedb;
+      background: #fff;
+      flex-wrap: wrap;
+    }
+    .nav-menu a {
+      padding: 5px 10px;
+      border: none;
+      font-size: 13px;
+    }
+  }
+
+  /* Overlay */
+  .menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 900;
+  }
+  .menu-overlay.active {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  body.no-scroll {
+    overflow: hidden;
+  }
+
+  .top-bar { display: none; }
+  @media(min-width: 768px) {
+    .top-bar { display: flex; }
+  }
 </style>
