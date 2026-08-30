@@ -12,15 +12,18 @@
     </div>
   </div>
 
+  <!-- Checkbox invisível que controla a abertura do menu mobile (CSS Puro, 100% funcional) -->
+  <input type="checkbox" id="menu-checkbox" class="menu-checkbox" />
+
   <!-- Main Header -->
   <div class="main-header">
     <div class="header-left">
-      <!-- Botão Hambúrguer Profissional -->
-      <button class="menu-toggle" id="menuToggle" aria-label="Abrir Menu" type="button">
+      <!-- Botão Hambúrguer conectado ao Checkbox -->
+      <label for="menu-checkbox" class="menu-toggle" aria-label="Abrir Menu">
         <span class="bar"></span>
         <span class="bar"></span>
         <span class="bar"></span>
-      </button>
+      </label>
 
       <a href="/" class="logo">
         <img src="/logotipo.png" alt="Entre Ave-Marias" />
@@ -64,7 +67,8 @@
         <span>Entre Ave-Marias</span>
         <small>Artigos Religiosos</small>
       </div>
-      <button class="close-menu" id="closeMenu" type="button" aria-label="Fechar Menu">&times;</button>
+      <!-- O label fecha o menu desmarcando o checkbox -->
+      <label for="menu-checkbox" class="close-menu" aria-label="Fechar Menu">&times;</label>
     </div>
     
     <!-- Categorias Principais -->
@@ -90,124 +94,72 @@
     </div>
   </nav>
   
-  <!-- Overlay escuro -->
-  <div class="menu-overlay" id="menuOverlay"></div>
+  <!-- Overlay escuro clicável para fechar -->
+  <label for="menu-checkbox" class="menu-overlay"></label>
 </header>
 
 <script>
   import { supabase } from '../lib/supabase';
 
-  function initHeader() {
-    const menuToggle = document.getElementById('menuToggle');
-    const closeMenu = document.getElementById('closeMenu');
-    const navMenu = document.getElementById('navMenu');
-    const menuOverlay = document.getElementById('menuOverlay');
-
-    if (menuToggle && navMenu && menuOverlay) {
-      // Clona o botão para limpar eventuais listeners duplicados de navegações anteriores do Astro
-      const newToggle = menuToggle.cloneNode(true);
-      menuToggle.parentNode.replaceChild(newToggle, menuToggle);
+  async function checkUser() {
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
       
-      const freshToggle = document.getElementById('menuToggle');
-      const freshClose = document.getElementById('closeMenu');
-      const freshOverlay = document.getElementById('menuOverlay');
+      const authLinkDesktop = document.getElementById('auth-link-desktop');
+      const authLinkMobile = document.getElementById('auth-link-mobile');
+      const headerUserAction = document.getElementById('header-user-action');
 
-      const openDrawer = (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        navMenu.classList.add('active');
-        freshOverlay.classList.add('active');
-        document.body.classList.add('no-scroll');
-      };
-
-      const closeDrawer = (e) => {
-        if (e) {
-          e.preventDefault();
-          e.stopPropagation();
-        }
-        navMenu.classList.remove('active');
-        freshOverlay.classList.remove('active');
-        document.body.classList.remove('no-scroll');
-      };
-
-      freshToggle.addEventListener('click', openDrawer);
-      if (freshClose) freshClose.addEventListener('click', closeDrawer);
-      freshOverlay.addEventListener('click', closeDrawer);
-
-      // Fecha ao clicar em qualquer link do menu no celular
-      navMenu.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
-          if (window.innerWidth < 768) {
-            closeDrawer();
-          }
-        });
-      });
-    }
-
-    // Gerenciamento de Sessão Supabase
-    async function checkUser() {
-      try {
-        const { data: { session } } = await supabase.auth.getSession();
+      if (session && session.user) {
+        const email = session.user.email;
         
-        const authLinkDesktop = document.getElementById('auth-link-desktop');
-        const authLinkMobile = document.getElementById('auth-link-mobile');
-        const headerUserAction = document.getElementById('header-user-action');
-
-        if (session && session.user) {
-          const email = session.user.email;
-          
-          if (authLinkDesktop) {
-            authLinkDesktop.textContent = email;
-            authLinkDesktop.setAttribute('href', '#');
-            authLinkDesktop.className = 'user-logged-badge';
-            authLinkDesktop.onclick = async (e) => {
-              e.preventDefault();
-              if (confirm('Deseja sair da sua conta?')) {
-                await supabase.auth.signOut();
-                window.location.href = '/';
-              }
-            };
-          }
-
-          if (authLinkMobile) {
-            authLinkMobile.textContent = `Sair da Conta (${email})`;
-            authLinkMobile.className = 'mobile-login-highlight logout-style';
-            authLinkMobile.onclick = async (e) => {
-              e.preventDefault();
-              if (confirm('Deseja sair da sua conta?')) {
-                await supabase.auth.signOut();
-                window.location.href = '/';
-              }
-            };
-          }
-
-          if (headerUserAction) {
-            headerUserAction.setAttribute('href', '#');
-            const topTxt = headerUserAction.querySelector('.top-txt');
-            const bottomTxt = headerUserAction.querySelector('.bottom-txt');
-            if (topTxt) topTxt.textContent = 'Olá, Bem-vindo(a)!';
-            if (bottomTxt) bottomTxt.textContent = 'Clique para Sair';
-            
-            headerUserAction.onclick = async (e) => {
-              e.preventDefault();
-              if (confirm('Deseja sair da sua conta?')) {
-                await supabase.auth.signOut();
-                window.location.href = '/';
-              }
-            };
-          }
+        if (authLinkDesktop) {
+          authLinkDesktop.textContent = email;
+          authLinkDesktop.setAttribute('href', '#');
+          authLinkDesktop.className = 'user-logged-badge';
+          authLinkDesktop.onclick = async (e) => {
+            e.preventDefault();
+            if (confirm('Deseja sair da sua conta?')) {
+              await supabase.auth.signOut();
+              window.location.href = '/';
+            }
+          };
         }
-      } catch (err) {
-        console.error("Erro ao checar sessão:", err);
-      }
-    }
 
-    checkUser();
+        if (authLinkMobile) {
+          authLinkMobile.textContent = `Sair da Conta (${email})`;
+          authLinkMobile.className = 'mobile-login-highlight logout-style';
+          authLinkMobile.onclick = async (e) => {
+            e.preventDefault();
+            if (confirm('Deseja sair da sua conta?')) {
+              await supabase.auth.signOut();
+              window.location.href = '/';
+            }
+          };
+        }
+
+        if (headerUserAction) {
+          headerUserAction.setAttribute('href', '#');
+          const topTxt = headerUserAction.querySelector('.top-txt');
+          const bottomTxt = headerUserAction.querySelector('.bottom-txt');
+          if (topTxt) topTxt.textContent = 'Olá, Bem-vindo(a)!';
+          if (bottomTxt) bottomTxt.textContent = 'Clique para Sair';
+          
+          headerUserAction.onclick = async (e) => {
+            e.preventDefault();
+            if (confirm('Deseja sair da sua conta?')) {
+              await supabase.auth.signOut();
+              window.location.href = '/';
+            }
+          };
+        }
+      }
+    } catch (err) {
+      console.error("Erro ao checar sessão:", err);
+    }
   }
 
-  // Executa no carregamento inicial e em transições de página do Astro
-  document.addEventListener('DOMContentLoaded', initHeader);
-  document.addEventListener('astro:page-load', initHeader);
+  document.addEventListener('DOMContentLoaded', checkUser);
+  document.addEventListener('astro:page-load', checkUser);
 </script>
 
 <style>
@@ -217,9 +169,14 @@
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     position: sticky;
     top: 0;
-    z-index: 99999; /* Z-index extremamente alto para garantir que o header fique sobre todo o conteúdo */
+    z-index: 99999;
   }
   
+  /* Esconde o checkbox real */
+  .menu-checkbox {
+    display: none;
+  }
+
   /* Top Bar */
   .top-bar {
     background: #2d4a3e;
@@ -259,7 +216,7 @@
 
   .header-left { display: flex; align-items: center; gap: 16px; }
 
-  /* Botão Hambúrguer Refinado e Garantido Clicável */
+  /* Botão Hambúrguer como Label vinculado ao Checkbox */
   .menu-toggle {
     display: flex;
     flex-direction: column;
@@ -348,7 +305,7 @@
   .user-text .top-txt { font-size: 12px; font-weight: 700; color: #2d4a3e; }
   .user-text .bottom-txt { font-size: 10px; color: #666; }
 
-  /* Nav Menu / Menu Gaveta Lateral Mobile Profissional */
+  /* Nav Menu / Gaveta Lateral Mobile */
   .nav-menu {
     position: fixed;
     top: 0;
@@ -362,10 +319,14 @@
     gap: 0;
     padding: 0;
     transition: left 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: 999999; /* Z-index ultra alto para ficar acima de qualquer elemento da página ou botão flutuante */
+    z-index: 999999;
     overflow-y: auto;
   }
-  .nav-menu.active { left: 0; }
+
+  /* QUANDO O CHECKBOX ESTIVER MARCADO, ABRE O MENU */
+  #menu-checkbox:checked ~ .nav-menu {
+    left: 0;
+  }
 
   .mobile-menu-header {
     display: flex;
@@ -480,16 +441,14 @@
     visibility: hidden;
     opacity: 0;
     transition: opacity 0.3s ease, visibility 0.3s ease;
-    z-index: 999950; /* Fica abaixo apenas do menu gaveta, mas acima de qualquer outro elemento da tela */
-  }
-  .menu-overlay.active {
-    visibility: visible;
-    opacity: 1;
+    z-index: 999950;
+    cursor: pointer;
   }
 
-  body.no-scroll {
-    overflow: hidden;
-    touch-action: none;
+  /* QUANDO O CHECKBOX ESTIVER MARCADO, MOSTRA O OVERLAY */
+  #menu-checkbox:checked ~ .menu-overlay {
+    visibility: visible;
+    opacity: 1;
   }
 
   .top-bar { display: none; }
