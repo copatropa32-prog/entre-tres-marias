@@ -8,6 +8,7 @@ export const saveCart = (cart) => {
 export const getFavorites = () => JSON.parse(localStorage.getItem('entre_ave_marias_fav')) || [];
 export const saveFavorites = (favs) => {
   localStorage.setItem('entre_ave_marias_fav', JSON.stringify(favs));
+  updateCounters();
 };
 
 export function addToCart(product) {
@@ -22,11 +23,28 @@ export function addToCart(product) {
   openCartDrawer();
 }
 
+export function toggleFavorite(product) {
+  let favs = getFavorites();
+  const existingIndex = favs.findIndex(item => item.id === product.id);
+  if (existingIndex > -1) {
+    favs.splice(existingIndex, 1);
+  } else {
+    favs.push(product);
+  }
+  saveFavorites(favs);
+}
+
 export function updateCounters() {
   const cart = getCart();
   const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
   document.querySelectorAll('.cart-count-num').forEach(el => {
     el.textContent = totalItems;
+  });
+
+  const favs = getFavorites();
+  const totalFavs = favs.length;
+  document.querySelectorAll('.fav-count-num').forEach(el => {
+    el.textContent = totalFavs;
   });
 }
 
@@ -73,6 +91,28 @@ function renderCartItems() {
   if (totalContainer) totalContainer.textContent = `R$ ${subtotal.toFixed(2)}`;
 }
 
+function renderFavoriteItems() {
+  const container = document.getElementById('favorites-items-container');
+  if (!container) return;
+
+  const favs = getFavorites();
+  if (favs.length === 0) {
+    container.innerHTML = `<p class="empty-msg">Sua lista de favoritos está vazia.</p>`;
+    return;
+  }
+
+  container.innerHTML = favs.map(item => `
+    <div class="drawer-item">
+      <img src="${item.image}" alt="${item.name}" />
+      <div class="drawer-item-info">
+        <h4>${item.name}</h4>
+        <p>R$ ${item.price.toFixed(2)}</p>
+      </div>
+      <button onclick="window.removeFavoriteItem('${item.id}')" class="remove-btn">&times;</button>
+    </div>
+  `).join('');
+}
+
 window.removeItemCart = (id) => {
   let cart = getCart();
   cart = cart.filter(item => item.id !== id);
@@ -80,10 +120,17 @@ window.removeItemCart = (id) => {
   renderCartItems();
 };
 
+window.removeFavoriteItem = (id) => {
+  let favs = getFavorites();
+  favs = favs.filter(item => item.id !== id);
+  saveFavorites(favs);
+  renderFavoriteItems();
+};
+
 document.addEventListener('DOMContentLoaded', () => {
   updateCounters();
 
-  // Eventos para abrir as gavetas pelos botões do Header que criamos antes
+  // Eventos para abrir as gavetas pelos botões do Header
   document.getElementById('open-cart-desktop')?.addEventListener('click', openCartDrawer);
   document.getElementById('open-cart-mobile')?.addEventListener('click', openCartDrawer);
   document.getElementById('open-cart-mobile-menu')?.addEventListener('click', openCartDrawer);
