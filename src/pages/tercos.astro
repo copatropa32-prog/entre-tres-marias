@@ -2,8 +2,91 @@
 import Layout from '../layouts/Layout.astro';
 import WhatsAppButton from '../components/WhatsAppButton.astro';
 
-// Lista de produtos com ID e Preço adicionados para o Carrinho funcionar
 const tercos = [
+  {
+    id: 'terco-tau',
+    nome: "Terço em Madeira com Cruz Tau",
+    preco: 45.90,
+    imagem: "/terco-tau.png",
+    descricao: "O Tau é um símbolo milenar de conversão, proteção e entrega total a Deus.\n\nEste terço em contas de madeira rústica com a Cruz Tau une simplicidade, força espiritual e tradição franciscana para guiar seus momentos de oração com profunda paz.",
+    detalhes: [
+      "Contas em madeira natural de alta durabilidade",
+      "Crucifixo com o símbolo Tau franciscano",
+      "Cordão resistente para uso diário e orações frequentes",
+      "Símbolo de proteção, penitência e renovação espiritual"
+    ],
+    sugestao: "Disponível na Entre Ave-Marias – Artigos Religiosos.\n\n#terço #tau #sãofrancisco #devoção #artigosreligiosos"
+  },
+  {
+    id: 'terco-escapulario',
+    nome: "Terço Escapulário",
+    preco: 49.90,
+    imagem: "/terco-escapulario.png",
+    descricao: "A união perfeita entre a devoção do Santo Terço e a proteção do Escapulário.\n\nUma peça dupla e especial para carregar junto ao peito, fortalecendo sua fé e invocando a constante intercessão da Virgem Maria e dos santos protetores.",
+    detalhes: [
+      "Modelo versátil que une terço e escapulário em uma só peça",
+      "Medalhas e contas com acabamento refinado em metal",
+      "Perfeito para o uso diário e momentos de recolhimento",
+      "Símbolo de proteção espiritual e entrega mariana"
+    ],
+    sugestao: "Aceitamos encomendas personalizadas para todo o Brasil.\n\n#terço #escapulário #devoção #artigosreligiosos #entreavemarias"
+  },
+  {
+    id: 'terco-de-todas-as-maes',
+    nome: "Terço de Todas as Mães",
+    preco: 52.90,
+    imagem: "/terco-de-todas-as-maes.png",
+    descricao: "Homenagem especial à maternidade sagrada e à intercessão de Nossa Senhora, mãe de todas as mães.\n\nConfeccionado com contas delicadas e entremeio especial, é um convite para que cada mãe coloque seus filhos sob o manto protetor da Virgem Maria.",
+    detalhes: [
+      "Contas delicadas e harmoniosas em tons suaves",
+      "Entremeio com temática mariana dedicada às mães",
+      "Crucifixo trabalhado com riqueza de detalhes",
+      "Um presente emocionante para o Dia das Mães, aniversários ou nascimento"
+    ],
+    sugestao: "Entre Ave-Marias – Evangelizando através da devoção.\n\n#terço #mães #nossasenhora #maternidade #artigosreligiosos"
+  },
+  {
+    id: 'terco-de-pescoco-delicado',
+    nome: "Terço de Pescoço Delicado",
+    preco: 42.90,
+    imagem: "/terco-de-pescoco-delicado.png",
+    descricao: "Leve a sua fé com máxima delicadeza e discrição ao redor do pescoço.\n\nEste colar terço foi desenvolvido com elos e contas menores, perfeito para compor looks diários com elegância sem abrir mão da oração constante.",
+    detalhes: [
+      "Design leve, curto e confortável para usar como colar",
+      "Contas e crucifixo em escala reduzida e refinada",
+      "Material resistente e antialérgico",
+      "Excelente opção para uso contínuo"
+    ],
+    sugestao: "Disponível na nossa loja Entre Ave-Marias – Artigos Religiosos.\n\n#terçodecorrente #colarterço #fé #estilocatólico #entreavemarias"
+  },
+  {
+    id: 'pulseira-terco-senhora',
+    nome: "Pulseira Terço Mariana",
+    preco: 34.90,
+    imagem: "/pulseira-terco-senhora.png",
+    descricao: "Uma pulseira que é também um mini terço para acompanhar suas breves orações ao longo do dia.\n\nCom contas delicadas e medalha mariana, é um acessório elegante que lembra a presença constante de Nossa Senhora em sua rotina.",
+    detalhes: [
+      "Estrutura confortável com fecho ou elástico de alta resistência",
+      "Medalha com efígie mariana e pequenas contas de contagem",
+      "Prática para o dia a dia e fácil de combinar com outros acessórios",
+      "Símbolo discreto de devoção e proteção"
+    ],
+    sugestao: "Aceitamos encomendas personalizadas.\n\n#pulseiraterço #devoção #acessórioreligioso #entreavemarias"
+  },
+  {
+    id: 'nossa-senhora-do-assuncao',
+    nome: "Terço de Nossa Senhora da Assunção",
+    preco: 54.90,
+    imagem: "/nossa-senhora-do-assuncao.png",
+    descricao: "Inspirado no mistério da Assunção de Nossa Senhora aos céus em corpo e alma.\n\nEste belíssimo terço apresenta contas e entremeio exclusivos que celebram a glória da Virgem Maria, elevando nossos corações em oração rumo ao Pai.",
+    detalhes: [
+      "Contas especiais em tons celestes e dourados",
+      "Entremeio com a imagem de Nossa Senhora da Assunção",
+      "Crucifixo ornamentado em metal de alta qualidade",
+      "Peça devocional exclusiva para momentos de oração profunda"
+    ],
+    sugestao: "Entre Ave-Marias – Artigos Religiosos.\n\n#nossasenhoradaassuncao #terço #devoção #artigosreligiosos #entreavemarias"
+  },
   {
     id: 'terco-luz',
     nome: "Terço de Pérolas com o Divino Espírito Santo",
