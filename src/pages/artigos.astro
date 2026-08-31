@@ -18,6 +18,48 @@ const artigos = [
       "Design delicado em tons suaves e fácil de carregar"
     ],
     sugestao: "Também é uma linda opção para presentear mães, avós, madrinhas, catequistas ou alguém especial que tenha devoção pela Sagrada Família."
+  },
+  {
+    id: 'bracelete-nossa-senhora-aparecida',
+    nome: "Bracelete Rígido de Nossa Senhora Aparecida",
+    preco: 59.90,
+    imagem: "/bracelete.png",
+    descricao: "Elegante bracelete rígido com acabamento dourado, delicadamente gravado com a imagem de Nossa Senhora Aparecida e a inscrição do seu manto sagrado.\n\nUma peça sofisticada e cheia de significado para carregar sua devoção com estilo e elegância no dia a dia ou em ocasiões especiais.",
+    detalhes: [
+      "Acabamento metálico de alta qualidade em tom dourado",
+      "Gravação detalhada com a imagem de Nossa Senhora Aparecida",
+      "Design aberto, ajustável e confortável para o pulso",
+      "Perfeito para presentear com sofisticação e fé"
+    ],
+    sugestao: "Disponível na nossa loja Entre Ave-Marias – Artigos Religiosos.\n\n#bracelete #nossasenhoraaparecida #devoção #artigosreligiosos #entreavemarias"
+  },
+  {
+    id: 'cruz-de-mesa',
+    nome: "Cruz de Mesa Sagrada",
+    preco: 49.90,
+    imagem: "/cruz-de-mesa.png",
+    descricao: "Bela cruz de mesa para abençoar o seu lar, escritório ou ambiente de oração.\n\nConfeccionada com excelente acabamento, traz proteção e paz para o ambiente familiar, recordando sempre a presença de Cristo em nosso cotidiano.",
+    detalhes: [
+      "Acabamento refinado e base firme para apoio em superfícies",
+      "Detalhes esculpidos com alta precisão e durabilidade",
+      "Ideal para salas, quartos ou altares domésticos",
+      "Um símbolo sagrado de bênção e proteção para o lar"
+    ],
+    sugestao: "Uma excelente opção para presentear em inaugurações de casa, casamentos ou datas especiais.\n\nEntre Ave-Marias – Evangelizando através da devoção."
+  },
+  {
+    id: 'leque-nossa-senhora',
+    nome: "Leque de Nossa Senhora",
+    preco: 44.90,
+    imagem: "/leque-nossa-senhora.png",
+    descricao: "Delicado leque estampado com a temática de Nossa Senhora, unindo praticidade, beleza e devoção.\n\nPerfeito para dias quentes, missas, romarias e celebrações religiosas, mantendo a elegância e a expressão da sua fé.",
+    detalhes: [
+      "Varetas em madeira resistente e tecido leve",
+      "Estampa exclusiva inspirada na devoção mariana",
+      "Prático, leve e fácil de carregar na bolsa",
+      "Aprox. 25 cm de altura com excelente abertura"
+    ],
+    sugestao: "Também é uma linda opção de presente para datas comemorativas.\n\n#leque #nossasenhora #fé #artigosreligiosos #entreavemarias"
   }
 ];
 ---
@@ -40,7 +82,6 @@ const artigos = [
           return (
             <div class="product-card">
               <div class="product-image-wrapper">
-                <!-- Botão de Favoritos Padronizado com atributos data-* -->
                 <button 
                   type="button" 
                   class="btn-favorite" 
@@ -140,7 +181,6 @@ const artigos = [
     document.getElementById('drawer-overlay')?.classList.add('open');
   };
 
-  // Gerenciador global e unificado de cliques para favoritos
   document.addEventListener('click', (e) => {
     const btn = e.target.closest('.btn-favorite');
     if (!btn) return;
@@ -175,7 +215,6 @@ const artigos = [
     window.dispatchEvent(new CustomEvent('favoritesUpdated'));
   });
 
-  // Função robusta para pintar os corações caso já estejam salvos
   function syncFavoriteButtons() {
     try {
       const favs = JSON.parse(localStorage.getItem('favorites') || '[]');
@@ -196,7 +235,6 @@ const artigos = [
   document.addEventListener('DOMContentLoaded', syncFavoriteButtons);
   window.addEventListener('favoritesUpdated', syncFavoriteButtons);
 
-  // Modal de zoom nas imagens
   const modal = document.getElementById('imageModal');
   const modalImg = document.getElementById('img01') as HTMLImageElement;
   const closeBtn = document.getElementsByClassName('close-modal')[0] as HTMLElement;

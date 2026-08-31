@@ -5,13 +5,47 @@ import WhatsAppButton from '../components/WhatsAppButton.astro';
 
 <Layout title="Entre Ave-Marias Artigos Religiosos">
   <main>
-    <!-- Seção Principal (Hero) -->
+    <!-- Seção Principal (Hero com Mosaico de Fundo) -->
     <section class="hero-section">
+      <!-- Fundo com as três imagens integradas -->
+      <div class="hero-bg-collage">
+        <div class="hero-bg-item bg-colares"></div>
+        <div class="hero-bg-item bg-cruz"></div>
+        <div class="hero-bg-item bg-pulseira"></div>
+      </div>
+
       <div class="hero-container">
         <span class="hero-subtitle">COLEÇÃO EXCLUSIVA</span>
         <h1>Fé que toca a alma</h1>
         <p>Cada peça feita à mão, um reflexo de devoção e exclusividade para o seu lar.</p>
         <a href="#colecoes" class="btn-hero">Fazer Encomenda</a>
+      </div>
+    </section>
+
+    <!-- Barra de Benefícios / Prova Social -->
+    <section class="benefits-bar">
+      <div class="benefits-container">
+        <div class="benefit-item">
+          <span class="benefit-icon">✨</span>
+          <div>
+            <h4>Feito à Mão</h4>
+            <p>Exclusividade e cuidado em cada detalhe</p>
+          </div>
+        </div>
+        <div class="benefit-item">
+          <span class="benefit-icon">📦</span>
+          <div>
+            <h4>Frete Especial</h4>
+            <p>Grátis para São Bernardo do Campo (acima de R$ 150)</p>
+          </div>
+        </div>
+        <div class="benefit-item">
+          <span class="benefit-icon">🛡️</span>
+          <div>
+            <h4>Compra Segura</h4>
+            <p>Atendimento humanizado via WhatsApp</p>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -21,7 +55,6 @@ import WhatsAppButton from '../components/WhatsAppButton.astro';
         <h2>Nossas Coleções</h2>
         <div class="collections-grid">
           
-          <!-- Terços (Clicável) -->
           <a href="/tercos" class="collection-card">
             <div class="card-image-wrapper">
                <img src="/terco-perolas-brancas.jpg" alt="Terços" />
@@ -29,7 +62,6 @@ import WhatsAppButton from '../components/WhatsAppButton.astro';
             <h3>Terços</h3>
           </a>
 
-          <!-- Artigos (Clicável) -->
           <a href="/artigos" class="collection-card">
             <div class="card-image-wrapper">
                <img src="/leque-sagrado.jpg" alt="Artigos" />
@@ -37,7 +69,6 @@ import WhatsAppButton from '../components/WhatsAppButton.astro';
             <h3>Artigos</h3>
           </a>
 
-          <!-- Camisetas (Clicável) -->
           <a href="/camisetas" class="collection-card">
             <div class="card-image-wrapper">
                <img src="/camiseta.crista.jpg" alt="Camisetas" />
@@ -45,7 +76,6 @@ import WhatsAppButton from '../components/WhatsAppButton.astro';
             <h3>Camisetas</h3>
           </a>
 
-          <!-- Estátuas (Clicável) -->
           <a href="/estatuas" class="collection-card">
             <div class="card-image-wrapper">
               <img src="/quadros.jpg" alt="Estátuas" />
@@ -53,7 +83,6 @@ import WhatsAppButton from '../components/WhatsAppButton.astro';
             <h3>Estátuas</h3>
           </a>
 
-          <!-- Velas (Clicável) -->
           <a href="/velas" class="collection-card">
             <div class="card-image-wrapper">
               <img src="/velas.jpg" alt="Velas" />
@@ -71,15 +100,66 @@ import WhatsAppButton from '../components/WhatsAppButton.astro';
 
 <style>
   .hero-section {
-    background-color: var(--primary-green, #2d4a3e);
+    position: relative;
     color: #fff;
     text-align: center;
-    padding: 90px 20px;
+    padding: 130px 20px;
+    overflow: hidden;
+    background-color: var(--primary-green, #2d4a3e);
   }
+
+  /* Container do mosaico de fundo para desktop */
+  .hero-bg-collage {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    z-index: 1;
+  }
+
+  .hero-bg-item {
+    flex: 1;
+    max-width: 340px;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    filter: blur(3px);
+  }
+
+  .bg-colares {
+    background-image: url('/colares.jpg');
+  }
+  .bg-cruz {
+    background-image: url('/cruz-de-mesa.png');
+  }
+  .bg-pulseira {
+    background-image: url('/pulseira-terco.png');
+  }
+
+  /* Camada de escurecimento com o tom verde da marca para manter a elegância e contraste */
+  .hero-section::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(30, 51, 42, 0.78);
+    z-index: 2;
+  }
+
   .hero-container {
+    position: relative;
+    z-index: 3;
     max-width: 800px;
     margin: 0 auto;
   }
+
   .hero-subtitle {
     font-size: 12px;
     letter-spacing: 3px;
@@ -97,7 +177,7 @@ import WhatsAppButton from '../components/WhatsAppButton.astro';
   .hero-section p {
     font-size: 16px;
     margin-bottom: 30px;
-    opacity: 0.9;
+    opacity: 0.95;
     font-weight: 300;
   }
   .btn-hero {
@@ -110,10 +190,63 @@ import WhatsAppButton from '../components/WhatsAppButton.astro';
     font-weight: 600;
     font-size: 14px;
     transition: background 0.3s, transform 0.2s;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
   }
   .btn-hero:hover {
     background-color: var(--gold-dark, #b89728);
     transform: translateY(-2px);
+  }
+
+  /* Responsividade para Dispositivos Móveis */
+  @media (max-width: 768px) {
+    .hero-bg-item.bg-colares,
+    .hero-bg-item.bg-pulseira {
+      display: none; /* Esconde as laterais no mobile para focar na cruz e não pesar visualmente */
+    }
+    .hero-bg-item.bg-cruz {
+      max-width: 100%;
+      background-size: 320px auto;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+    .hero-section h1 {
+      font-size: 32px;
+    }
+  }
+
+  /* Estilos para a Barra de Benefícios */
+  .benefits-bar {
+    background-color: #fff;
+    border-bottom: 1px solid #eae1d0;
+    padding: 25px 20px;
+    position: relative;
+    z-index: 5;
+  }
+  .benefits-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+  }
+  .benefit-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+  .benefit-icon {
+    font-size: 28px;
+  }
+  .benefit-item h4 {
+    font-size: 14px;
+    color: var(--primary-green, #2d4a3e);
+    margin-bottom: 2px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 700;
+  }
+  .benefit-item p {
+    font-size: 12px;
+    color: #666;
   }
 
   .collections-section {
