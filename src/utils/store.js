@@ -113,6 +113,10 @@ function renderFavoriteItems() {
   `).join('');
 }
 
+// Expondo as funções globalmente para acesso via atributos onclick no HTML/Astro
+window.addToCart = addToCart;
+window.toggleFavorite = toggleFavorite;
+
 window.removeItemCart = (id) => {
   let cart = getCart();
   cart = cart.filter(item => item.id !== id);
