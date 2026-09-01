@@ -4,7 +4,7 @@ import WhatsAppButton from '../components/WhatsAppButton.astro';
 import CartDrawer from '../components/CartDrawer.astro';
 import ProductCard from '../components/ProductCard.astro';
 
-// Produtos em destaque atualizados com a Sagrada Família
+// Produtos em destaque atualizados
 const produtosDestaque = [
   {
     id: 'estatua-sagrada-familia',
@@ -42,7 +42,7 @@ const produtosDestaque = [
   <CartDrawer />
 
   <main>
-    <!-- Seção Principal (Hero com Mosaico Sofisticado incluindo a Sagrada Família) -->
+    <!-- Seção Principal (Hero com Mosaico Sofisticado) -->
     <section class="hero-section">
       <div class="hero-bg-collage">
         <div class="hero-bg-item bg-sagrada-familia"></div>
@@ -136,6 +136,7 @@ const produtosDestaque = [
             <h3>Camisetas</h3>
           </a>
 
+          <!-- Card de Estátuas atualizado com a imagem da Sagrada Família -->
           <a href="/estatuas" class="collection-card">
             <div class="card-image-wrapper">
               <img src="/a-sagrada-familia.jpg" alt="Estátuas" />
@@ -159,7 +160,6 @@ const produtosDestaque = [
 </Layout>
 
 <style>
-  /* Estilos Globais e Variáveis de Tema */
   :root {
     --primary-green: #1f332a;
     --primary-green-light: #2d4a3e;
@@ -169,7 +169,6 @@ const produtosDestaque = [
     --text-dark: #2c2c2c;
   }
 
-  /* Seção de Destaques */
   .featured-section {
     padding: 80px 20px;
     background-color: #fff;
@@ -204,7 +203,6 @@ const produtosDestaque = [
     margin: 0 auto;
   }
 
-  /* Estilos do Hero Modernizado */
   .hero-section {
     position: relative;
     color: #fff;
@@ -323,7 +321,6 @@ const produtosDestaque = [
     background-color: rgba(255, 255, 255, 0.1);
   }
 
-  /* Barra de Benefícios */
   .benefits-bar {
     background-color: #fff;
     border-bottom: 1px solid #eae1d0;
@@ -365,7 +362,6 @@ const produtosDestaque = [
     color: #666;
   }
 
-  /* Seção de Coleções */
   .collections-section {
     padding: 80px 20px;
     background-color: var(--bg-light);
