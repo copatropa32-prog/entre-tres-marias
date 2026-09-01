@@ -150,7 +150,7 @@ const estatuas = [
 </Layout>
 
 <script>
-  window.handleAddToCart = (product) => {
+  window.handleAddToCart = function(product) {
     let cart = [];
     try {
       cart = JSON.parse(localStorage.getItem('cart') || '[]');
@@ -226,8 +226,8 @@ const estatuas = [
   window.addEventListener('favoritesUpdated', syncFavoriteButtons);
 
   const modal = document.getElementById('imageModal');
-  const modalImg = document.getElementById('img01') as HTMLImageElement;
-  const closeBtn = document.getElementsByClassName('close-modal')[0] as HTMLElement;
+  const modalImg = document.getElementById('img01');
+  const closeBtn = document.getElementsByClassName('close-modal')[0];
   const clickableImages = document.querySelectorAll('.clickable-img');
 
   clickableImages.forEach((wrapper) => {

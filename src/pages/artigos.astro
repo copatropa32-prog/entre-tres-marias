@@ -180,7 +180,7 @@ const artigos = [
 </Layout>
 
 <script>
-  window.handleAddToCart = (product) => {
+  window.handleAddToCart = function(product) {
     let cart = [];
     try {
       cart = JSON.parse(localStorage.getItem('cart') || '[]');
@@ -216,24 +216,20 @@ const artigos = [
       image: btn.getAttribute('data-image')
     };
 
-    if (typeof window.toggleFavorite === 'function') {
-      window.toggleFavorite(product);
-    } else {
-      let favs = [];
-      try {
-        favs = JSON.parse(localStorage.getItem('favorites') || '[]');
-      } catch (err) {
-        favs = [];
-      }
-
-      const index = favs.findIndex(item => item.id === product.id);
-      if (index > -1) {
-        favs.splice(index, 1);
-      } else {
-        favs.push(product);
-      }
-      localStorage.setItem('favorites', JSON.stringify(favs));
+    let favs = [];
+    try {
+      favs = JSON.parse(localStorage.getItem('favorites') || '[]');
+    } catch (err) {
+      favs = [];
     }
+
+    const index = favs.findIndex(item => item.id === product.id);
+    if (index > -1) {
+      favs.splice(index, 1);
+    } else {
+      favs.push(product);
+    }
+    localStorage.setItem('favorites', JSON.stringify(favs));
 
     syncFavoriteButtons();
     window.dispatchEvent(new CustomEvent('favoritesUpdated'));
@@ -260,8 +256,8 @@ const artigos = [
   window.addEventListener('favoritesUpdated', syncFavoriteButtons);
 
   const modal = document.getElementById('imageModal');
-  const modalImg = document.getElementById('img01') as HTMLImageElement;
-  const closeBtn = document.getElementsByClassName('close-modal')[0] as HTMLElement;
+  const modalImg = document.getElementById('img01');
+  const closeBtn = document.getElementsByClassName('close-modal')[0];
   const clickableImages = document.querySelectorAll('.clickable-img');
 
   clickableImages.forEach((wrapper) => {

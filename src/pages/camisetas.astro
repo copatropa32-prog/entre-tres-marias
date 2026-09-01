@@ -2,7 +2,6 @@
 import Layout from '../layouts/Layout.astro';
 import WhatsAppButton from '../components/WhatsAppButton.astro';
 
-// Lista de camisetas com ID e Preço adicionados para o Carrinho funcionar
 const camisetas = [
   {
     id: 'camiseta-nossa-senhora',
@@ -39,7 +38,6 @@ const camisetas = [
           return (
             <div class="product-card">
               <div class="product-image-wrapper">
-                <!-- Botão de Favoritos (Coração) -->
                 <button 
                   type="button" 
                   class="btn-favorite" 
@@ -115,7 +113,6 @@ const camisetas = [
     </div>
   </main>
 
-  <!-- Modal para visualização da imagem em tela cheia -->
   <div id="imageModal" class="modal">
     <span class="close-modal">&times;</span>
     <img class="modal-content" id="img01" alt="Imagem ampliada" />
@@ -125,7 +122,7 @@ const camisetas = [
 </Layout>
 
 <script>
-  window.handleAddToCart = (product) => {
+  window.handleAddToCart = function(product) {
     let cart = [];
     try {
       cart = JSON.parse(localStorage.getItem('cart') || '[]');
@@ -201,8 +198,8 @@ const camisetas = [
   window.addEventListener('favoritesUpdated', syncFavoriteButtons);
 
   const modal = document.getElementById('imageModal');
-  const modalImg = document.getElementById('img01') as HTMLImageElement;
-  const closeBtn = document.getElementsByClassName('close-modal')[0] as HTMLElement;
+  const modalImg = document.getElementById('img01');
+  const closeBtn = document.getElementsByClassName('close-modal')[0];
   const clickableImages = document.querySelectorAll('.clickable-img');
 
   clickableImages.forEach((wrapper) => {

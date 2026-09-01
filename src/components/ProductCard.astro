@@ -1,0 +1,155 @@
+---
+// Componente ProductCard.astro
+export interface Props {
+  id: string;
+  name: string;
+  price: number;
+  image: string;
+  category?: string;
+}
+
+const { id, name, price, image, category } = Astro.props;
+
+// Formata o preço para o padrão brasileiro (R$)
+const formattedPrice = Number(price).toLocaleString('pt-BR', {
+  style: 'currency',
+  currency: 'BRL',
+});
+---
+
+<div class="product-card" data-product-id={id}>
+  <div class="product-image-container">
+    <img src={image} alt={name} class="product-img" loading="lazy" />
+    
+    <!-- Botão de Favoritos -->
+    <button 
+      type="button" 
+      class="favorite-btn" 
+      onclick={`window.toggleFavorite({ id: '${id}', name: '${name.replace(/'/g, "\\'")}', price: ${price}, image: '${image}' })`}
+      aria-label="Favoritar produto"
+    >
+      ❤️
+    </button>
+  </div>
+
+  <div class="product-content">
+    {category && <span class="product-category">{category}</span>}
+    <h3 class="product-title">{name}</h3>
+    <div class="product-footer">
+      <span class="product-price">{formattedPrice}</span>
+      
+      <!-- Botão Adicionar ao Carrinho -->
+      <button 
+        type="button" 
+        class="btn-add-cart"
+        onclick={`window.addToCart({ id: '${id}', name: '${name.replace(/'/g, "\\'")}', price: ${price}, image: '${image}' })`}
+      >
+        Comprar
+      </button>
+    </div>
+  </div>
+</div>
+
+<style>
+  .product-card {
+    background: #ffffff;
+    border: 1px solid #eae1d0;
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .product-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  }
+
+  .product-image-container {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    background: #fbf9f4;
+  }
+
+  .product-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .favorite-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #ffffff;
+    border: none;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: transform 0.2s;
+  }
+
+  .favorite-btn:hover {
+    transform: scale(1.1);
+  }
+
+  .product-content {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  .product-category {
+    font-size: 11px;
+    text-transform: uppercase;
+    color: #666;
+    margin-bottom: 6px;
+    letter-spacing: 0.5px;
+  }
+
+  .product-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #2d4a3e;
+    margin: 0 0 12px 0;
+    line-height: 1.4;
+    flex: 1;
+  }
+
+  .product-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: auto;
+  }
+
+  .product-price {
+    font-size: 16px;
+    font-weight: 700;
+    color: #2d4a3e;
+  }
+
+  .btn-add-cart {
+    background: #2d4a3e;
+    color: #ffffff;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .btn-add-cart:hover {
+    background: #1f332a;
+  }
+</style>
