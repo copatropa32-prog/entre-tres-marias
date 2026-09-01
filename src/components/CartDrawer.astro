@@ -1,5 +1,5 @@
 ---
-// Componente CartDrawer.astro
+// Componente CartDrawer.astro - Centraliza Carrinho, Favoritos e Funções Globais
 ---
 
 <div id="cart-drawer" class="side-drawer">
@@ -15,7 +15,7 @@
       <span>Subtotal:</span>
       <strong id="cart-subtotal">R$ 0,00</strong>
     </div>
-    <button class="btn-checkout" type="button" onclick="executarCheckoutWhatsApp()">Finalizar Pedido via WhatsApp</button>
+    <button class="btn-checkout" type="button" onclick="window.executarCheckoutWhatsApp()">Finalizar Pedido via WhatsApp</button>
   </div>
 </div>
 
@@ -32,7 +32,7 @@
 <div id="drawer-overlay" class="drawer-overlay" onclick="document.querySelectorAll('.side-drawer').forEach(d => d.classList.remove('open')); this.classList.remove('open');"></div>
 
 <script is:inline>
-  function executarCheckoutWhatsApp() {
+  window.executarCheckoutWhatsApp = function() {
     let cart = [];
     try {
       cart = JSON.parse(localStorage.getItem('cart') || '[]');
@@ -73,7 +73,7 @@
 
   function saveCart(cart) {
     localStorage.setItem('cart', JSON.stringify(cart));
-    updateCartUI();
+    window.updateCartUI();
   }
 
   function getFavorites() {
@@ -86,11 +86,12 @@
 
   function saveFavorites(favs) {
     localStorage.setItem('favorites', JSON.stringify(favs));
-    updateFavoritesUI();
+    window.updateFavoritesUI();
+    window.syncFavoriteButtons();
     window.dispatchEvent(new CustomEvent('favoritesUpdated'));
   }
 
-  function updateCartUI() {
+  window.updateCartUI = function() {
     const cart = getCart();
     const container = document.getElementById('cart-items-container');
     const subtotalEl = document.getElementById('cart-subtotal');
@@ -189,9 +190,44 @@
     saveFavorites(favs);
   };
 
+  window.syncFavoriteButtons = function() {
+    try {
+      const favs = getFavorites();
+      document.querySelectorAll('.btn-favorite').forEach(btn => {
+        const id = btn.getAttribute('data-id');
+        const isFav = favs.some(fav => fav.id === id);
+        if (isFav) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+    } catch (e) {
+      console.error('Erro ao sincronizar favoritos:', e);
+    }
+  };
+
+  // Delegação global de cliques para botões de favoritos
+  document.addEventListener('click', (e) => {
+    const favBtn = e.target.closest('.btn-favorite');
+    if (favBtn) {
+      e.preventDefault();
+      const product = {
+        id: favBtn.getAttribute('data-id'),
+        name: favBtn.getAttribute('data-name'),
+        price: Number(favBtn.getAttribute('data-price')),
+        image: favBtn.getAttribute('data-image')
+      };
+      if (product.id) {
+        window.toggleFavorite(product);
+      }
+    }
+  });
+
   function initDrawers() {
-    updateCartUI();
-    updateFavoritesUI();
+    window.updateCartUI();
+    window.updateFavoritesUI();
+    window.syncFavoriteButtons();
 
     document.querySelectorAll('#open-cart-desktop, #open-cart-mobile, #open-cart-mobile-menu').forEach(el => {
       el?.addEventListener('click', () => {
@@ -209,10 +245,6 @@
 
   document.addEventListener('DOMContentLoaded', initDrawers);
   document.addEventListener('astro:page-load', initDrawers);
-
-  window.addEventListener('favoritesUpdated', () => {
-    window.updateFavoritesUI();
-  });
 </script>
 
 <style is:global>

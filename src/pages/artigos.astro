@@ -134,7 +134,7 @@ const artigos = [
                   <button 
                     type="button" 
                     class="btn-cart"
-                    onclick={`window.handleAddToCart({
+                    onclick={`window.addToCart({
                       id: '${artigo.id}',
                       name: '${artigo.nome.replace(/'/g, "\\'")}',
                       price: ${artigo.preco},
@@ -180,7 +180,7 @@ const artigos = [
 </Layout>
 
 <script>
-  window.handleAddToCart = function(product) {
+  window.addToCart = window.handleAddToCart = function(product) {
     let cart = [];
     try {
       cart = JSON.parse(localStorage.getItem('cart') || '[]');

@@ -456,95 +456,42 @@ const tercos = [
     nome: "Pulseira Terço Branca e Dourada",
     preco: 34.90,
     imagem: "/nossa-pulseira-terco-branca-dourada.jpg",
-    descricao: "Nossa Pulseira Terço Branca e Dourada foi criada para quem deseja carregar a sua devoção sempre por perto. Com pérolas delicadas, detalhes dourados e pingentes que representam a nossa fé, ela é uma peça elegante e especial para usar no dia a dia ou presentear alguém querido.",
-    detalhes: [
-      "Pérolas delicadas de alta qualidade",
-      "Detalhes e acabamentos dourados",
-      "Pingentes especiais que representam a nossa fé",
-      "Perfeita para uso diário ou para presentear"
-    ],
-    sugestao: "Cada peça da Entre Ave-Marias é preparada com carinho, porque acreditamos que um presente pode ser muito mais do que algo bonito: pode ser também um instrumento de fé e evangelização."
-  },
-  {
-    id: 'terco-azul-claro',
-    nome: "Terço Azul Claro",
-    preco: 46.90,
-    imagem: "/terco-azul-claro.jpg",
-    descricao: "Cada Ave-Maria é um passo em direção ao coração de Deus. Este terço foi confeccionado artesanalmente com delicadeza e devoção, unindo a suavidade das pérolas em tom azul-claro aos detalhes brancos e ao entremeio de Nossa Senhora Aparecida, tornando cada oração ainda mais especial.",
-    detalhes: [
-      "Confeccionado artesanalmente com delicadeza e devoção",
-      "Pérolas em tom azul-claro combinadas com detalhes brancos",
-      "Entremeio especial de Nossa Senhora Aparecida",
-      "Feito sob encomenda, com carinho em cada detalhe"
-    ],
-    sugestao: "Entre Ave-Marias – Artesanato religioso feito com fé."
-  },
-  {
-    id: 'terco-colorido',
-    nome: "Terço Infantil Colorido",
-    preco: 38.90,
-    imagem: "/terco-colorido.jpg",
-    descricao: "A fé pode começar desde a infância. Cada oração é uma semente de amor plantada no coração dos pequenos. Nosso Terço Infantil foi criado com carinho para tornar esse momento ainda mais especial, incentivando as crianças a caminharem ao lado de Jesus.",
-    detalhes: [
-      "Criado especialmente com carinho para as crianças",
-      "Contas coloridas e lúdicas de alta durabilidade",
-      "Incentiva o hábito da oração e a caminhada ao lado de Jesus",
-      "Perfeito para batizados, aniversários e Primeira Eucaristia"
-    ],
-    sugestao: "Um presente cheio de significado para batizados, aniversários, Primeira Eucaristia ou simplesmente para ensinar o valor da oração."
-  },
-  {
-    id: 'terco-nossa-senhora-de-guadalupe',
-    nome: "Terço Nossa Senhora de Guadalupe",
-    preco: 54.90,
-    imagem: "/terco-nossa-senhora-de-guadalupe.jpg",
-    descricao: "Um terço cheio de delicadeza, cor e significado para tornar seus momentos de oração ainda mais especiais.\n\nCom contas em tons de rosa, azul e perolado, detalhes em metal envelhecido, medalha de Nossa Senhora de Guadalupe, rosa decorativa e um lindo crucifixo trabalhado, essa peça une fé e beleza em cada detalhe.\n\nPerfeito para uso pessoal, presentear alguém especial ou demonstrar sua devoção à Virgem de Guadalupe.",
-    detalhes: [
-      "Contas em tons de rosa, azul e perolado",
-      "Detalhes em metal envelhecido",
-      "Medalha de Nossa Senhora de Guadalupe, rosa decorativa e lindo crucifixo trabalhado",
-      "Peça que une fé e beleza em cada detalhe"
-    ],
-    sugestao: "Entre Ave-Marias – Evangelizando através da devoção.\n\nPara valores e pedidos, entre em contato pelo direct.\n\n#nossasenhoradeguadalupe #terço #terçocatólico #artigosreligiosos #Fé #devoção #nossasenhora #católicos #presentecatólico #EntreAveMarias"
-  },
-  {
-    id: 'chaveiro-terco',
-    nome: "Chaveiro Terço",
-    preco: 24.90,
-    imagem: "/chaveiro-terco.jpg",
-    descricao: "Um acessório delicado, cheio de significado e perfeito para acompanhar sua rotina. Nossa Senhora Aparecida nos recorda que, mesmo nos pequenos detalhes do dia a dia, Deus caminha ao nosso lado.",
-    detalhes: [
-      "Ideal para usar na bolsa, chaves, mochila, estojo ou como presente especial",
-      "Feito com carinho e devoção",
-      "Tamanho compacto e funcional",
-      "Argola e metal altamente resistentes"
-    ],
-    sugestao: "\"Ó Maria, concebida sem pecado, rogai por nós que recorremos a vós.\" Entre Ave-Marias – Evangelizando com amor."
+    descricao: "Nossa Pulseira Terço Branca e Dourada foi criada para quem deseja carregar a sua devoção sempre por perto. Com pérolas delicadas"
   }
 ];
-
-const tercosJson = JSON.stringify(tercos);
 ---
 
-<Layout title="Terços e Pulseiras | Entre Ave-Marias">
+<Layout title="Terços | Entre Ave-Marias">
   <main class="catalog-page">
     <div class="container">
       <div class="breadcrumb">
-        <a href="/">Início</a> &gt; <span>Terços e Pulseiras</span>
+        <a href="/">Início</a> &gt; <span>Terços</span>
       </div>
 
       <div class="page-header">
-        <h1>Terços e Pulseiras</h1>
-        <p>Peças exclusivas e feitas à mão para acompanhar os seus momentos de fé e oração.</p>
+        <h1>Terços e Escapulários</h1>
+        <p>Símbolos sagrados de proteção e oração para acompanhar a sua jornada espiritual.</p>
       </div>
 
       <div class="products-grid">
         {tercos.map((terco) => {
-          const whatsappMessage = encodeURIComponent(`Olá! Gostaria de fazer minha encomenda do produto ${terco.nome}. Poderia me informar disponibilidade e formas de envio?`);
+          const whatsappMessage = encodeURIComponent(`Olá! Gostaria de encomendar o ${terco.nome}. Poderia me informar valores, disponibilidade e formas de envio?`);
           return (
             <div class="product-card">
               <div class="product-image-wrapper">
-                <div class="clickable-img" data-img={terco.imagem}>
+                <button 
+                  type="button" 
+                  class="btn-favorite" 
+                  data-id={terco.id}
+                  data-name={terco.nome}
+                  data-price={terco.preco}
+                  data-image={terco.imagem}
+                  aria-label="Adicionar aos favoritos"
+                >
+                  ❤️
+                </button>
+
+                <div class="clickable-img" data-img={terco.imagem} style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
                   <img src={terco.imagem} alt={terco.nome} />
                   <span class="zoom-hint">🔍 Clique para ampliar</span>
                 </div>
@@ -570,7 +517,7 @@ const tercosJson = JSON.stringify(tercos);
                   <button 
                     type="button" 
                     class="btn-cart"
-                    onclick={`window.handleAddToCart({
+                    onclick={`window.addToCart({
                       id: '${terco.id}',
                       name: '${terco.nome.replace(/'/g, "\\'")}',
                       price: ${terco.preco},
@@ -586,7 +533,7 @@ const tercosJson = JSON.stringify(tercos);
                     rel="noopener noreferrer" 
                     class="btn-order"
                   >
-                    Encomendar via WhatsApp
+                    Fazer Encomenda
                   </a>
                 </div>
               </div>
@@ -595,14 +542,13 @@ const tercosJson = JSON.stringify(tercos);
         })}
       </div>
 
-      <!-- Seção de navegação rápida para outras coleções ao final dos cards -->
-      <div class="other-collections-section">
-        <h3>Explore Outras Coleções</h3>
-        <div class="collections-quick-grid">
-          <a href="/artigos" class="collection-quick-card">🎨 Artigos</a>
-          <a href="/camisetas" class="collection-quick-card">👕 Camisetas</a>
-          <a href="/estatuas" class="collection-quick-card">🏛️ Estátuas</a>
-          <a href="/velas" class="collection-quick-card">🕯️ Velas</a>
+      <div class="other-collections">
+        <h2>Explore Outras Coleções</h2>
+        <div class="collections-links">
+          <a href="/artigos">🎨 Artigos</a>
+          <a href="/camisetas">👕 Camisetas</a>
+          <a href="/estatuas">🏛️ Estátuas</a>
+          <a href="/velas">🕯️ Velas</a>
         </div>
       </div>
     </div>
@@ -616,10 +562,8 @@ const tercosJson = JSON.stringify(tercos);
   <WhatsAppButton />
 </Layout>
 
-<script define:vars={{ tercosJson }}>
-  const allProducts = JSON.parse(tercosJson);
-
-  window.handleAddToCart = (product) => {
+<script>
+  window.addToCart = window.handleAddToCart = function(product) {
     let cart = [];
     try {
       cart = JSON.parse(localStorage.getItem('cart') || '[]');
@@ -644,36 +588,84 @@ const tercosJson = JSON.stringify(tercos);
     document.getElementById('drawer-overlay')?.classList.add('open');
   };
 
-  document.addEventListener('DOMContentLoaded', () => {
-    const modal = document.getElementById('imageModal');
-    const modalImg = document.getElementById('img01');
-    const closeBtn = document.getElementsByClassName('close-modal')[0];
-    const clickableImages = document.querySelectorAll('.clickable-img');
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest('.btn-favorite');
+    if (!btn) return;
 
-    clickableImages.forEach((wrapper) => {
-      wrapper.addEventListener('click', () => {
-        const imgSrc = wrapper.getAttribute('data-img');
-        if (modal && modalImg && imgSrc) {
-          modal.style.display = 'flex';
-          modalImg.src = imgSrc;
+    const product = {
+      id: btn.getAttribute('data-id'),
+      name: btn.getAttribute('data-name'),
+      price: Number(btn.getAttribute('data-price')),
+      image: btn.getAttribute('data-image')
+    };
+
+    let favs = [];
+    try {
+      favs = JSON.parse(localStorage.getItem('favorites') || '[]');
+    } catch (err) {
+      favs = [];
+    }
+
+    const index = favs.findIndex(item => item.id === product.id);
+    if (index > -1) {
+      favs.splice(index, 1);
+    } else {
+      favs.push(product);
+    }
+    localStorage.setItem('favorites', JSON.stringify(favs));
+
+    syncFavoriteButtons();
+    window.dispatchEvent(new CustomEvent('favoritesUpdated'));
+  });
+
+  function syncFavoriteButtons() {
+    try {
+      const favs = JSON.parse(localStorage.getItem('favorites') || '[]');
+      document.querySelectorAll('.btn-favorite').forEach(btn => {
+        const id = btn.getAttribute('data-id');
+        const isFav = favs.some(fav => fav.id === id);
+        if (isFav) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
         }
       });
+    } catch (e) {
+      console.error('Erro ao sincronizar favoritos:', e);
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', syncFavoriteButtons);
+  window.addEventListener('favoritesUpdated', syncFavoriteButtons);
+
+  const modal = document.getElementById('imageModal');
+  const modalImg = document.getElementById('img01');
+  const closeBtn = document.getElementsByClassName('close-modal')[0];
+  const clickableImages = document.querySelectorAll('.clickable-img');
+
+  clickableImages.forEach((wrapper) => {
+    wrapper.addEventListener('click', () => {
+      const imgSrc = wrapper.getAttribute('data-img');
+      if (modal && modalImg && imgSrc) {
+        modal.style.display = 'flex';
+        modalImg.src = imgSrc;
+      }
     });
-
-    if (closeBtn && modal) {
-      closeBtn.onclick = () => {
-        modal.style.display = 'none';
-      };
-    }
-
-    if (modal) {
-      modal.onclick = (e) => {
-        if (e.target === modal) {
-          modal.style.display = 'none';
-        }
-      };
-    }
   });
+
+  if (closeBtn && modal) {
+    closeBtn.onclick = () => {
+      modal.style.display = 'none';
+    };
+  }
+
+  if (modal) {
+    modal.onclick = (e) => {
+      if (e.target === modal) {
+        modal.style.display = 'none';
+      }
+    };
+  }
 </script>
 
 <style>
@@ -683,7 +675,7 @@ const tercosJson = JSON.stringify(tercos);
     min-height: 70vh;
   }
   .container {
-    max-width: 1000px;
+    max-width: 950px;
     margin: 0 auto;
   }
   .breadcrumb {
@@ -713,7 +705,6 @@ const tercosJson = JSON.stringify(tercos);
     flex-direction: column;
     gap: 30px;
   }
-  
   .product-card {
     background: #fff;
     border-radius: 16px;
@@ -731,179 +722,188 @@ const tercosJson = JSON.stringify(tercos);
   }
 
   .product-image-wrapper {
-    background: #f7f7f7;
-    position: relative;
-    width: 100%;
-    min-height: 320px;
+    flex: 1;
+    min-height: 380px;
+    overflow: hidden;
+    background-color: #f5f3ed;
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-shrink: 0;
-  }
-  @media(min-width: 768px) {
-    .product-image-wrapper {
-      width: 40%;
-    }
+    position: relative;
   }
 
-  .clickable-img {
-    cursor: pointer;
-    width: 100%;
-    height: 100%;
+  .btn-favorite {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
+    font-size: 18px;
+    cursor: pointer;
+    z-index: 10;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: transform 0.2s, background 0.2s;
   }
-  .clickable-img img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+  .btn-favorite:hover {
+    transform: scale(1.1);
+    background: #fff5f5;
+  }
+  .btn-favorite.active {
+    background: #ffe6e6;
+    border-color: #ff4d4d;
   }
 
   .zoom-hint {
     position: absolute;
     bottom: 10px;
-    right: 10px;
-    background: rgba(0,0,0,0.6);
+    background: rgba(0, 0, 0, 0.6);
     color: #fff;
-    padding: 4px 8px;
-    font-size: 12px;
-    border-radius: 4px;
-    pointer-events: none;
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .product-image-wrapper:hover .zoom-hint {
+    opacity: 1;
+  }
+
+  .product-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: transform 0.5s ease;
+    cursor: pointer;
+  }
+
+  .product-card:hover .product-image-wrapper img {
+    transform: scale(1.05);
   }
 
   .product-info {
+    flex: 1;
     padding: 30px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    flex: 1;
-    width: 100%;
-    box-sizing: border-box;
   }
-
   .product-info h2 {
     font-size: 24px;
     color: var(--primary-green, #2d4a3e);
-    margin-bottom: 10px;
+    margin-bottom: 6px;
   }
-
   .product-price {
     font-size: 20px;
-    font-weight: bold;
-    color: #27ae60;
-    margin-bottom: 15px;
+    font-weight: 700;
+    color: var(--gold, #d4af37);
+    margin-bottom: 12px;
   }
-
   .product-description {
-    font-size: 15px;
+    font-size: 14px;
     color: #444;
     line-height: 1.6;
     margin-bottom: 15px;
   }
-
   .section-title {
+    font-size: 13px;
     font-weight: bold;
-    font-size: 14px;
-    color: #333;
-    margin-top: 10px;
-    margin-bottom: 5px;
+    color: #2d4a3e;
+    margin-bottom: 6px;
   }
-
   .product-details {
-    margin-bottom: 15px;
-    padding-left: 20px;
-    font-size: 14px;
-    color: #555;
-    line-height: 1.5;
-  }
-
-  .product-gift {
     font-size: 13px;
     color: #666;
-    font-style: italic;
+    margin-bottom: 15px;
+    padding-left: 18px;
+    line-height: 1.5;
+  }
+  .product-details li {
+    margin-bottom: 4px;
+  }
+  .product-gift {
+    font-size: 13px;
+    color: #444;
+    line-height: 1.5;
     margin-bottom: 20px;
-    line-height: 1.4;
+    font-style: italic;
   }
 
   .product-actions {
     display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-    margin-top: auto;
-    padding-top: 15px;
-    border-top: 1px solid #eee;
-  }
-
-  .btn-cart, .btn-order {
-    padding: 12px 20px;
-    border-radius: 8px;
-    font-weight: 600;
-    font-size: 14px;
-    text-align: center;
-    cursor: pointer;
-    text-decoration: none;
-    transition: background 0.2s;
-    border: none;
+    flex-direction: column;
+    gap: 10px;
   }
 
   .btn-cart {
+    display: block;
+    text-align: center;
     background-color: var(--primary-green, #2d4a3e);
     color: #fff;
-    flex: 1;
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+    text-decoration: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s;
   }
   .btn-cart:hover {
-    opacity: 0.9;
+    background-color: var(--primary-green-dark, #1e332a);
   }
 
   .btn-order {
-    background-color: #25d366;
+    display: block;
+    text-align: center;
+    background-color: var(--gold, #d4af37);
     color: #fff;
-    flex: 1;
+    padding: 12px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background 0.3s;
   }
   .btn-order:hover {
-    background-color: #20ba5a;
+    background-color: var(--gold-dark, #b89728);
   }
 
-  /* Estilos para a seção de outras coleções ao final da página */
-  .other-collections-section {
+  .other-collections {
     margin-top: 60px;
-    padding-top: 40px;
-    border-top: 2px solid #eae5d9;
     text-align: center;
   }
-  .other-collections-section h3 {
-    font-size: 26px;
+  .other-collections h2 {
+    font-size: 28px;
     color: var(--primary-green, #2d4a3e);
     margin-bottom: 25px;
   }
-  .collections-quick-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  .collections-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 15px;
-    max-width: 800px;
-    margin: 0 auto;
   }
-  .collection-quick-card {
+  .collections-links a {
     background: #fff;
-    border: 1px solid #dcd6c8;
-    border-radius: 12px;
-    padding: 18px;
+    border: 1px solid #ddd;
+    padding: 12px 24px;
+    border-radius: 30px;
     text-decoration: none;
     color: var(--primary-green, #2d4a3e);
-    font-weight: bold;
-    font-size: 16px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.03);
-    transition: all 0.2s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    transition: all 0.3s;
   }
-  .collection-quick-card:hover {
-    background-color: var(--primary-green, #2d4a3e);
+  .collections-links a:hover {
+    background: var(--primary-green, #2d4a3e);
     color: #fff;
-    transform: translateY(-2px);
     border-color: var(--primary-green, #2d4a3e);
+    transform: translateY(-2px);
   }
 
   .modal {
@@ -914,22 +914,29 @@ const tercosJson = JSON.stringify(tercos);
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0,0.8);
+    background-color: rgba(0, 0, 0, 0.85);
     align-items: center;
     justify-content: center;
+    padding: 20px;
   }
   .modal-content {
     max-width: 90%;
     max-height: 90vh;
+    object-fit: contain;
     border-radius: 8px;
+    box-shadow: 0 5px 30px rgba(0,0,0,0.5);
   }
   .close-modal {
     position: absolute;
     top: 20px;
-    right: 30px;
-    color: #fff;
+    right: 35px;
+    color: #f1f1f1;
     font-size: 40px;
     font-weight: bold;
     cursor: pointer;
+    transition: 0.3s;
+  }
+  .close-modal:hover {
+    color: #d4af37;
   }
 </style>
