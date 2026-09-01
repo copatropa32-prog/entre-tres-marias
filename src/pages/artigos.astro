@@ -144,6 +144,16 @@ const artigos = [
           );
         })}
       </div>
+
+      <div class="other-collections">
+        <h2>Explore Outras Coleções</h2>
+        <div class="collections-links">
+          <a href="/tercos">📿 Terços</a>
+          <a href="/camisetas">👕 Camisetas</a>
+          <a href="/estatuas">🏛️ Estátuas</a>
+          <a href="/velas">🕯️ Velas</a>
+        </div>
+      </div>
     </div>
   </main>
 
@@ -468,6 +478,39 @@ const artigos = [
   }
   .btn-order:hover {
     background-color: var(--gold-dark, #b89728);
+  }
+
+  .other-collections {
+    margin-top: 60px;
+    text-align: center;
+  }
+  .other-collections h2 {
+    font-size: 28px;
+    color: var(--primary-green, #2d4a3e);
+    margin-bottom: 25px;
+  }
+  .collections-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+  }
+  .collections-links a {
+    background: #fff;
+    border: 1px solid #ddd;
+    padding: 12px 24px;
+    border-radius: 30px;
+    text-decoration: none;
+    color: var(--primary-green, #2d4a3e);
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    transition: all 0.3s;
+  }
+  .collections-links a:hover {
+    background: var(--primary-green, #2d4a3e);
+    color: #fff;
+    border-color: var(--primary-green, #2d4a3e);
+    transform: translateY(-2px);
   }
 
   .modal {
