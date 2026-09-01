@@ -4,39 +4,81 @@ import WhatsAppButton from '../components/WhatsAppButton.astro';
 
 const estatuas = [
   {
-    id: 'estatua-sagrada-familia',
-    nome: "Estátua da Sagrada Família",
-    preco: 119.90,
-    imagem: "/a-sagrada-familia.jpg",
-    descricao: "A Sagrada Família é o maior exemplo de amor, união e confiança em Deus.\n\nQue São José nos ensine a viver com coragem e fidelidade, que Nossa Senhora nos conduza com seu amor materno e que o Menino Jesus reine em nossos lares, trazendo paz, esperança e bênçãos sem fim.",
+    id: 'adorno-sao-bento',
+    nome: "Adorno de São Bento",
+    preco: 49.90,
+    imagem: "/adorno-sao-bento-estatua.jpg",
+    descricao: "Em meio à correria do dia a dia, reserve alguns instantes para encontrar-se com Deus.\n\nQue São Bento interceda por sua família, protegendo seu lar e conduzindo seus passos na fé.",
     detalhes: [
       "Acabamento artesanal rico em detalhes e cores expressivas",
       "Material resistente e de alta qualidade",
-      "Perfeita para altares domésticos, salas e consagração do lar",
-      "Lembrete diário de que a verdadeira força da família está em colocar Cristo no centro"
+      "Perfeito para portas, retrovisor ou cantinhos de oração",
+      "Símbolo tradicional de proteção contra todo o mal"
     ],
-    sugestao: "\"Quanto a mim e à minha casa, serviremos ao Senhor.\" (Js 24,15)\n\nEntre Ave-Marias – Artigos Religiosos."
+    sugestao: "\"A Cruz Sagrada seja a minha luz, não seja o dragão o meu guia.\"\n\nEntre Ave-Marias – Artigos Religiosos."
   },
   {
-    id: 'capela-sao-miguel-arcanjo',
-    nome: "Capela Decorativa São Miguel Arcanjo",
-    preco: 139.90,
-    imagem: "/saomiguel.estatua.jpg",
-    descricao: "São Miguel Arcanjo: força, proteção e fidelidade a Deus.\n\nQue a presença de São Miguel em seu lar seja um lembrete diário de que Deus nunca abandona aqueles que confiam n'Ele.\n\nEsta capela decorativa une beleza, fé e devoção, tornando qualquer ambiente um espaço de oração e paz.",
+    id: 'arcanjo-saomiguel-carro',
+    nome: "São Miguel Arcanjo para o Carro",
+    preco: 59.90,
+    imagem: "/arcanjo-saomiguel-estatua.jpg",
+    descricao: "Que São Miguel Arcanjo esteja à frente de cada caminho.\n\nMais do que um acessório para o seu carro, esta imagem é um lembrete diário da proteção de Deus em cada viagem.",
     detalhes: [
-      "Design exclusivo em formato de capela com acabamento refinado e moldura ogival",
-      "Imagem de alta definição com riqueza de detalhes do Príncipe da Milícia Celeste",
-      "Perfeita para altares domésticos, salas, escritórios e consagração do lar",
-      "Símbolo profundo de proteção espiritual e refúgio contra todo o mal"
+      "Tamanho compacto ideal para painel ou console de veículos",
+      "Escultura detalhada com acabamento refinado",
+      "Base firme para fixação segura durante o percurso",
+      "Símbolo constante de condução e proteção espiritual"
     ],
-    sugestao: "\"São Miguel Arcanjo, defendei-nos no combate. Sede nosso refúgio contra as maldades e ciladas do demônio.\"\n\nLeve essa proteção para sua casa ou presenteie alguém especial com um símbolo de fé que inspira todos os dias.\n\nEntre Ave-Marias – Artigos Religiosos."
+    sugestao: "\"São Miguel Arcanjo, defendei-nos no combate.\"\n\nEntre Ave-Marias – Artigos Religiosos."
   },
   {
-    id: 'estatua-nossa-senhora-das-gracas',
+    id: 'guadalupe-estatua',
+    nome: "Nossa Senhora de Guadalupe",
+    preco: 99.90,
+    imagem: "/guadalupe-estatua.jpg",
+    descricao: "Sob o olhar amoroso de Nossa Senhora de Guadalupe, encontramos acolhimento, proteção e esperança.\n\nImagem delicada com detalhes florais e acabamento especial para consagrar seu lar.",
+    detalhes: [
+      "Rica em detalhes com manto estrelado e cores tradicionais",
+      "Material de excelente qualidade e durabilidade",
+      "Perfeita para altares, salas e espaços de devoção",
+      "Lembrete do amor maternal da Padroeira da América Latina"
+    ],
+    sugestao: "\"Não estou eu aqui, que sou tua mãe?\"\n\nEntre Ave-Marias – Artigos Religiosos."
+  },
+  {
+    id: 'mae-raina-estatua',
+    nome: "Imagem de Mãe Rainha",
+    preco: 129.90,
+    imagem: "/mae-raina-estatua.jpg",
+    descricao: "Esta linda imagem de Mãe Rainha foi preparada com muito carinho, oração e devoção, simbolizando a presença materna de Nossa Senhora para abençoar o seu lar.",
+    detalhes: [
+      "Representação fiel da Mãe e Rainha Três Vezes Admirável",
+      "Acabamento primoroso com pintura delicada",
+      "Ideal para o Santuário Lar e altares domésticos",
+      "Inspira a entrega diária e a confiança maternal"
+    ],
+    sugestao: "\"Nada sem vós, nada sem nós.\"\n\nEntre Ave-Marias – Artigos Religiosos."
+  },
+  {
+    id: 'nossa-senhora-azul-estatua',
+    nome: "Nossa Senhora - Azul e Dourado",
+    preco: 89.90,
+    imagem: "/nossa-senhora-azul-estatua.jpg",
+    descricao: "Nossa Senhora em acabamento especial em tons de azul e dourado, delicadamente adornada para trazer ainda mais beleza, paz e devoção para o seu cantinho de oração.",
+    detalhes: [
+      "Pintura artística com detalhes refinados em dourado",
+      "Material durável de alta qualidade",
+      "Perfeita para compor altares e estantes devocionais",
+      "Símbolo de intercessão e graça maternal"
+    ],
+    sugestao: "Consagre seu dia ao manto sagrado de Nossa Senhora.\n\nEntre Ave-Marias – Artigos Religiosos."
+  },
+  {
+    id: 'nossa-senhora-das-gracas-estatua',
     nome: "Estátua de Nossa Senhora das Graças",
     preco: 89.90,
-    imagem: "/estatua-nossa-senhoradasgracas.png",
-    descricao: "Bela e delicada imagem de Nossa Senhora das Graças, com acabamento refinado e rico em detalhes celestiais.\n\nPerfeita para abençoar o seu lar, altar de oração ou ambiente devocional, trazendo proteção e graças abundantes.",
+    imagem: "/nossa-senhora-das-gracas-estatua.jpg",
+    descricao: "Nossa Senhora das Graças em acabamento perolado, delicadamente adornada com flores e detalhes dourados, trazendo ainda mais beleza e devoção para o seu cantinho de oração.",
     detalhes: [
       "Acabamento artesanal com ricos detalhes e cores suaves",
       "Material resistente de excelente durabilidade",
@@ -46,32 +88,46 @@ const estatuas = [
     sugestao: "Ótima escolha para presentear em datas especiais ou abençoar uma nova casa.\n\nEntre Ave-Marias – Artigos Religiosos."
   },
   {
-    id: 'luminaria-nossa-senhora-aparecida',
-    nome: "Luminária Esfera de Nossa Senhora Aparecida",
+    id: 'nossa-ssenhora-de-guadalupe',
+    nome: "Nossa Senhora de Guadalupe (Clássica)",
     preco: 99.90,
-    imagem: "/luminarias.webp",
-    descricao: "Encantadora luminária em formato de esfera com a imagem em relevo de Nossa Senhora Aparecida iluminada por base de LED em madeira.\n\nUma peça acolhedora que une iluminação suave e devoção para iluminar suas noites e momentos de oração.",
+    imagem: "/nossa-ssenhora-de-guadalupe.jpg",
+    descricao: "A mensagem de Guadalupe ressoa através dos tempos: amor, compaixão e refúgio sob o manto sagrado da Virgem Mãe.",
     detalhes: [
-      "Esfera translúcida com gravação detalhada de Nossa Senhora Aparecida",
-      "Base elegante em madeira com iluminação LED suave",
-      "Perfeita para mesas de cabeceira, salas de estar ou altares",
-      "Cria um ambiente de paz, recolhimento e espiritualidade"
+      "Design tradicional com acabamento de alta definição",
+      "Cores vibrantes e fiéis à imagem original",
+      "Perfeita para consagrações e decoração sacra",
+      "Uma fonte constante de inspiração e paz"
     ],
-    sugestao: "Uma opção emocionante e moderna para presentear e abençoar ambientes.\n\nEntre Ave-Marias – Artigos Religiosos."
+    sugestao: "Entre Ave-Marias – Artigos Religiosos."
   },
   {
-    id: 'miniatura-sao-miguel-arcanjo',
-    nome: "Miniatura de São Miguel Arcanjo em Metal",
-    preco: 79.90,
-    imagem: "/sao-miguel-em-prata-para-carro.png",
-    descricao: "Imagem detalhada de São Miguel Arcanjo em metal prateado, representando o príncipe da milícia celeste e protetor contra todo o mal.\n\nIdeal para acompanhar em viagens, mesas de trabalho ou pequenos altares particulares.",
+    id: 'sao-jose-estatua',
+    nome: "Imagem de São José",
+    preco: 89.90,
+    imagem: "/sao-jose-estatua.jpg",
+    descricao: "São José, exemplo de silêncio, trabalho e amor, interceda por nossas famílias e conduza nossos passos com fé e proteção. Uma peça delicada e cheia de significado.",
     detalhes: [
-      "Escultura compacta em metal com acabamento prateado envelhecido",
-      "Riqueza de detalhes na armadura e na espada de proteção",
-      "Versátil para uso em veículos, escrivaninhas ou espaços de oração",
-      "Símbolo de coragem, força espiritual e proteção divina"
+      "Escultura expressiva com acabamento artesanal de alto padrão",
+      "Representação do protetor da Sagrada Família",
+      "Ideal para altares residenciais e capelas",
+      "Inspira virtude, dedicação e confiança na Providência Divina"
     ],
-    sugestao: "Um presente marcante de proteção espiritual para quem você ama.\n\nEntre Ave-Marias – Artigos Religiosos."
+    sugestao: "\"São José, rogai por nós e por nossas famílias.\"\n\nEntre Ave-Marias – Artigos Religiosos."
+  },
+  {
+    id: 'saomiguel-estatua',
+    nome: "São Miguel Arcanjo - Azul e Dourado",
+    preco: 89.90,
+    imagem: "/saomiguel-estatua.jpg",
+    descricao: "Com sua espada erguida e a força que vence todo mal, São Miguel Arcanjo nos lembra que Deus nunca abandona aqueles que confiam n'Ele. Peça em tons de azul, branco e dourado.",
+    detalhes: [
+      "Pintura detalhada em tons marcantes de azul, branco e dourado",
+      "Escultura imponente que transmite coragem e proteção",
+      "Excelente opção para destaque em altares e salas",
+      "Símbolo da vitória da luz sobre as trevas"
+    ],
+    sugestao: "\"Quem como Deus? Ninguém como Deus!\"\n\nEntre Ave-Marias – Artigos Religiosos."
   }
 ];
 ---
@@ -157,7 +213,6 @@ const estatuas = [
         })}
       </div>
 
-      <!-- Explore Outras Coleções (Velas removida) -->
       <div class="other-collections">
         <h2>Explore Outras Coleções</h2>
         <div class="collections-links">
