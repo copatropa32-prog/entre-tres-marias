@@ -544,6 +544,18 @@ const tercosJson = JSON.stringify(tercos);
           return (
             <div class="product-card">
               <div class="product-image-wrapper">
+                <button 
+                  type="button" 
+                  class="btn-favorite" 
+                  data-id={terco.id}
+                  data-name={terco.nome}
+                  data-price={terco.preco}
+                  data-image={terco.imagem}
+                  aria-label="Adicionar aos favoritos"
+                >
+                  ❤️
+                </button>
+
                 <div class="clickable-img" data-img={terco.imagem}>
                   <img src={terco.imagem} alt={terco.nome} />
                   <span class="zoom-hint">🔍 Clique para ampliar</span>
@@ -595,7 +607,6 @@ const tercosJson = JSON.stringify(tercos);
         })}
       </div>
 
-      <!-- Seção de navegação rápida para outras coleções ao final dos cards (Velas removida) -->
       <div class="other-collections-section">
         <h3>Explore Outras Coleções</h3>
         <div class="collections-quick-grid">
@@ -643,7 +654,56 @@ const tercosJson = JSON.stringify(tercos);
     document.getElementById('drawer-overlay')?.classList.add('open');
   };
 
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest('.btn-favorite');
+    if (!btn) return;
+
+    const product = {
+      id: btn.getAttribute('data-id'),
+      name: btn.getAttribute('data-name'),
+      price: Number(btn.getAttribute('data-price')),
+      image: btn.getAttribute('data-image')
+    };
+
+    let favs = [];
+    try {
+      favs = JSON.parse(localStorage.getItem('favorites') || '[]');
+    } catch (err) {
+      favs = [];
+    }
+
+    const index = favs.findIndex(item => item.id === product.id);
+    if (index > -1) {
+      favs.splice(index, 1);
+    } else {
+      favs.push(product);
+    }
+    localStorage.setItem('favorites', JSON.stringify(favs));
+
+    syncFavoriteButtons();
+    window.dispatchEvent(new CustomEvent('favoritesUpdated'));
+  });
+
+  function syncFavoriteButtons() {
+    try {
+      const favs = JSON.parse(localStorage.getItem('favorites') || '[]');
+      document.querySelectorAll('.btn-favorite').forEach(btn => {
+        const id = btn.getAttribute('data-id');
+        const isFav = favs.some(fav => fav.id === id);
+        if (isFav) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+    } catch (e) {
+      console.error('Erro ao sincronizar favoritos:', e);
+    }
+  }
+
   document.addEventListener('DOMContentLoaded', () => {
+    syncFavoriteButtons();
+
     const modal = document.getElementById('imageModal');
     const modalImg = document.getElementById('img01');
     const closeBtn = document.getElementsByClassName('close-modal')[0];
@@ -673,6 +733,8 @@ const tercosJson = JSON.stringify(tercos);
       };
     }
   });
+
+  window.addEventListener('favoritesUpdated', syncFavoriteButtons);
 </script>
 
 <style>
@@ -743,6 +805,33 @@ const tercosJson = JSON.stringify(tercos);
     .product-image-wrapper {
       width: 40%;
     }
+  }
+
+  .btn-favorite {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    cursor: pointer;
+    z-index: 10;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: transform 0.2s, background 0.2s;
+  }
+  .btn-favorite:hover {
+    transform: scale(1.1);
+    background: #fff5f5;
+  }
+  .btn-favorite.active {
+    background: #ffe6e6;
+    border-color: #ff4d4d;
   }
 
   .clickable-img {
