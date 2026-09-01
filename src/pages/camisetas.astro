@@ -43,13 +43,11 @@ const camisetas = [
                 <button 
                   type="button" 
                   class="btn-favorite" 
+                  data-id={camiseta.id}
+                  data-name={camiseta.nome}
+                  data-price={camiseta.preco}
+                  data-image={camiseta.imagem}
                   aria-label="Adicionar aos favoritos"
-                  onclick={`window.handleToggleFavorite({
-                    id: '${camiseta.id}',
-                    name: '${camiseta.nome.replace(/'/g, "\\'")}',
-                    price: ${camiseta.preco},
-                    image: '${camiseta.imagem}'
-                  }, this)`}
                 >
                   ❤️
                 </button>
@@ -104,6 +102,16 @@ const camisetas = [
           );
         })}
       </div>
+
+      <div class="other-collections">
+        <h2>Explore Outras Coleções</h2>
+        <div class="collections-links">
+          <a href="/tercos">📿 Terços</a>
+          <a href="/artigos">🎨 Artigos</a>
+          <a href="/estatuas">🏛️ Estátuas</a>
+          <a href="/velas">🕯️ Velas</a>
+        </div>
+      </div>
     </div>
   </main>
 
@@ -117,7 +125,6 @@ const camisetas = [
 </Layout>
 
 <script>
-  // Script robusto sem dependência externa do store.js que causava falhas
   window.handleAddToCart = (product) => {
     let cart = [];
     try {
@@ -135,7 +142,6 @@ const camisetas = [
 
     localStorage.setItem('cart', JSON.stringify(cart));
     
-    // Atualiza o contador e abre o drawer global se disponível
     if (typeof window.updateCartUI === 'function') {
       window.updateCartUI();
     }
@@ -144,25 +150,55 @@ const camisetas = [
     document.getElementById('drawer-overlay')?.classList.add('open');
   };
 
-  window.handleToggleFavorite = (product, btnElement) => {
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest('.btn-favorite');
+    if (!btn) return;
+
+    const product = {
+      id: btn.getAttribute('data-id'),
+      name: btn.getAttribute('data-name'),
+      price: Number(btn.getAttribute('data-price')),
+      image: btn.getAttribute('data-image')
+    };
+
     let favs = [];
     try {
       favs = JSON.parse(localStorage.getItem('favorites') || '[]');
-    } catch (e) {
+    } catch (err) {
       favs = [];
     }
 
     const index = favs.findIndex(item => item.id === product.id);
     if (index > -1) {
       favs.splice(index, 1);
-      btnElement.classList.remove('active');
     } else {
       favs.push(product);
-      btnElement.classList.add('active');
     }
-
     localStorage.setItem('favorites', JSON.stringify(favs));
-  };
+
+    syncFavoriteButtons();
+    window.dispatchEvent(new CustomEvent('favoritesUpdated'));
+  });
+
+  function syncFavoriteButtons() {
+    try {
+      const favs = JSON.parse(localStorage.getItem('favorites') || '[]');
+      document.querySelectorAll('.btn-favorite').forEach(btn => {
+        const id = btn.getAttribute('data-id');
+        const isFav = favs.some(fav => fav.id === id);
+        if (isFav) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+    } catch (e) {
+      console.error('Erro ao sincronizar favoritos:', e);
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', syncFavoriteButtons);
+  window.addEventListener('favoritesUpdated', syncFavoriteButtons);
 
   const modal = document.getElementById('imageModal');
   const modalImg = document.getElementById('img01') as HTMLImageElement;
@@ -258,7 +294,6 @@ const camisetas = [
     position: relative;
   }
 
-  /* Botão de Favoritos flutuante na foto */
   .btn-favorite {
     position: absolute;
     top: 15px;
@@ -400,7 +435,39 @@ const camisetas = [
     background-color: var(--gold-dark, #b89728);
   }
 
-  /* Estilos do Modal de Ampliação */
+  .other-collections {
+    margin-top: 60px;
+    text-align: center;
+  }
+  .other-collections h2 {
+    font-size: 28px;
+    color: var(--primary-green, #2d4a3e);
+    margin-bottom: 25px;
+  }
+  .collections-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+  }
+  .collections-links a {
+    background: #fff;
+    border: 1px solid #ddd;
+    padding: 12px 24px;
+    border-radius: 30px;
+    text-decoration: none;
+    color: var(--primary-green, #2d4a3e);
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    transition: all 0.3s;
+  }
+  .collections-links a:hover {
+    background: var(--primary-green, #2d4a3e);
+    color: #fff;
+    border-color: var(--primary-green, #2d4a3e);
+    transform: translateY(-2px);
+  }
+
   .modal {
     display: none;
     position: fixed;
