@@ -4,8 +4,15 @@ import WhatsAppButton from '../components/WhatsAppButton.astro';
 import CartDrawer from '../components/CartDrawer.astro';
 import ProductCard from '../components/ProductCard.astro';
 
-// Produtos em destaque atualizados
+// Produtos em destaque atualizados com a Sagrada Família
 const produtosDestaque = [
+  {
+    id: 'estatua-sagrada-familia',
+    name: 'Estátua da Sagrada Família',
+    price: 119.90,
+    image: '/a-sagrada-familia.jpg',
+    category: 'Estátuas'
+  },
   {
     id: 'terco-01',
     name: 'Terço de Pérolas Brancas com Crucifixo Dourado',
@@ -26,13 +33,6 @@ const produtosDestaque = [
     price: 49.90,
     image: '/velas.jpg',
     category: 'Velas'
-  },
-  {
-    id: 'artigo-01',
-    name: 'Leque Sagrado Decorativo',
-    price: 69.90,
-    image: '/leque-sagrado.jpg',
-    category: 'Artigos'
   }
 ];
 ---
@@ -42,10 +42,10 @@ const produtosDestaque = [
   <CartDrawer />
 
   <main>
-    <!-- Seção Principal (Hero com Mosaico Sofisticado) -->
+    <!-- Seção Principal (Hero com Mosaico Sofisticado incluindo a Sagrada Família) -->
     <section class="hero-section">
       <div class="hero-bg-collage">
-        <div class="hero-bg-item bg-colares"></div>
+        <div class="hero-bg-item bg-sagrada-familia"></div>
         <div class="hero-bg-item bg-cruz"></div>
         <div class="hero-bg-item bg-pulseira"></div>
       </div>
@@ -138,7 +138,7 @@ const produtosDestaque = [
 
           <a href="/estatuas" class="collection-card">
             <div class="card-image-wrapper">
-              <img src="/estatua-nossa-senhoradasgracas.png" alt="Estátuas" />
+              <img src="/a-sagrada-familia.jpg" alt="Estátuas" />
             </div>
             <h3>Estátuas</h3>
           </a>
@@ -237,7 +237,7 @@ const produtosDestaque = [
     transform: scale(1.05);
   }
 
-  .bg-colares { background-image: url('/colares.jpg'); }
+  .bg-sagrada-familia { background-image: url('/a-sagrada-familia.jpg'); }
   .bg-cruz { background-image: url('/cruz-de-mesa.png'); }
   .bg-pulseira { background-image: url('/pulseira-terco.png'); }
 
