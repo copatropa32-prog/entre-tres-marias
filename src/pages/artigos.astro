@@ -119,7 +119,7 @@ const artigos = [
                   data-image={artigo.imagem}
                   aria-label="Adicionar aos favoritos"
                 >
-                  ❤️
+                  🤍
                 </button>
 
                 <div class="clickable-img" data-img={artigo.imagem} style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
@@ -260,8 +260,10 @@ const artigos = [
         const isFav = favs.some(fav => fav.id === id);
         if (isFav) {
           btn.classList.add('active');
+          btn.textContent = '❤️';
         } else {
           btn.classList.remove('active');
+          btn.textContent = '🤍';
         }
       });
     } catch (e) {

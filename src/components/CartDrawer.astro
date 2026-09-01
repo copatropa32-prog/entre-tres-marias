@@ -1,5 +1,5 @@
 ---
-// Componente CartDrawer.astro - Centraliza Carrinho, Favoritos e Funções Globais
+// Componente CartDrawer.astro - Centraliza Carrinho, Favoritos e Funções Globais[cite: 9]
 ---
 
 <div id="cart-drawer" class="side-drawer">
@@ -153,15 +153,22 @@
   window.toggleFavorite = function(product) {
     let favs = getFavorites();
     const index = favs.findIndex(item => item.id === product.id);
+    let isAdded = false;
     if (index > -1) { 
       favs.splice(index, 1); 
     } else { 
       favs.push(product); 
+      isAdded = true;
     }
     saveFavorites(favs);
+
+    // Abre a gaveta de favoritos automaticamente ao adicionar
+    if (isAdded) {
+      document.getElementById('favorites-drawer')?.classList.add('open');
+      document.getElementById('drawer-overlay')?.classList.add('open');
+    }
   };
 
-  // Mover um único favorito para o carrinho e abrir a gaveta do carrinho
   window.moveFavoriteToCart = function(id) {
     let favs = getFavorites();
     const item = favs.find(f => f.id === id);
@@ -172,7 +179,6 @@
     document.getElementById('drawer-overlay')?.classList.add('open');
   };
 
-  // Mover todos os favoritos para o carrinho de uma vez
   window.moveAllFavoritesToCart = function() {
     let favs = getFavorites();
     if (favs.length === 0) return;
@@ -240,13 +246,14 @@
     const favBtn = e.target.closest('.favorite-btn, .btn-favorite');
     if (favBtn) {
       e.preventDefault();
+      e.stopPropagation();
       const product = {
         id: favBtn.getAttribute('data-id'),
         name: favBtn.getAttribute('data-name'),
         price: Number(favBtn.getAttribute('data-price')),
         image: favBtn.getAttribute('data-image')
       };
-      if (product.id) {
+      if (product.id && typeof window.toggleFavorite === 'function') {
         window.toggleFavorite(product);
       }
     }
@@ -364,4 +371,14 @@
     transition: opacity 0.3s; z-index: 999990; 
   }
   .drawer-overlay.open { visibility: visible; opacity: 1; }
+
+  /* Padronização global das cores do botão de favorito (coração) */
+  .btn-favorite {
+    background: #fff !important;
+    border: 1px solid #ddd !important;
+  }
+  .btn-favorite.active {
+    background: #ffe6e6 !important;
+    border-color: #ff4d4d !important;
+  }
 </style>

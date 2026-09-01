@@ -243,7 +243,7 @@ const estatuas = [
                   data-image={estatua.imagem}
                   aria-label="Adicionar aos favoritos"
                 >
-                  ❤️
+                  🤍
                 </button>
 
                 <div class="clickable-img" data-img={estatua.imagem} style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
@@ -391,8 +391,10 @@ const estatuas = [
         const isFav = favs.some(fav => fav.id === id);
         if (isFav) {
           btn.classList.add('active');
+          btn.textContent = '❤️';
         } else {
           btn.classList.remove('active');
+          btn.textContent = '🤍';
         }
       });
     } catch (e) {
