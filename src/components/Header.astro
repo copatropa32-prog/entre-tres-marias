@@ -8,6 +8,8 @@ import { supabase } from '../lib/supabase';
     <span>✨ Frete grátis para São Bernardo do Campo nas compras acima de R$ 150</span>
     <div class="top-links">
       <a href="/envio">Rastrear pedido</a>
+      <!-- Botão Favoritos (Desktop Topo) -->
+      <button type="button" class="link-btn" id="open-wishlist-desktop">❤️ Favoritos (<span class="wishlist-count-num">0</span>)</button>
       <button type="button" class="link-btn" id="open-cart-desktop">Meu carrinho (<span class="cart-count-num">0</span>)</button>
       <div id="user-menu-desktop" class="user-desktop-wrapper">
         <a href="/login" id="auth-link-desktop" class="login-btn">Entrar</a>
@@ -45,6 +47,11 @@ import { supabase } from '../lib/supabase';
     </div>
 
     <div class="header-right-actions">
+      <!-- Ícone de Favoritos para Mobile -->
+      <button type="button" class="mobile-icon-btn" id="open-wishlist-mobile" title="Favoritos">
+        ❤️ <span class="badge-count wishlist-count-num">0</span>
+      </button>
+
       <!-- Ícone de Carrinho para Mobile -->
       <button type="button" class="mobile-cart-icon" id="open-cart-mobile" title="Carrinho">
         🛒 <span class="cart-count cart-count-num">0</span>
@@ -89,6 +96,7 @@ import { supabase } from '../lib/supabase';
     <!-- Links de Conta e Ajuda no Mobile -->
     <div class="menu-section-label">Minha Conta & Pedidos</div>
     <div class="mobile-extra-links">
+      <button type="button" class="menu-link-item" id="open-wishlist-mobile-menu">❤️ Meus Favoritos (<span class="wishlist-count-num">0</span>)</button>
       <button type="button" class="menu-link-item" id="open-cart-mobile-menu">🛒 Meu Carrinho (<span class="cart-count-num">0</span>)</button>
       <a href="/envio">📦 Rastrear Pedido</a>
       <a href="/login" id="auth-link-mobile" class="mobile-login-highlight">👤 Entrar / Cadastrar</a>
@@ -264,7 +272,7 @@ import { supabase } from '../lib/supabase';
 
   .header-right-actions { display: flex; align-items: center; gap: 18px; }
 
-  .mobile-cart-icon {
+  .mobile-icon-btn, .mobile-cart-icon {
     display: flex;
     align-items: center;
     background: none;
@@ -275,7 +283,7 @@ import { supabase } from '../lib/supabase';
     color: #2d4a3e;
     cursor: pointer;
   }
-  .cart-count {
+  .cart-count, .badge-count {
     font-size: 10px;
     background: #d4af37;
     color: #fff;
@@ -291,6 +299,7 @@ import { supabase } from '../lib/supabase';
     font-weight: bold;
   }
   @media(min-width: 768px) {
+    .mobile-icon-btn { display: none; }
     .mobile-cart-icon { display: none; }
   }
 
