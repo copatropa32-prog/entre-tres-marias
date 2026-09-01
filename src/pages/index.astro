@@ -4,35 +4,39 @@ import WhatsAppButton from '../components/WhatsAppButton.astro';
 import CartDrawer from '../components/CartDrawer.astro';
 import ProductCard from '../components/ProductCard.astro';
 
-// Produtos em destaque atualizados com a camiseta
+// Produtos em destaque apontando para as páginas de categoria com âncoras para o ID exato
 const produtosDestaque = [
   {
     id: 'estatua-sagrada-familia',
     name: 'Estátua da Sagrada Família',
     price: 119.90,
     image: '/a-sagrada-familia.jpg',
-    category: 'Estátuas'
+    category: 'Estátuas',
+    link: '/estatuas#estatua-sagrada-familia'
   },
   {
     id: 'terco-01',
     name: 'Terço de Pérolas Brancas com Crucifixo Dourado',
     price: 89.90,
     image: '/terco-perolas-brancas.jpg',
-    category: 'Terços'
+    category: 'Terços',
+    link: '/tercos#terco-01'
   },
   {
     id: 'luminaria-nossa-senhora-aparecida',
     name: 'Luminária Esfera de Nossa Senhora Aparecida',
     price: 99.90,
     image: '/luminarias.webp',
-    category: 'Estátuas'
+    category: 'Estátuas',
+    link: '/estatuas#luminaria-nossa-senhora-aparecida'
   },
   {
     id: 'camiseta-nossa-senhora',
     name: 'Camiseta Nossa Senhora – Cuida do Meu Coração',
     price: 59.90,
     image: '/camiseta.crista.jpg',
-    category: 'Camisetas'
+    category: 'Camisetas',
+    link: '/camisetas#camiseta-nossa-senhora'
   }
 ];
 ---
@@ -97,13 +101,17 @@ const produtosDestaque = [
         
         <div class="products-grid">
           {produtosDestaque.map(prod => (
-            <ProductCard 
-              id={prod.id}
-              name={prod.name}
-              price={prod.price}
-              image={prod.image}
-              category={prod.category}
-            />
+            <div class="featured-card-wrapper">
+              <a href={prod.link} class="featured-image-link">
+                <ProductCard 
+                  id={prod.id}
+                  name={prod.name}
+                  price={prod.price}
+                  image={prod.image}
+                  category={prod.category}
+                />
+              </a>
+            </div>
           ))}
         </div>
       </div>
@@ -193,6 +201,17 @@ const produtosDestaque = [
     text-align: left;
     max-width: 1200px;
     margin: 0 auto;
+  }
+
+  .featured-image-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    transition: transform 0.3s ease;
+  }
+
+  .featured-image-link:hover {
+    transform: translateY(-5px);
   }
 
   .hero-section {
