@@ -38,11 +38,19 @@ const formattedPrice = Number(price).toLocaleString('pt-BR', {
     <div class="product-footer">
       <span class="product-price">{formattedPrice}</span>
       
-      <!-- Botão Adicionar ao Carrinho -->
+      <!-- Botão Adicionar ao Carrinho com Validação de Login -->
       <button 
         type="button" 
         class="btn-add-cart"
-        onclick={`window.addToCart({ id: '${id}', name: '${name.replace(/'/g, "\\'")}', price: ${price}, image: '${image}' })`}
+        onclick={`
+          const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+          if (!isLoggedIn) {
+            alert('🔒 Para adicionar produtos ao carrinho, por favor, faça login na sua conta.');
+            window.location.href = '/entrar';
+            return;
+          }
+          window.addToCart({ id: '${id}', name: '${name.replace(/'/g, "\\'")}', price: ${price}, image: '${image}' });
+        `}
       >
         Comprar
       </button>
