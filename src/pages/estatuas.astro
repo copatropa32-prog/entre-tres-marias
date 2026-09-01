@@ -1,0 +1,501 @@
+---
+import Layout from '../layouts/Layout.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
+
+const estatuas = [
+  {
+    id: 'estatua-nossa-senhora-aparecida',
+    nome: "Estatua de Nossa Senhora Aparecida",
+    preco: 89.90,
+    imagem: "/estatua.jpg",
+    descricao: "Bela imagem de Nossa Senhora Aparecida, esculpida com rica atenção aos detalhes e excelente acabamento.\n\nPerfeita para abençoar seu altar doméstico, sala ou quarto, trazendo a proteção e o amor da Mãe de Deus para o seu lar.",
+    detalhes: [
+      "Acabamento artesanal refinado e rico em detalhes",
+      "Material resistente e de alta durabilidade",
+      "Ideal para altares, mesas de oração ou decoração sacra",
+      "Um símbolo profundo de fé e proteção mariana"
+    ],
+    sugestao: "Uma opção emocionante para presentear em datas especiais ou abençoar uma nova casa.\n\nEntre Ave-Marias – Artigos Religiosos."
+  }
+];
+---
+
+<Layout title="Estátuas e Imagens | Entre Ave-Marias">
+  <main class="catalog-page">
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="/">Início</a> &gt; <span>Estátuas</span>
+      </div>
+
+      <div class="page-header">
+        <h1>Estátuas e Imagens Sagradas</h1>
+        <p>Imagens cheias de beleza e significado para consagrar o seu lar e momentos de oração.</p>
+      </div>
+
+      <div class="products-grid">
+        {estatuas.map((estatua) => {
+          const whatsappMessage = encodeURIComponent(`Olá! Gostaria de encomendar a ${estatua.nome}. Poderia me informar valores, disponibilidade e formas de envio?`);
+          return (
+            <div class="product-card">
+              <div class="product-image-wrapper">
+                <button 
+                  type="button" 
+                  class="btn-favorite" 
+                  data-id={estatua.id}
+                  data-name={estatua.nome}
+                  data-price={estatua.preco}
+                  data-image={estatua.imagem}
+                  aria-label="Adicionar aos favoritos"
+                >
+                  ❤️
+                </button>
+
+                <div class="clickable-img" data-img={estatua.imagem} style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
+                  <img src={estatua.imagem} alt={estatua.nome} />
+                  <span class="zoom-hint">🔍 Clique para ampliar</span>
+                </div>
+              </div>
+
+              <div class="product-info">
+                <div>
+                  <h2>{estatua.nome}</h2>
+                  <p class="product-price">R$ {estatua.preco.toFixed(2)}</p>
+                  <p class="product-description" style="white-space: pre-line;">{estatua.descricao}</p>
+                  
+                  <p class="section-title">Detalhes do produto:</p>
+                  <ul class="product-details">
+                    {estatua.detalhes.map((detalhe) => (
+                      <li>{detalhe}</li>
+                    ))}
+                  </ul>
+
+                  <p class="product-gift" style="white-space: pre-line;">{estatua.sugestao}</p>
+                </div>
+
+                <div class="product-actions">
+                  <button 
+                    type="button" 
+                    class="btn-cart"
+                    onclick={`window.handleAddToCart({
+                      id: '${estatua.id}',
+                      name: '${estatua.nome.replace(/'/g, "\\'")}',
+                      price: ${estatua.preco},
+                      image: '${estatua.imagem}'
+                    })`}
+                  >
+                    Adicionar ao Carrinho 🛒
+                  </button>
+
+                  <a 
+                    href={`https://wa.me/5511932189878?text=${whatsappMessage}`} 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    class="btn-order"
+                  >
+                    Fazer Encomenda
+                  </a>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      <div class="other-collections">
+        <h2>Explore Outras Coleções</h2>
+        <div class="collections-links">
+          <a href="/tercos">📿 Terços</a>
+          <a href="/camisetas">👕 Camisetas</a>
+          <a href="/artigos">🎨 Artigos</a>
+          <a href="/velas">🕯️ Velas</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div id="imageModal" class="modal">
+    <span class="close-modal">&times;</span>
+    <img class="modal-content" id="img01" alt="Imagem ampliada" />
+  </div>
+
+  <WhatsAppButton />
+</Layout>
+
+<script>
+  window.handleAddToCart = (product) => {
+    let cart = [];
+    try {
+      cart = JSON.parse(localStorage.getItem('cart') || '[]');
+    } catch (e) {
+      cart = [];
+    }
+
+    const existingIndex = cart.findIndex(item => item.id === product.id);
+    if (existingIndex > -1) {
+      cart[existingIndex].quantity = (Number(cart[existingIndex].quantity) || 1) + 1;
+    } else {
+      cart.push({ ...product, quantity: 1 });
+    }
+
+    localStorage.setItem('cart', JSON.stringify(cart));
+    
+    if (typeof window.updateCartUI === 'function') {
+      window.updateCartUI();
+    }
+    
+    document.getElementById('cart-drawer')?.classList.add('open');
+    document.getElementById('drawer-overlay')?.classList.add('open');
+  };
+
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest('.btn-favorite');
+    if (!btn) return;
+
+    const product = {
+      id: btn.getAttribute('data-id'),
+      name: btn.getAttribute('data-name'),
+      price: Number(btn.getAttribute('data-price')),
+      image: btn.getAttribute('data-image')
+    };
+
+    let favs = [];
+    try {
+      favs = JSON.parse(localStorage.getItem('favorites') || '[]');
+    } catch (err) {
+      favs = [];
+    }
+
+    const index = favs.findIndex(item => item.id === product.id);
+    if (index > -1) {
+      favs.splice(index, 1);
+    } else {
+      favs.push(product);
+    }
+    localStorage.setItem('favorites', JSON.stringify(favs));
+
+    syncFavoriteButtons();
+    window.dispatchEvent(new CustomEvent('favoritesUpdated'));
+  });
+
+  function syncFavoriteButtons() {
+    try {
+      const favs = JSON.parse(localStorage.getItem('favorites') || '[]');
+      document.querySelectorAll('.btn-favorite').forEach(btn => {
+        const id = btn.getAttribute('data-id');
+        const isFav = favs.some(fav => fav.id === id);
+        if (isFav) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+    } catch (e) {
+      console.error('Erro ao sincronizar favoritos:', e);
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', syncFavoriteButtons);
+  window.addEventListener('favoritesUpdated', syncFavoriteButtons);
+
+  const modal = document.getElementById('imageModal');
+  const modalImg = document.getElementById('img01') as HTMLImageElement;
+  const closeBtn = document.getElementsByClassName('close-modal')[0] as HTMLElement;
+  const clickableImages = document.querySelectorAll('.clickable-img');
+
+  clickableImages.forEach((wrapper) => {
+    wrapper.addEventListener('click', () => {
+      const imgSrc = wrapper.getAttribute('data-img');
+      if (modal && modalImg && imgSrc) {
+        modal.style.display = 'flex';
+        modalImg.src = imgSrc;
+      }
+    });
+  });
+
+  if (closeBtn && modal) {
+    closeBtn.onclick = () => {
+      modal.style.display = 'none';
+    };
+  }
+
+  if (modal) {
+    modal.onclick = (e) => {
+      if (e.target === modal) {
+        modal.style.display = 'none';
+      }
+    };
+  }
+</script>
+
+<style>
+  .catalog-page {
+    padding: 40px 20px 80px 20px;
+    background-color: var(--bg-light, #fbf9f4);
+    min-height: 70vh;
+  }
+  .container {
+    max-width: 950px;
+    margin: 0 auto;
+  }
+  .breadcrumb {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 20px;
+  }
+  .breadcrumb a {
+    color: var(--primary-green, #2d4a3e);
+    text-decoration: none;
+  }
+  .page-header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  .page-header h1 {
+    font-size: 36px;
+    color: var(--primary-green, #2d4a3e);
+    margin-bottom: 10px;
+  }
+  .page-header p {
+    color: #555;
+    font-size: 16px;
+  }
+  .products-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+  .product-card {
+    background: #fff;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border: 1px solid #eee;
+  }
+  @media(min-width: 768px) {
+    .product-card {
+      flex-direction: row;
+    }
+  }
+
+  .product-image-wrapper {
+    flex: 1;
+    min-height: 380px;
+    overflow: hidden;
+    background-color: #f5f3ed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .btn-favorite {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    cursor: pointer;
+    z-index: 10;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: transform 0.2s, background 0.2s;
+  }
+  .btn-favorite:hover {
+    transform: scale(1.1);
+    background: #fff5f5;
+  }
+  .btn-favorite.active {
+    background: #ffe6e6;
+    border-color: #ff4d4d;
+  }
+
+  .zoom-hint {
+    position: absolute;
+    bottom: 10px;
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .product-image-wrapper:hover .zoom-hint {
+    opacity: 1;
+  }
+
+  .product-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: transform 0.5s ease;
+    cursor: pointer;
+  }
+
+  .product-card:hover .product-image-wrapper img {
+    transform: scale(1.05);
+  }
+
+  .product-info {
+    flex: 1;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .product-info h2 {
+    font-size: 24px;
+    color: var(--primary-green, #2d4a3e);
+    margin-bottom: 6px;
+  }
+  .product-price {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--gold, #d4af37);
+    margin-bottom: 12px;
+  }
+  .product-description {
+    font-size: 14px;
+    color: #444;
+    line-height: 1.6;
+    margin-bottom: 15px;
+  }
+  .section-title {
+    font-size: 13px;
+    font-weight: bold;
+    color: #2d4a3e;
+    margin-bottom: 6px;
+  }
+  .product-details {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 15px;
+    padding-left: 18px;
+    line-height: 1.5;
+  }
+  .product-details li {
+    margin-bottom: 4px;
+  }
+  .product-gift {
+    font-size: 13px;
+    color: #444;
+    line-height: 1.5;
+    margin-bottom: 20px;
+    font-style: italic;
+  }
+
+  .product-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .btn-cart {
+    display: block;
+    text-align: center;
+    background-color: var(--primary-green, #2d4a3e);
+    color: #fff;
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+    text-decoration: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  .btn-cart:hover {
+    background-color: var(--primary-green-dark, #1e332a);
+  }
+
+  .btn-order {
+    display: block;
+    text-align: center;
+    background-color: var(--gold, #d4af37);
+    color: #fff;
+    padding: 12px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background 0.3s;
+  }
+  .btn-order:hover {
+    background-color: var(--gold-dark, #b89728);
+  }
+
+  .other-collections {
+    margin-top: 60px;
+    text-align: center;
+  }
+  .other-collections h2 {
+    font-size: 28px;
+    color: var(--primary-green, #2d4a3e);
+    margin-bottom: 25px;
+  }
+  .collections-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+  }
+  .collections-links a {
+    background: #fff;
+    border: 1px solid #ddd;
+    padding: 12px 24px;
+    border-radius: 30px;
+    text-decoration: none;
+    color: var(--primary-green, #2d4a3e);
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    transition: all 0.3s;
+  }
+  .collections-links a:hover {
+    background: var(--primary-green, #2d4a3e);
+    color: #fff;
+    border-color: var(--primary-green, #2d4a3e);
+    transform: translateY(-2px);
+  }
+
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .modal-content {
+    max-width: 90%;
+    max-height: 90vh;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 5px 30px rgba(0,0,0,0.5);
+  }
+  .close-modal {
+    position: absolute;
+    top: 20px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  .close-modal:hover {
+    color: #d4af37;
+  }
+</style>
