@@ -221,6 +221,10 @@ const artigos = [
   document.addEventListener('click', (e) => {
     const btn = e.target.closest('.btn-favorite');
     if (!btn) return;
+    
+    // Prevenção de propagação adicionada aqui:
+    e.stopPropagation();
+    e.preventDefault();
 
     const product = {
       id: btn.getAttribute('data-id'),

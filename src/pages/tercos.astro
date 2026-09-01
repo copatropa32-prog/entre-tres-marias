@@ -658,6 +658,10 @@ const tercosJson = JSON.stringify(tercos);
     const btn = e.target.closest('.btn-favorite');
     if (!btn) return;
 
+    // Garante que o clique no favorito não interfira em outros elementos
+    e.stopPropagation();
+    e.preventDefault();
+
     const product = {
       id: btn.getAttribute('data-id'),
       name: btn.getAttribute('data-name'),
@@ -701,7 +705,7 @@ const tercosJson = JSON.stringify(tercos);
     }
   }
 
-  document.addEventListener('DOMContentLoaded', () => {
+  function initPageScripts() {
     syncFavoriteButtons();
 
     const modal = document.getElementById('imageModal');
@@ -732,7 +736,14 @@ const tercosJson = JSON.stringify(tercos);
         }
       };
     }
-  });
+  }
+
+  // Resolve o problema de timing do Astro em relação ao carregamento do DOM
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initPageScripts);
+  } else {
+    initPageScripts();
+  }
 
   window.addEventListener('favoritesUpdated', syncFavoriteButtons);
 </script>

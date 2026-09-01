@@ -4,37 +4,79 @@ import WhatsAppButton from '../components/WhatsAppButton.astro';
 
 const camisetas = [
   {
-    id: 'camiseta-nossa-senhora',
-    nome: "Camiseta Nossa Senhora – Cuida do Meu Coração",
-    preco: 59.90,
-    imagem: "/camiseta.crista.jpg",
-    descricao: "Nossa camiseta foi pensada para quem deseja expressar sua devoção também no dia a dia. Confortável, delicada e cheia de significado, ela é mais do que uma peça de roupa — é um testemunho de amor a Deus e à Nossa Senhora.\n\nQue cada passo seja guiado pela fé e cada dia seja vivido com propósito. 💙",
+    id: 'camiseta-nossa-senhora-aparecida',
+    nome: "Camiseta Nossa Senhora Aparecida",
+    preco: 69.90,
+    imagem: "/camiseta-aparecida.webp",
+    descricao: "Vista sua fé com conforto, estilo e devoção. Confeccionada em tecido de alta qualidade, esta camiseta traz uma estampa exclusiva de Nossa Senhora Aparecida, ideal para o dia a dia, romarias e momentos de oração.",
     detalhes: [
-      "Confeccionada em tecido de alta qualidade, confortável e macio",
-      "Estampa exclusiva de Nossa Senhora com a frase \"Nossa Senhora me dê a mão cuida do meu coração\"",
-      "Modelagem leve e ideal para o uso diário",
-      "Um testemunho de amor, fé e devoção para vestir"
+      "100% algodão penteado de toque macio e confortável",
+      "Modelagem moderna com caimento leve",
+      "Estampa em alta definição com excelente durabilidade",
+      "Disponível em vários tamanhos (P, M, G, GG)"
     ],
-    sugestao: "Disponível na nossa Loja Entre Ave-Marias – Artigos Religiosos.\n\n#camisetareligiosa #nossasenhoraaparecida #fé #devocao #artigosreligiosos #entreavemarias"
+    sugestao: "Consagrada a Nossa Senhora Aparecida.\n\nEntre Ave-Marias – Artigos Religiosos.\n\n#NossaSenhoraAparecida #fé #camisetareligiosa #entreavemarias"
+  },
+  {
+    id: 'camiseta-sao-miguel-arcanjo',
+    nome: "Camiseta São Miguel Arcanjo",
+    preco: 69.90,
+    imagem: "/camiseta-miguel.webp",
+    descricao: "Inspirada na força e proteção do Príncipe da Milícia Celeste. Vista a armadura da fé com uma peça resistente, confortável e de significado profundo.",
+    detalhes: [
+      "Tecido premium de alta durabilidade",
+      "Gola reforçada com ribana para maiorconforto",
+      "Estampa exclusiva de São Miguel Arcanjo com 'Quem como Deus?'",
+      "Fácil de lavar e não desbota facilmente"
+    ],
+    sugestao: "São Miguel Arcanjo, defendei-nos no combate!\n\nEntre Ave-Marias – Evangelizando com vestštuário católico."
+  },
+  {
+    id: 'camiseta-sagrado-coracao',
+    nome: "Camiseta Sagrado Coração de Jesus",
+    preco: 69.90,
+    imagem: "/camiseta-sagrado-coracao.webp",
+    descricao: "Uma expressão visível de amor e entrega ao Sagrado Coração de Jesus. Confortável para usar em encontros de oração, missas ou no cotidiano.",
+    detalhes: [
+      "Malha macia e respirável",
+      "Acabamento impecável com costuras duplas",
+      "Estampa detalhada e resistente a lavagens",
+      "Modelagem unissex confortável"
+    ],
+    sugestao: "Sagrado Coração de Jesus, eu confio e espero em Vós!\n\nEntre Ave-Marias."
+  },
+  {
+    id: 'camiseta-espirito-santo',
+    nome: "Camiseta Dom do Espírito Santo",
+    preco: 69.90,
+    imagem: "/camiseta-espirito-santo.webp",
+    descricao: "Celebre a luz e a sabedoria do Espírito Santo com uma camiseta leve, delicada e cheia de significado para iluminar os seus dias.",
+    detalhes: [
+      "Confeccionada em algodão de toque suave",
+      "Estampa inspirada na pomba do Espírito Santo com chamas de fogo",
+      "Corte confortável e elegante",
+      "Perfeita para presentear em crismas e batizados"
+    ],
+    sugestao: "Enviai o Vosso Espírito e tudo será criado!\n\nEntre Ave-Marias – Artigos Religiosos."
   }
 ];
 ---
 
-<Layout title="Camisetas | Entre Ave-Marias">
+<Layout title="Camisetas Religiosas | Entre Ave-Marias">
   <main class="catalog-page">
     <div class="container">
       <div class="breadcrumb">
-        <a href="/">Início</a> &gt; <span>Camisetas</span>
+        <a href="/">Início</a> &gt; <span>Camisetas Religiosas</span>
       </div>
 
       <div class="page-header">
-        <h1>Camisetas Católicas</h1>
-        <p>Vista sua fé com conforto, delicadeza e significado no dia a dia.</p>
+        <h1>Camisetas Religiosas</h1>
+        <p>Vista a sua fé com conforto, qualidade e elegância em todos os momentos do seu dia.</p>
       </div>
 
       <div class="products-grid">
         {camisetas.map((camiseta) => {
-          const whatsappMessage = encodeURIComponent(`Olá! Gostaria de fazer minha encomenda do produto ${camiseta.nome}. Poderia me informar tamanhos, disponibilidade e formas de envio?`);
+          const whatsappMessage = encodeURIComponent(`Olá! Gostaria de encomendar a ${camiseta.nome}. Poderia me informar valor, tamanhos disponíveis e formas de envio?`);
           return (
             <div class="product-card">
               <div class="product-image-wrapper">
@@ -92,7 +134,7 @@ const camisetas = [
                     rel="noopener noreferrer" 
                     class="btn-order"
                   >
-                    Encomendar via WhatsApp
+                    Fazer Encomenda
                   </a>
                 </div>
               </div>
@@ -101,12 +143,11 @@ const camisetas = [
         })}
       </div>
 
-      <!-- Explore Outras Coleções (Velas removida) -->
       <div class="other-collections">
         <h2>Explore Outras Coleções</h2>
         <div class="collections-links">
+          <a href="/artigos">✨ Artigos Religiosos</a>
           <a href="/tercos">📿 Terços</a>
-          <a href="/artigos">🎨 Artigos</a>
           <a href="/estatuas">🏛️ Estátuas</a>
         </div>
       </div>
@@ -150,6 +191,9 @@ const camisetas = [
   document.addEventListener('click', (e) => {
     const btn = e.target.closest('.btn-favorite');
     if (!btn) return;
+    
+    e.stopPropagation();
+    e.preventDefault();
 
     const product = {
       id: btn.getAttribute('data-id'),
@@ -373,7 +417,7 @@ const camisetas = [
   .section-title {
     font-size: 13px;
     font-weight: bold;
-    color: #2d4a3e;
+    color: var(--primary-green, #2d4a3e);
     margin-bottom: 6px;
   }
   .product-details {
@@ -418,15 +462,15 @@ const camisetas = [
   }
 
   .btn-order {
-    display: block;
-    text-align: center;
     background-color: var(--gold, #d4af37);
     color: #fff;
     padding: 12px;
     border-radius: 8px;
+    text-align: center;
     text-decoration: none;
     font-weight: 600;
     transition: background 0.3s;
+    display: block;
   }
   .btn-order:hover {
     background-color: var(--gold-dark, #b89728);

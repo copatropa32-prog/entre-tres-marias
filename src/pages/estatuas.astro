@@ -247,7 +247,7 @@ const estatuas = [
                 </button>
 
                 <div class="clickable-img" data-img={estatua.imagem} style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
-                  <img src={estatua.imagem} alt={estatua.nome} />
+                  <img src={estatua.imagem} alt={estatua.nome} loading="lazy" />
                   <span class="zoom-hint">🔍 Clique para ampliar</span>
                 </div>
               </div>
@@ -272,12 +272,10 @@ const estatuas = [
                   <button 
                     type="button" 
                     class="btn-cart"
-                    onclick={`window.addToCart({
-                      id: '${estatua.id}',
-                      name: '${estatua.nome.replace(/'/g, "\\'")}',
-                      price: ${estatua.preco},
-                      image: '${estatua.imagem}'
-                    })`}
+                    data-id={estatua.id}
+                    data-name={estatua.nome}
+                    data-price={estatua.preco}
+                    data-image={estatua.imagem}
                   >
                     Adicionar ao Carrinho 🛒
                   </button>
@@ -342,7 +340,20 @@ const estatuas = [
     document.getElementById('drawer-overlay')?.classList.add('open');
   };
 
+  // Event Delegation for Add to Cart
   document.addEventListener('click', (e) => {
+    const cartBtn = e.target.closest('.btn-cart');
+    if (cartBtn) {
+      const product = {
+        id: cartBtn.getAttribute('data-id'),
+        name: cartBtn.getAttribute('data-name'),
+        price: Number(cartBtn.getAttribute('data-price')),
+        image: cartBtn.getAttribute('data-image')
+      };
+      window.addToCart(product);
+      return;
+    }
+
     const btn = e.target.closest('.btn-favorite');
     if (!btn) return;
 
