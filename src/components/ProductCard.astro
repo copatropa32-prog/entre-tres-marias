@@ -1,5 +1,4 @@
 ---
-// Componente ProductCard.astro
 export interface Props {
   id: string;
   name: string;
@@ -21,10 +20,14 @@ const formattedPrice = Number(price).toLocaleString('pt-BR', {
   <div class="product-image-container">
     <img src={image} alt={name} class="product-img" loading="lazy" />
     
-    <!-- Botão de Favoritos -->
+    <!-- Botão de Favoritos com atributos data- para o script global -->
     <button 
       type="button" 
       class="favorite-btn" 
+      data-id={id}
+      data-name={name}
+      data-price={price}
+      data-image={image}
       onclick={`window.toggleFavorite({ id: '${id}', name: '${name.replace(/'/g, "\\'")}', price: ${price}, image: '${image}' })`}
       aria-label="Favoritar produto"
     >
@@ -160,4 +163,4 @@ const formattedPrice = Number(price).toLocaleString('pt-BR', {
   .btn-add-cart:hover {
     background: #1f332a;
   }
-</style>
+</style>[cite: 11]

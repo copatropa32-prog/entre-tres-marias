@@ -2,7 +2,6 @@
 import Layout from '../layouts/Layout.astro';
 import WhatsAppButton from '../components/WhatsAppButton.astro';
 import CartDrawer from '../components/CartDrawer.astro';
-import WishlistDrawer from '../components/WishlistDrawer.astro'; // <--- Adicionado aqui
 import ProductCard from '../components/ProductCard.astro';
 
 // Produtos em destaque apontando para as páginas de categoria com âncoras para o ID exato
@@ -43,9 +42,8 @@ const produtosDestaque = [
 ---
 
 <Layout title="Entre Ave-Marias | Artigos Religiosos Exclusivos">
-  <!-- Gaveta do Carrinho e Favoritos -->
+  <!-- Gaveta do Carrinho e Favoritos Centralizada -->
   <CartDrawer />
-  <WishlistDrawer /> <!-- <--- Adicionado aqui para funcionar na página -->
 
   <main>
     <!-- Seção Principal (Hero com Mosaico Sofisticado) -->
@@ -441,4 +439,4 @@ const produtosDestaque = [
     .hero-actions { flex-direction: column; width: 100%; }
     .btn-hero, .btn-hero-outline { width: 100%; text-align: center; }
   }
-</style>
+</style>[cite: 9]

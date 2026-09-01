@@ -1,3 +1,4 @@
+---
 // Componente CartDrawer.astro - Centraliza Carrinho, Favoritos e Funções Globais
 ---
 
@@ -161,7 +162,7 @@
   window.updateFavoritesUI = function() {
     const favs = getFavorites();
     const container = document.getElementById('favorites-items-container');
-    const favCountNums = document.querySelectorAll('.favorites-count-num');
+    const favCountNums = document.querySelectorAll('.wishlist-count-num');
     
     favCountNums.forEach(el => el.textContent = favs.length);
 
@@ -192,7 +193,7 @@
   window.syncFavoriteButtons = function() {
     try {
       const favs = getFavorites();
-      document.querySelectorAll('.btn-favorite').forEach(btn => {
+      document.querySelectorAll('.favorite-btn').forEach(btn => {
         const id = btn.getAttribute('data-id');
         const isFav = favs.some(fav => fav.id === id);
         if (isFav) {
@@ -206,9 +207,8 @@
     }
   };
 
-  // Delegação global de cliques para botões de favoritos
   document.addEventListener('click', (e) => {
-    const favBtn = e.target.closest('.btn-favorite');
+    const favBtn = e.target.closest('.favorite-btn');
     if (favBtn) {
       e.preventDefault();
       const product = {
@@ -234,7 +234,9 @@
         document.getElementById('drawer-overlay')?.classList.add('open');
       });
     });
-    document.querySelectorAll('#open-favorites-desktop, #open-favorites-mobile-menu').forEach(el => {
+    
+    // Sincronizado com os IDs corretos do Header.astro
+    document.querySelectorAll('#open-wishlist-desktop, #open-wishlist-mobile, #open-wishlist-mobile-menu').forEach(el => {
       el?.addEventListener('click', () => {
         document.getElementById('favorites-drawer')?.classList.add('open');
         document.getElementById('drawer-overlay')?.classList.add('open');
@@ -334,4 +336,4 @@
     transition: opacity 0.3s; z-index: 999990; 
   }
   .drawer-overlay.open { visibility: visible; opacity: 1; }
-</style>
+</style>[cite: 13]
