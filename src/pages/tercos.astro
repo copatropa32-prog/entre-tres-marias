@@ -1,7 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import WhatsAppButton from '../components/WhatsAppButton.astro';
-import CartDrawer from '../components/CartDrawer.astro';
 
 const tercos = [
   {
@@ -528,9 +527,6 @@ const tercosJson = JSON.stringify(tercos);
 ---
 
 <Layout title="Terços e Pulseiras | Entre Ave-Marias">
-  <!-- Gaveta do Carrinho e Favoritos -->
-  <CartDrawer />
-
   <main class="catalog-page">
     <div class="container">
       <div class="breadcrumb">
@@ -548,6 +544,7 @@ const tercosJson = JSON.stringify(tercos);
           return (
             <div class="product-card">
               <div class="product-image-wrapper">
+                <!-- Alterado o emoji inicial para o coração vazio (🤍) -->
                 <button 
                   type="button" 
                   class="btn-favorite" 
@@ -557,7 +554,7 @@ const tercosJson = JSON.stringify(tercos);
                   data-image={terco.imagem}
                   aria-label="Adicionar aos favoritos"
                 >
-                  ❤️
+                  🤍
                 </button>
 
                 <div class="clickable-img" data-img={terco.imagem}>
@@ -699,8 +696,12 @@ const tercosJson = JSON.stringify(tercos);
         const isFav = favs.some(fav => fav.id === id);
         if (isFav) {
           btn.classList.add('active');
+          // Altera o emoji para coração preenchido quando favoritado
+          btn.innerHTML = '❤️';
         } else {
           btn.classList.remove('active');
+          // Altera o emoji para coração vazio quando não favoritado
+          btn.innerHTML = '🤍';
         }
       });
     } catch (e) {
