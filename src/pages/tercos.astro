@@ -539,10 +539,15 @@ const tercosJson = JSON.stringify(tercos);
       </div>
 
       <div class="products-grid">
-        {tercos.map((terco) => {
+        {tercos.map((terco, index) => {
           const whatsappMessage = encodeURIComponent(`Olá! Gostaria de fazer minha encomenda do produto ${terco.nome}. Poderia me informar disponibilidade e formas de envio?`);
+          
+          // Lógica de navegação fluida entre os produtos
+          const prevTerco = index > 0 ? tercos[index - 1] : null;
+          const nextTerco = index < tercos.length - 1 ? tercos[index + 1] : null;
+
           return (
-            <div class="product-card">
+            <div class="product-card" id={terco.id}>
               <div class="product-image-wrapper">
                 <div class="clickable-img" data-img={terco.imagem}>
                   <img src={terco.imagem} alt={terco.nome} />
@@ -564,6 +569,21 @@ const tercosJson = JSON.stringify(tercos);
                   </ul>
 
                   <p class="product-gift" style="white-space: pre-line;">{terco.sugestao}</p>
+                </div>
+
+                <!-- Botões de Navegação Fluida -->
+                <div class="product-fluid-nav">
+                  {prevTerco ? (
+                    <a href={`#${prevTerco.id}`} class="nav-fluid-btn" title={prevTerco.nome}>
+                      ← Anterior
+                    </a>
+                  ) : <span class="nav-fluid-btn disabled">← Início</span>}
+
+                  {nextTerco ? (
+                    <a href={`#${nextTerco.id}`} class="nav-fluid-btn" title={nextTerco.nome}>
+                      Próximo →
+                    </a>
+                  ) : <span class="nav-fluid-btn disabled">Fim →</span>}
                 </div>
 
                 <div class="product-actions">
@@ -666,6 +686,11 @@ const tercosJson = JSON.stringify(tercos);
 </script>
 
 <style>
+  /* Rolagem suave na página para a navegação fluida */
+  html {
+    scroll-behavior: smooth;
+  }
+
   .catalog-page {
     padding: 40px 20px 80px 20px;
     background-color: var(--bg-light, #fbf9f4);
@@ -700,7 +725,7 @@ const tercosJson = JSON.stringify(tercos);
   .products-grid {
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: 40px;
   }
   
   .product-card {
@@ -712,6 +737,7 @@ const tercosJson = JSON.stringify(tercos);
     flex-direction: column;
     width: 100%;
     border: 1px solid #eee;
+    scroll-margin-top: 40px; /* Evita que o topo do card fique colado na tela ao usar a âncora */
   }
   @media(min-width: 768px) {
     .product-card {
@@ -813,6 +839,39 @@ const tercosJson = JSON.stringify(tercos);
     font-style: italic;
     margin-bottom: 20px;
     line-height: 1.4;
+  }
+
+  /* Estilos da Navegação Fluida */
+  .product-fluid-nav {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 15px;
+    padding-bottom: 12px;
+    border-bottom: 1px dashed #eae1d0;
+  }
+
+  .nav-fluid-btn {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--primary-green, #2d4a3e);
+    background-color: #f7f5ed;
+    padding: 6px 12px;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .nav-fluid-btn:hover {
+    background-color: var(--primary-green, #2d4a3e);
+    color: #fff;
+  }
+
+  .nav-fluid-btn.disabled {
+    opacity: 0.4;
+    background-color: transparent;
+    cursor: default;
+    pointer-events: none;
   }
 
   .product-actions {
