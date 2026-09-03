@@ -35,7 +35,7 @@ const camisetas = [
     id: 'camiseta-nossa-senhora-faca-se',
     nome: "Camiseta Nossa Senhora - Faça-se em Mim",
     preco: 69.90,
-    imagem: "/estatua-nossa-senhoradasgracas.jpg",
+    imagem: "/maria-camiseta.jpg",
     descricao: "Maria nos ensina que a verdadeira grandeza está em dizer sim à vontade de Deus. 🤍\n\nUma camiseta minimalista, delicada e cheia de significado, inspirada em Lucas 1:38: ‘Faça-se em mim segundo a tua palavra.’\n\nPerfeita para carregar sua fé com leveza e elegância no dia a dia.",
     detalhes: [
       "Malha macia e respirável",
@@ -49,7 +49,7 @@ const camisetas = [
     id: 'camiseta-nossa-senhora-fatima',
     nome: "Camiseta Nossa Senhora de Fátima",
     preco: 69.90,
-    imagem: "/camiseta-crista.jpg",
+    imagem: "/maria-masculino-camiseta.jpg",
     descricao: "Minimalismo, devoção e beleza em uma só peça.\n\nNossa Senhora de Fátima representada em traços delicados e cheios de significado, para carregar a fé também no dia a dia.\n\nUma camiseta clássica, leve e atemporal, perfeita para quem ama expressar sua devoção com elegância.",
     detalhes: [
       "Design exclusivo",
@@ -92,7 +92,7 @@ const camisetas = [
         {camisetas.map((camiseta) => {
           const whatsappMessage = encodeURIComponent(`Olá! Gostaria de encomendar a ${camiseta.nome}. Poderia me informar valor, tamanhos disponíveis e formas de envio?`);
           return (
-            <div class="product-card">
+            <div class="product-card" id={camiseta.id}>
               <div class="product-image-wrapper">
                 <button 
                   type="button" 
